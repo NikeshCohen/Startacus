@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Sora } from "next/font/google";
 
-const sora = Sora({ variable: "--font-sora", subsets: ["latin"] });
+import "@/app/globals.css";
 
-import "./globals.css";
+const sora = Sora({ variable: "--font-sora", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
