@@ -3,6 +3,8 @@ import { Sora } from "next/font/google";
 
 import "@/app/globals.css";
 
+import Background from "@/components/global/Background";
+
 const sora = Sora({ variable: "--font-sora", subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -17,7 +19,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${sora.variable} antialiased`}>{children}</body>
+      <body className={`${sora.variable} antialiased`}>
+        <Background />
+        {children}
+      </body>
     </html>
   );
 }
