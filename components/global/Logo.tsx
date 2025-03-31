@@ -28,19 +28,6 @@ interface LogoProps {
   height?: number;
 }
 
-const Skeleton: React.FC<{
-  width?: number;
-  height?: number;
-  className?: string;
-}> = ({ width = 100, height = 20, className }) => {
-  return (
-    <div
-      className={`animate-pulse rounded bg-gray-300 ${className}`}
-      style={{ width, height }}
-    />
-  );
-};
-
 function Logo({ className, size = "lg", width = 20, height = 20 }: LogoProps) {
   const { theme } = useTheme();
   const [isMounted, setIsMounted] = useState(false);
@@ -50,12 +37,7 @@ function Logo({ className, size = "lg", width = 20, height = 20 }: LogoProps) {
   }, []);
 
   if (!isMounted) {
-    return (
-      <Link href="/" className={clsx("flex items-center", className)}>
-        <Skeleton width={width} height={height} className="mr-2" />
-        <Skeleton width={100} height={30} className={`text-${size}`} />
-      </Link>
-    );
+    return null;
   }
 
   return (

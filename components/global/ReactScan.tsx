@@ -16,7 +16,7 @@ function DevelopmentScan() {
 }
 
 export function ReactScan({ prodEnabled = false }: { prodEnabled?: boolean }) {
-  // Show DevelopmentScan if prodEnabled is true or if in development mode
+  // Don't show ReactScan if prodEnabled is FALSE and if NOT development mode
   if (!prodEnabled && process.env.NODE_ENV !== "development") {
     return null;
   }
