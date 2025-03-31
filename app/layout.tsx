@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Sora } from "next/font/google";
 
 import "@/app/styles/globals.css";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 
 import Background from "@/components/global/Background";
+import Footer from "@/components/global/Footer";
 
 const sora = Sora({ variable: "--font-sora", subsets: ["latin"] });
 
@@ -14,7 +16,7 @@ export const metadata: Metadata = {
   },
   description:
     "A full-stack starter kit using the best tech out there. Fast, scalable, and ready for battle.",
-  icons: [{ rel: "icon", url: "/icon.png" }],
+  icons: [{ rel: "icon", url: "/icon(white).png" }],
 };
 
 export default function RootLayout({
@@ -23,10 +25,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${sora.variable} antialiased`}>
-        <Background />
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <Background />
+          {children}
+
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
