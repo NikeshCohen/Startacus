@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <ReactScan prodEnabled={true} />
+      <ReactScan prodEnabled />
       <body className={`${sora.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
