@@ -1,3 +1,5 @@
+import { ReactScan } from "@/components/global/ReactScan";
+
 import type { Metadata } from "next";
 import { Sora } from "next/font/google";
 
@@ -26,11 +28,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <ReactScan />
       <body className={`${sora.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          disableTransitionOnChange
+        >
           <Background />
           {children}
-
           <Footer />
         </ThemeProvider>
       </body>
