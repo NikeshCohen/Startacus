@@ -10,6 +10,7 @@ import { Analytics } from "@vercel/analytics/react";
 
 import Background from "@/components/global/Background";
 import Footer from "@/components/global/Footer";
+import Toaster from "@/components/global/Toaster";
 
 const sora = Sora({ variable: "--font-sora", subsets: ["latin"] });
 
@@ -38,6 +39,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Background />
+          <Toaster />
           <Analytics />
           <QueryProviders>{children}</QueryProviders>
           <Footer />
