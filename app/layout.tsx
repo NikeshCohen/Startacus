@@ -6,6 +6,7 @@ import { Sora } from "next/font/google";
 import "@/app/styles/globals.css";
 import { QueryProviders } from "@/providers/QueryProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import { Analytics } from "@vercel/analytics/react";
 
 import Background from "@/components/global/Background";
 import Footer from "@/components/global/Footer";
@@ -37,6 +38,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Background />
+          <Analytics />
           <QueryProviders>{children}</QueryProviders>
           <Footer />
         </ThemeProvider>
