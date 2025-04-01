@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Sora } from "next/font/google";
 
 import "@/app/styles/globals.css";
+import { QueryProviders } from "@/providers/QueryProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 
 import Background from "@/components/global/Background";
@@ -36,7 +37,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Background />
-          {children}
+          <QueryProviders>{children}</QueryProviders>
           <Footer />
         </ThemeProvider>
       </body>
