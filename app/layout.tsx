@@ -22,6 +22,29 @@ export const metadata: Metadata = {
   description:
     "A full-stack starter kit using the best tech out there. Fast, scalable, and ready for battle.",
   icons: [{ rel: "icon", url: "/icon(white).png" }],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://startacus.vercel.app",
+    siteName: "Startacus",
+    title: "Startacus – The Ultimate Full-Stack Starter Kit",
+    description:
+      "A full-stack starter kit using the best tech out there. Fast, scalable, and ready for battle.",
+    images: [
+      {
+        url: "/og_image.png",
+        alt: "Startacus – The Ultimate Full-Stack Starter Kit",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Startacus – The Ultimate Full-Stack Starter Kit",
+    description:
+      "A full-stack starter kit using the best tech out there. Fast, scalable, and ready for battle.",
+    creator: "@nikeshcohen",
+    images: ["/og_image.png"],
+  },
 };
 
 export default function RootLayout({
