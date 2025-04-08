@@ -1,5 +1,5 @@
 import { timestamps } from "@/database/schema/columns";
-import { usersTable } from "@/database/schema/users";
+import { user } from "@/database/schema/user";
 import { integer, serial, pgTable as table, text } from "drizzle-orm/pg-core";
 
 export const postsTable = table("posts_table", {
@@ -8,7 +8,7 @@ export const postsTable = table("posts_table", {
   content: text("content").notNull(),
   userId: integer("user_id")
     .notNull()
-    .references(() => usersTable.id, { onDelete: "cascade" }),
+    .references(() => user.id, { onDelete: "cascade" }),
   ...timestamps,
 });
 

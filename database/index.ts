@@ -12,7 +12,7 @@ const DATABASE_URL = z
     required_error: "The environment variable DATABASE_URL is required",
   })
   .url()
-  .parse(process.env.DATABASE_URL!);
+  .parse(process.env.DATABASE_URL);
 
 const config = {
   casing: "camelCase",
