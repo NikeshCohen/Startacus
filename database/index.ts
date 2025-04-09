@@ -15,7 +15,7 @@ const DATABASE_URL = z
   .parse(process.env.DATABASE_URL);
 
 const config = {
-  casing: "camelCase",
+  casing: "snake_case",
   logger: true,
   schema,
 } satisfies Config<typeof schema>;

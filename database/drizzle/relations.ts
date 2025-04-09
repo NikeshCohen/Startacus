@@ -1,13 +1,29 @@
 import { relations } from "drizzle-orm/relations";
-import { usersTable, postsTable } from "./schema";
+import { user, account, session, posts } from "./schema";
 
-export const postsTableRelations = relations(postsTable, ({one}) => ({
-	usersTable: one(usersTable, {
-		fields: [postsTable.userId],
-		references: [usersTable.id]
+export const accountRelations = relations(account, ({one}) => ({
+	user: one(user, {
+		fields: [account.userId],
+		references: [user.id]
 	}),
 }));
 
-export const usersTableRelations = relations(usersTable, ({many}) => ({
-	postsTables: many(postsTable),
+export const userRelations = relations(user, ({many}) => ({
+	accounts: many(account),
+	sessions: many(session),
+	posts: many(posts),
+}));
+
+export const sessionRelations = relations(session, ({one}) => ({
+	user: one(user, {
+		fields: [session.userId],
+		references: [user.id]
+	}),
+}));
+
+export const postsRelations = relations(posts, ({one}) => ({
+	user: one(user, {
+		fields: [posts.userId],
+		references: [user.id]
+	}),
 }));

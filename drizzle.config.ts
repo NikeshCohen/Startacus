@@ -15,9 +15,8 @@ export default defineConfig({
   },
   schemaFilter: ["public"],
   introspect: {
-    casing: "camel",
+    casing: "preserve",
   },
-  casing: "camelCase",
   verbose: true,
   strict: true,
 }) satisfies Config;

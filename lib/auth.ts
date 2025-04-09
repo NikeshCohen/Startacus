@@ -20,9 +20,32 @@ const BETTER_AUTH_URL = z
   .url()
   .parse(process.env.DATABASE_URL);
 
+const GITHUB_CLIENT_ID = z
+  .string({
+    description: "The client ID for the GitHub provider",
+    required_error: "The environment variable GITHUB_CLIENT_ID is required",
+  })
+  .parse(process.env.GITHUB_CLIENT_ID);
+
+const GITHUB_CLIENT_SECRET = z
+  .string({
+    description: "The client secret for the GitHub provider",
+    required_error: "The environment variable GITHUB_CLIENT_SECRET is required",
+  })
+  .parse(process.env.GITHUB_CLIENT_SECRET);
+
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg",
   }),
+  socialProviders: {
+    github: {
+      clientId: GITHUB_CLIENT_ID,
+      clientSecret: GITHUB_CLIENT_SECRET,
+    },
+  },
+  emailAndPassword: {
+    enabled: true,
+  },
   secret: BETTER_AUTH_SECRET,
 });
