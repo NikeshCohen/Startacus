@@ -7,8 +7,10 @@ import "@/app/styles/globals.css";
 import { QueryProviders } from "@/providers/QueryProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { Analytics } from "@vercel/analytics/react";
+import { ErrorBoundary } from "react-error-boundary";
 
 import Background from "@/components/global/Background";
+import ErrorFallback from "@/components/global/ErrorFalback";
 import Footer from "@/components/global/Footer";
 import Toaster from "@/components/global/Toaster";
 
@@ -65,8 +67,12 @@ export default function RootLayout({
           <Background />
           <Toaster />
           <Analytics />
-          <QueryProviders>{children}</QueryProviders>
-          <Footer />
+          <QueryProviders>
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
+              {children}
+              <Footer />
+            </ErrorBoundary>
+          </QueryProviders>
         </ThemeProvider>
       </body>
     </html>

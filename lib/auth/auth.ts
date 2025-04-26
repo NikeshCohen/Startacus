@@ -61,6 +61,11 @@ export const auth = betterAuth({
       clientSecret: GITHUB_CLIENT_SECRET,
     },
   },
+  account: {
+    accountLinking: {
+      trustedProviders: ["google", "github"],
+    },
+  },
   plugins: [nextCookies()],
   secret: BETTER_AUTH_SECRET,
   advanced: {
