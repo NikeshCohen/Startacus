@@ -104,21 +104,6 @@ export default function SignIn() {
                 )}
                 Continue with Github
               </LoaderButton>
-
-              {errMsgGithub && (
-                <div className="mt-3 text-xs text-red-500">
-                  {typeof errMsgGithub === "string"
-                    ? errMsgGithub
-                    : "An error occurred during sign in. Please try again."}
-                </div>
-              )}
-              {errMsgGoogle && (
-                <div className="mt-3 text-xs text-red-500">
-                  {typeof errMsgGoogle === "string"
-                    ? errMsgGoogle
-                    : "An error occurred during sign in. Please try again."}
-                </div>
-              )}
             </div>
           </div>
         </CardContent>

@@ -63,4 +63,7 @@ export const auth = betterAuth({
   },
   plugins: [nextCookies()],
   secret: BETTER_AUTH_SECRET,
+  advanced: {
+    cookiePrefix: "startacus",
+  },
 });
