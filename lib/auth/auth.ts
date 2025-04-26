@@ -1,6 +1,8 @@
 import { db } from "@/database";
+import { account, session, user, verification } from "@/database/schema/user";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { nextCookies } from "better-auth/next-js";
 import { z } from "zod";
 
 const BETTER_AUTH_SECRET = z
@@ -11,14 +13,19 @@ const BETTER_AUTH_SECRET = z
   .url()
   .parse(process.env.DATABASE_URL);
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const BETTER_AUTH_URL = z
+const GOOGLE_CLIENT_ID = z
   .string({
-    description: "The URL of the app, required for the BetterAuth",
-    required_error: "The environment variable BETTER_AUTH_URL is required",
+    description: "The client ID for the Google provider",
+    required_error: "The environment variable GOOGLE_CLIENT_ID is required",
   })
-  .url()
-  .parse(process.env.DATABASE_URL);
+  .parse(process.env.GOOGLE_CLIENT_ID);
+
+const GOOGLE_CLIENT_SECRET = z
+  .string({
+    description: "The client secret for the Google provider",
+    required_error: "The environment variable GOOGLE_CLIENT_SECRET is required",
+  })
+  .parse(process.env.GOOGLE_CLIENT_SECRET);
 
 const GITHUB_CLIENT_ID = z
   .string({
@@ -37,15 +44,23 @@ const GITHUB_CLIENT_SECRET = z
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg",
+    schema: {
+      user,
+      session,
+      account,
+      verification,
+    },
   }),
   socialProviders: {
+    google: {
+      clientId: GOOGLE_CLIENT_ID,
+      clientSecret: GOOGLE_CLIENT_SECRET,
+    },
     github: {
       clientId: GITHUB_CLIENT_ID,
       clientSecret: GITHUB_CLIENT_SECRET,
     },
   },
-  emailAndPassword: {
-    enabled: true,
-  },
+  plugins: [nextCookies()],
   secret: BETTER_AUTH_SECRET,
 });
