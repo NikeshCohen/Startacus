@@ -1,3 +1,4 @@
+import { timestamps } from "@/database/schema/columns";
 import {
   boolean,
   pgTable as table,
@@ -11,21 +12,19 @@ export const user = table("user", {
   email: text("email").notNull().unique(),
   emailVerified: boolean("email_verified").notNull(),
   image: text("image"),
-  createdAt: timestamp("created_at").notNull(),
-  updatedAt: timestamp("updated_at").notNull(),
+  ...timestamps,
 });
 
 export const session = table("session", {
   id: text("id").primaryKey(),
   expiresAt: timestamp("expires_at").notNull(),
   token: text("token").notNull().unique(),
-  createdAt: timestamp("created_at").notNull(),
-  updatedAt: timestamp("updated_at").notNull(),
   ipAddress: text("ip_address"),
   userAgent: text("user_agent"),
   userId: text("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
+  ...timestamps,
 });
 
 export const account = table("account", {
@@ -42,8 +41,7 @@ export const account = table("account", {
   refreshTokenExpiresAt: timestamp("refresh_token_expires_at"),
   scope: text("scope"),
   password: text("password"),
-  createdAt: timestamp("created_at").notNull(),
-  updatedAt: timestamp("updated_at").notNull(),
+  ...timestamps,
 });
 
 export const verification = table("verification", {

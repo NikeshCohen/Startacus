@@ -1,17 +1,12 @@
-import Image from "next/image";
 import Link from "next/link";
 
+import { LogoIcon } from "@/components/global/Logo";
 import { Button } from "@/components/ui/button";
 
 function page() {
   return (
     <section className="flex h-screen flex-col items-center justify-center">
-      <Link
-        href="https://github.com/NikeshCohen/Startacus"
-        className="bg-accent mb-2 flex items-center justify-center rounded-full p-2 text-white"
-      >
-        <Image src="/icon(white).png" alt="Logo" width={25} height={25} />
-      </Link>
+      <LogoIcon />
 
       <h1 className="text-center text-3xl font-bold">
         The

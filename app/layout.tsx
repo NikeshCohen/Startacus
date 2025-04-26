@@ -15,6 +15,7 @@ import Toaster from "@/components/global/Toaster";
 const sora = Sora({ variable: "--font-sora", subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://startacus.vercel.app"),
   title: {
     template: "%s / Startacus – Full-Stack Starter Kit",
     absolute: "Startacus – The Ultimate Full-Stack Starter Kit",
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://startacus.vercel.app",
+    url: new URL("https://startacus.vercel.app"),
     siteName: "Startacus",
     title: "Startacus – The Ultimate Full-Stack Starter Kit",
     description:

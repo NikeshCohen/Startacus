@@ -8,6 +8,8 @@ import Link from "next/link";
 import { clsx } from "clsx";
 import { useTheme } from "next-themes";
 
+import { cn } from "@/lib/utils";
+
 interface LogoProps {
   className?: string;
   size?:
@@ -28,7 +30,12 @@ interface LogoProps {
   height?: number;
 }
 
-function Logo({ className, size = "lg", width = 20, height = 20 }: LogoProps) {
+export function Logo({
+  className,
+  size = "lg",
+  width = 20,
+  height = 20,
+}: LogoProps) {
   const { theme } = useTheme();
   const [isMounted, setIsMounted] = useState(false);
 
@@ -60,9 +67,30 @@ function Logo({ className, size = "lg", width = 20, height = 20 }: LogoProps) {
           className="mr-2"
         />
       )}
-      <h1 className={clsx("relative font-bold tracking-wide", `text-${size}`)}>
+      <h1 className={cn("relative font-bold tracking-wide", `text-${size}`)}>
         Startacus
       </h1>
+    </Link>
+  );
+}
+
+export function LogoIcon({ className, width = 20, height = 20 }: LogoProps) {
+  const { theme } = useTheme();
+
+  return (
+    <Link
+      href="https://github.com/NikeshCohen/Startacus"
+      className={cn(
+        "bg-accent mb-2 flex items-center justify-center rounded-full p-2 text-white",
+        className,
+      )}
+    >
+      <Image
+        src={`${theme === "light" ? "/icon(black).png" : "/icon(white).png"}`}
+        alt="Logo"
+        width={width}
+        height={height}
+      />
     </Link>
   );
 }
