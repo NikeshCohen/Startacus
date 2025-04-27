@@ -8,8 +8,10 @@ import { Menu, X } from "lucide-react";
 
 import { Logo } from "@/components/global/Logo";
 import ThemeToggle from "@/components/global/ThemeToggle";
+import UserProfileAvatar from "@/components/global/UserProfileAvatar";
 import { Button } from "@/components/ui/button";
 
+import { authClient } from "@/lib/auth/auth-client";
 import { cn } from "@/lib/utils";
 
 const menuItems: { name: string; href: string }[] = [];
@@ -17,6 +19,7 @@ const menuItems: { name: string; href: string }[] = [];
 function Header() {
   const [menuState, setMenuState] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
+  const { data: session, isPending } = authClient.useSession();
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -53,20 +56,20 @@ function Header() {
               </button>
             </div>
 
-            <div className="absolute inset-0 m-auto hidden size-fit lg:block">
+            {/* <div className="hidden lg:block absolute inset-0 m-auto size-fit">
               <ul className="flex gap-8 text-sm">
                 {menuItems.map((item, index) => (
                   <li key={index}>
                     <Link
                       href={item.href}
-                      className="text-muted-foreground hover:text-accent-foreground block duration-150"
+                      className="block text-muted-foreground duration-150 hover:text-accent-foreground"
                     >
                       <span>{item.name}</span>
                     </Link>
                   </li>
                 ))}
               </ul>
-            </div>
+            </div> */}
 
             <div className="bg-background mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 in-data-[state=active]:block md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none lg:in-data-[state=active]:flex dark:shadow-none dark:lg:bg-transparent">
               <div className="lg:hidden">
@@ -86,20 +89,17 @@ function Header() {
               <div className="flex w-full flex-col items-center space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
                 <ThemeToggle variant="button" />
 
-                <Button asChild size="sm">
-                  <Link href="/login">
-                    <span>Login</span>
-                  </Link>
-                </Button>
-                {/* <Button
-                  asChild
-                  size="sm"
-                  className={cn(isScrolled ? "lg:inline-flex" : "hidden")}
-                >
-                  <Link href="#">
-                    <span>Get Started</span>
-                  </Link>
-                </Button> */}
+                {isPending ? (
+                  <UserProfileAvatar isPending={true} className="h-9 w-9" />
+                ) : session?.user ? (
+                  <UserProfileAvatar user={session.user} className="h-9 w-9" />
+                ) : (
+                  <Button asChild size="sm">
+                    <Link href="/login">
+                      <span>Login</span>
+                    </Link>
+                  </Button>
+                )}
               </div>
             </div>
           </div>

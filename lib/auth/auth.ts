@@ -71,4 +71,10 @@ export const auth = betterAuth({
   advanced: {
     cookiePrefix: "startacus",
   },
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 5 * 60, // Cache duration in seconds
+    },
+  },
 });
