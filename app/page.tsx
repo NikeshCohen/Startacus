@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { ErrorThrower } from "@/components/global/ErrorFalback";
 import { LogoIcon } from "@/components/global/Logo";
 import { Button } from "@/components/ui/button";
 

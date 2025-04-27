@@ -44,7 +44,20 @@ export function Logo({
   }, []);
 
   if (!isMounted) {
-    return null;
+    return (
+      <div className={clsx("flex items-center", className)}>
+        <div
+          className="bg-muted mr-2 animate-pulse rounded-md"
+          style={{ width: `${width}px`, height: `${height}px` }}
+        />
+        <div
+          className={cn(
+            "bg-muted h-6 w-24 animate-pulse rounded-md",
+            `h-${size === "lg" ? "6" : size === "sm" ? "4" : "5"}`,
+          )}
+        />
+      </div>
+    );
   }
 
   return (
@@ -77,11 +90,29 @@ export function Logo({
 export function LogoIcon({ className, width = 20, height = 20 }: LogoProps) {
   const { theme } = useTheme();
 
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return (
+      <div
+        className={cn(
+          "bg-accent/30 mb-2 flex animate-pulse items-center justify-center rounded-full p-2",
+          className,
+        )}
+        style={{ width: `${width + 16}px`, height: `${height + 16}px` }}
+      />
+    );
+  }
+
   return (
     <Link
       href="https://github.com/NikeshCohen/Startacus"
       className={cn(
-        "bg-accent mb-2 flex items-center justify-center rounded-full p-2 text-white",
+        "bg-accent mb-2 flex items-center justify-center rounded-full p-2",
         className,
       )}
     >
