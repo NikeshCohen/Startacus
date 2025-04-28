@@ -1,9 +1,11 @@
+import { adminClient } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
 
-export const { signIn, signUp, useSession } = createAuthClient();
+export const authClient = createAuthClient({
+  plugins: [adminClient()],
+});
 
-// Export the full client instance
-export const authClient = createAuthClient();
+export const { signIn, signUp, useSession } = authClient;
 
 export const signInGithub = async (callbackURL: string) => {
   const response = await signIn.social({

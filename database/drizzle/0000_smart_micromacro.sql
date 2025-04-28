@@ -21,6 +21,7 @@ CREATE TABLE "session" (
 	"ip_address" text,
 	"user_agent" text,
 	"user_id" text NOT NULL,
+	"impersonated_by" text,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp NOT NULL,
 	CONSTRAINT "session_token_unique" UNIQUE("token")
@@ -32,6 +33,10 @@ CREATE TABLE "user" (
 	"email" text NOT NULL,
 	"email_verified" boolean NOT NULL,
 	"image" text,
+	"role" text,
+	"banned" boolean,
+	"ban_reason" text,
+	"ban_expires" timestamp,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp NOT NULL,
 	CONSTRAINT "user_email_unique" UNIQUE("email")

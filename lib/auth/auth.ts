@@ -3,6 +3,7 @@ import { account, session, user, verification } from "@/database/schema/user";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
+import { admin } from "better-auth/plugins";
 import { z } from "zod";
 
 const BETTER_AUTH_SECRET = z
@@ -42,6 +43,7 @@ const GITHUB_CLIENT_SECRET = z
   .parse(process.env.GITHUB_CLIENT_SECRET);
 
 export const auth = betterAuth({
+  appName: "Startacus",
   database: drizzleAdapter(db, {
     provider: "pg",
     schema: {
@@ -66,7 +68,13 @@ export const auth = betterAuth({
       trustedProviders: ["google", "github"],
     },
   },
-  plugins: [nextCookies()],
+  plugins: [
+    nextCookies(),
+    admin({
+      defaultRole: "user",
+      adminRoles: ["admin", "superadmin"],
+    }),
+  ],
   secret: BETTER_AUTH_SECRET,
   advanced: {
     cookiePrefix: "startacus",
@@ -74,7 +82,7 @@ export const auth = betterAuth({
   session: {
     cookieCache: {
       enabled: true,
-      maxAge: 5 * 60, // Cache duration in seconds
+      maxAge: 5 * 30, // Cache duration in seconds
     },
   },
 });

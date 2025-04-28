@@ -12,6 +12,10 @@ export const user = table("user", {
   email: text("email").notNull().unique(),
   emailVerified: boolean("email_verified").notNull(),
   image: text("image"),
+  role: text("role"),
+  banned: boolean("banned"),
+  banReason: text("ban_reason"),
+  banExpires: timestamp("ban_expires"),
   ...timestamps,
 });
 
@@ -24,6 +28,7 @@ export const session = table("session", {
   userId: text("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
+  impersonatedBy: text("impersonated_by"),
   ...timestamps,
 });
 
