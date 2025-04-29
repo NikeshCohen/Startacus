@@ -27,7 +27,7 @@ export default async function Page({ searchParams }: PageProps) {
   const redirectUrl = params.redirectUrl ?? "/";
 
   return (
-    <section className="flex min-h-screen w-full items-center justify-center p-4 pt-24">
+    <section className="mt-24 flex min-h-screen w-full items-center justify-center p-4">
       <div className="relative w-full max-w-md">
         <Card className="bg-card/40 border-t-primary relative overflow-hidden border-t-4 backdrop-blur-sm transition-all duration-300">
           <div className="from-primary/10 pointer-events-none absolute inset-0 bg-gradient-to-b to-transparent opacity-50" />

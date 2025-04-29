@@ -4,6 +4,7 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { admin } from "better-auth/plugins";
+import { passkey } from "better-auth/plugins/passkey";
 import { z } from "zod";
 
 const BETTER_AUTH_SECRET = z
@@ -77,6 +78,7 @@ export const auth = betterAuth({
       defaultRole: "user",
       adminRoles: ["admin", "superadmin"],
     }),
+    passkey(),
   ],
   secret: BETTER_AUTH_SECRET,
   advanced: {

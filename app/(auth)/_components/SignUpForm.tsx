@@ -173,7 +173,11 @@ function SignUpForm({ redirectUrl }: { redirectUrl: string }) {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="BobJones" {...field} />
+                <Input
+                  placeholder="Username"
+                  autoComplete="username"
+                  {...field}
+                />
               </FormControl>
             </FormItem>
           )}
@@ -186,7 +190,11 @@ function SignUpForm({ redirectUrl }: { redirectUrl: string }) {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="bobjones@example.com" {...field} />
+                <Input
+                  placeholder="bobjones@example.com"
+                  autoComplete="username"
+                  {...field}
+                />
               </FormControl>
             </FormItem>
           )}
