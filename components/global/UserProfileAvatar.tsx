@@ -2,32 +2,15 @@
 
 import React from "react";
 
-// Adjusted import path
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 
-// Simplified type for the user object passed as a prop
+import { getInitials } from "@/lib/utils";
+
 interface UserProp {
   name?: string | null;
   image?: string | null;
 }
-
-/**
- * Extracts initials from a name string.
- * @param name The full name.
- * @returns The initials (e.g., "JD" for "John Doe").
- */
-const getInitials = (name: string | null | undefined): string => {
-  if (!name) return "?";
-  const names = name.trim().split(" ");
-  if (names.length === 1) {
-    return names[0][0]?.toUpperCase() || "?";
-  }
-  return (
-    (names[0][0]?.toUpperCase() || "") +
-    (names[names.length - 1][0]?.toUpperCase() || "")
-  );
-};
 
 interface UserProfileAvatarProps {
   user?: UserProp | null;
@@ -48,8 +31,6 @@ export default function UserProfileAvatar({
     return null;
   }
 
-  const initials = getInitials(user.name);
-
   console.log(user.image);
 
   return (
@@ -57,7 +38,7 @@ export default function UserProfileAvatar({
       {user.image ? (
         <AvatarImage src={user.image} alt={user.name || "User Avatar"} />
       ) : null}
-      <AvatarFallback>{initials}</AvatarFallback>
+      <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
     </Avatar>
   );
 }

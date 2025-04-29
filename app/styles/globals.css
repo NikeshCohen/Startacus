@@ -189,7 +189,7 @@ body {
   }
 
   button:disabled,
-  [role="button"]:not(:disabled) {
+  [role="button"]:disabled {
     cursor: not-allowed;
   }
 }

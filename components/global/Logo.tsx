@@ -12,20 +12,7 @@ import { cn } from "@/lib/utils";
 
 interface LogoProps {
   className?: string;
-  size?:
-    | "xs"
-    | "sm"
-    | "base"
-    | "lg"
-    | "xl"
-    | "2xl"
-    | "3xl"
-    | "4xl"
-    | "5xl"
-    | "6xl"
-    | "7xl"
-    | "8xl"
-    | "9xl";
+  size?: "sm" | "lg";
   width?: number;
   height?: number;
 }
@@ -100,7 +87,7 @@ export function LogoIcon({ className, width = 20, height = 20 }: LogoProps) {
     return (
       <div
         className={cn(
-          "bg-accent/30 mb-2 flex animate-pulse items-center justify-center rounded-full p-2",
+          "bg-muted mb-2 flex animate-pulse items-center justify-center rounded-full p-2",
           className,
         )}
         style={{ width: `${width + 16}px`, height: `${height + 16}px` }}
@@ -112,7 +99,7 @@ export function LogoIcon({ className, width = 20, height = 20 }: LogoProps) {
     <Link
       href="https://github.com/NikeshCohen/Startacus"
       className={cn(
-        "bg-accent mb-2 flex items-center justify-center rounded-full p-2",
+        "bg-muted mb-2 flex items-center justify-center rounded-full p-2",
         className,
       )}
     >

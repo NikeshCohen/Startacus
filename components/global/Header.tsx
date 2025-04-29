@@ -95,8 +95,8 @@ function Header() {
                   <UserProfileAvatar user={session.user} className="h-9 w-9" />
                 ) : (
                   <Button asChild size="sm">
-                    <Link href="/login">
-                      <span>Login</span>
+                    <Link href="/sign-in">
+                      <span>Sign In</span>
                     </Link>
                   </Button>
                 )}
