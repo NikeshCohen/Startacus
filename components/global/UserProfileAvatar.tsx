@@ -31,8 +31,6 @@ export default function UserProfileAvatar({
     return null;
   }
 
-  console.log(user.image);
-
   return (
     <Avatar className={className}>
       {user.image ? (

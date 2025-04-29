@@ -59,10 +59,10 @@ function SSOAuthBtns({ redirectUrl }: { redirectUrl: string }) {
 
   return (
     <div>
-      <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+      <div className="gap-2 grid grid-cols-1 md:grid-cols-2">
         <LoaderButton
           variant="secondary"
-          className="w-full gap-2 text-black"
+          className="gap-2 w-full text-black"
           disabled={isLoadingGoogle || isLoadingGithub}
           isLoading={isLoadingGoogle}
           onClick={handleGoogleSignIn}
@@ -96,7 +96,7 @@ function SSOAuthBtns({ redirectUrl }: { redirectUrl: string }) {
         </LoaderButton>
         <LoaderButton
           variant="secondary"
-          className="w-full gap-2 text-black"
+          className="gap-2 w-full text-black"
           disabled={isLoadingGoogle || isLoadingGithub}
           isLoading={isLoadingGithub}
           onClick={handleGithubSignIn}

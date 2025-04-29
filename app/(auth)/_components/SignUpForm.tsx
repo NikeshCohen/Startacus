@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { useRouter } from "next/navigation";
 
+import { PasswordInput } from "@/app/(auth)/_components/password-input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { useForm, useWatch } from "react-hook-form";
@@ -49,7 +50,7 @@ function PasswordConfirmationBlocks({
   if (password.length < 2) return;
 
   return (
-    <div className="flex w-full gap-1 pb-1">
+    <div className="flex gap-1 pb-1 w-full">
       {blocks.map((_, index) => {
         const flexGrow = blocks.length < 28 ? 1 : 0;
 
@@ -57,7 +58,7 @@ function PasswordConfirmationBlocks({
           return (
             <motion.div
               key={index}
-              className="bg-muted-foreground h-[2px] rounded-full"
+              className="bg-muted-foreground rounded-full h-[2px]"
               style={{ flexGrow }}
               initial={{ scaleX: 0, opacity: 0 }}
               animate={{ scaleX: 1, opacity: 0.5 }}
@@ -73,7 +74,7 @@ function PasswordConfirmationBlocks({
           return (
             <motion.div
               key={index}
-              className="h-[2px] rounded-full bg-green-500"
+              className="bg-green-500 rounded-full h-[2px]"
               style={{ flexGrow }}
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
@@ -91,7 +92,7 @@ function PasswordConfirmationBlocks({
         return (
           <motion.div
             key={index}
-            className="h-[2px] rounded-full bg-red-500"
+            className="bg-red-500 rounded-full h-[2px]"
             style={{ flexGrow }}
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
@@ -165,7 +166,7 @@ function SignUpForm({ redirectUrl }: { redirectUrl: string }) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="gap-4 grid">
         <FormField
           control={form.control}
           name="username"
@@ -207,10 +208,10 @@ function SignUpForm({ redirectUrl }: { redirectUrl: string }) {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input
-                  type="password"
+                <PasswordInput
                   placeholder="Password"
-                  autoComplete="new-password"
+                  autoComplete="current-password"
+                  hideLabel
                   {...field}
                 />
               </FormControl>
@@ -226,10 +227,10 @@ function SignUpForm({ redirectUrl }: { redirectUrl: string }) {
             <FormItem>
               <FormLabel>Confirm Password</FormLabel>
               <FormControl>
-                <Input
-                  type="password"
+                <PasswordInput
                   placeholder="Confirm Password"
-                  autoComplete="new-password"
+                  autoComplete="current-password"
+                  hideLabel
                   {...field}
                 />
               </FormControl>

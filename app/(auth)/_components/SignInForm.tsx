@@ -4,6 +4,7 @@ import React, { useState } from "react";
 
 import { useRouter } from "next/navigation";
 
+import { PasswordInput } from "@/app/(auth)/_components/password-input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -70,7 +71,7 @@ function SignInForm({ redirectUrl }: { redirectUrl: string }) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="gap-4 grid">
         <FormField
           control={form.control}
           name="email"
@@ -92,10 +93,10 @@ function SignInForm({ redirectUrl }: { redirectUrl: string }) {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input
-                  type="password"
+                <PasswordInput
                   placeholder="Password"
                   autoComplete="current-password"
+                  hideLabel
                   {...field}
                 />
               </FormControl>
