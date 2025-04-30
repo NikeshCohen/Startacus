@@ -4,6 +4,7 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { admin } from "better-auth/plugins";
+import { haveIBeenPwned } from "better-auth/plugins";
 import { passkey } from "better-auth/plugins/passkey";
 import { z } from "zod";
 
@@ -79,6 +80,9 @@ export const auth = betterAuth({
       adminRoles: ["admin", "superadmin"],
     }),
     passkey(),
+    haveIBeenPwned({
+      customPasswordCompromisedMessage: "Please choose a more secure password.",
+    }),
   ],
   secret: BETTER_AUTH_SECRET,
   advanced: {

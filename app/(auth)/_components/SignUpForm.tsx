@@ -50,19 +50,19 @@ function PasswordConfirmationBlocks({
   if (password.length < 2) return;
 
   return (
-    <div className="flex gap-1 pb-1 w-full">
+    <div className="flex w-full gap-1 pb-1">
       {blocks.map((_, index) => {
         const flexGrow = blocks.length < 28 ? 1 : 0;
+        const baseColor = "#71717a";
 
         if (index >= confirmationValue.length) {
           return (
             <motion.div
-              key={index}
-              className="bg-muted-foreground rounded-full h-[2px]"
-              style={{ flexGrow }}
-              initial={{ scaleX: 0, opacity: 0 }}
-              animate={{ scaleX: 1, opacity: 0.5 }}
-              transition={{ duration: 0.2, delay: index * 0.05 }}
+              key={`empty-${index}`}
+              className="h-[2px] rounded-full"
+              style={{ flexGrow, backgroundColor: baseColor }}
+              animate={{ backgroundColor: baseColor }}
+              transition={{ duration: 0.2 }}
             />
           );
         }
@@ -73,14 +73,14 @@ function PasswordConfirmationBlocks({
         ) {
           return (
             <motion.div
-              key={index}
-              className="bg-green-500 rounded-full h-[2px]"
+              key={`match-${index}-${confirmationValue[index]}`}
+              className="h-[2px] rounded-full"
               style={{ flexGrow }}
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
+              initial={{ backgroundColor: baseColor }}
+              animate={{ backgroundColor: "#22c55e" }}
+              exit={{ backgroundColor: baseColor }}
               transition={{
                 duration: 0.2,
-                delay: index * 0.05,
                 type: "spring",
                 stiffness: 500,
                 damping: 30,
@@ -91,14 +91,14 @@ function PasswordConfirmationBlocks({
 
         return (
           <motion.div
-            key={index}
-            className="bg-red-500 rounded-full h-[2px]"
+            key={`error-${index}-${confirmationValue[index]}`}
+            className="h-[2px] rounded-full"
             style={{ flexGrow }}
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
+            initial={{ backgroundColor: baseColor }}
+            animate={{ backgroundColor: "#ef4444" }}
+            exit={{ backgroundColor: baseColor }}
             transition={{
               duration: 0.2,
-              delay: index * 0.05,
               type: "spring",
               stiffness: 500,
               damping: 30,
@@ -113,6 +113,7 @@ function PasswordConfirmationBlocks({
 function SignUpForm({ redirectUrl }: { redirectUrl: string }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -138,6 +139,7 @@ function SignUpForm({ redirectUrl }: { redirectUrl: string }) {
 
   const onSubmit = async (values: FormValues) => {
     setLoading(true);
+    setError(null);
     try {
       await signUp.email({
         email: values.email,
@@ -150,6 +152,7 @@ function SignUpForm({ redirectUrl }: { redirectUrl: string }) {
           },
           onError: (ctx) => {
             toast.error(ctx.error.message);
+            setError(ctx.error.message);
             setLoading(false);
           },
           onSuccess: async () => {
@@ -166,7 +169,7 @@ function SignUpForm({ redirectUrl }: { redirectUrl: string }) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="gap-4 grid">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
         <FormField
           control={form.control}
           name="username"
@@ -197,6 +200,7 @@ function SignUpForm({ redirectUrl }: { redirectUrl: string }) {
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -245,6 +249,10 @@ function SignUpForm({ redirectUrl }: { redirectUrl: string }) {
         <LoaderButton type="submit" className="w-full" isLoading={loading}>
           Create your account
         </LoaderButton>
+
+        {error && (
+          <p className="w-full text-center text-xs text-red-500">{error}</p>
+        )}
       </form>
     </Form>
   );
