@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import SignUpForm from "@/app/(auth)/_components/SignUpForm";
 
@@ -13,6 +15,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+import { auth } from "@/lib/auth/auth";
+
 export const metadata: Metadata = {
   title: "Sign Up",
   description: "Sign up for a Startacus account",
@@ -23,19 +27,30 @@ interface PageProps {
 }
 
 export default async function Page({ searchParams }: PageProps) {
+  const session = await auth.api.getSession({
+    query: {
+      disableCookieCache: true,
+    },
+    headers: await headers(),
+  });
+
+  if (session) {
+    redirect("/");
+  }
+
   const params = await searchParams;
   const redirectUrl = params.redirectUrl ?? "/";
 
   return (
-    <section className="flex justify-center items-center p-4 pt-24 w-full min-h-screen">
+    <section className="flex min-h-screen w-full items-center justify-center p-4 pt-24">
       <div className="relative w-full max-w-md">
-        <Card className="relative bg-card/40 backdrop-blur-sm border-t-4 border-t-primary overflow-hidden transition-all duration-300">
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent opacity-50 pointer-events-none" />
+        <Card className="bg-card/40 border-t-primary relative overflow-hidden border-t-4 backdrop-blur-sm transition-all duration-300">
+          <div className="from-primary/10 pointer-events-none absolute inset-0 bg-gradient-to-b to-transparent opacity-50" />
           <CardHeader className="space-y-1 pt-4">
-            <CardTitle className="flex justify-center items-center text-center">
+            <CardTitle className="flex items-center justify-center text-center">
               <Logo />
             </CardTitle>
-            <CardDescription className="text-base text-center">
+            <CardDescription className="text-center text-base">
               Create an account to get started
             </CardDescription>
           </CardHeader>
@@ -43,8 +58,8 @@ export default async function Page({ searchParams }: PageProps) {
           <CardContent className="relative space-y-6 pt-2 pb-2">
             <SignUpForm redirectUrl={redirectUrl} />
 
-            <div className="bg-primary/5 p-4 rounded-lg">
-              <p className="text-muted-foreground text-sm text-center">
+            <div className="bg-primary/5 rounded-lg p-4">
+              <p className="text-muted-foreground text-center text-sm">
                 By signing in, you agree to our{" "}
                 <Link
                   href="/tos#terms-of-service"
@@ -63,7 +78,7 @@ export default async function Page({ searchParams }: PageProps) {
             </div>
           </CardContent>
 
-          <CardFooter className="flex justify-center gap-1 py-1 border-t text-sm pointer-events-auto">
+          <CardFooter className="pointer-events-auto flex justify-center gap-1 border-t py-1 text-sm">
             <p className="text-muted-foreground">Already have an account?</p>
             <Link href="/sign-in" className="text-primary underline">
               Sign In

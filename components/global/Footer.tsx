@@ -20,7 +20,7 @@ function Footer() {
           <Link
             href="https://github.com/NikeshCohen/Startacus"
             target="_blank"
-            className="bg-input/50 hover:text-accent hover flex h-9 w-9 items-center justify-center rounded-full transition-colors"
+            className="bg-input/50 hover:text-primary hover flex h-9 w-9 items-center justify-center rounded-full transition-colors"
           >
             <Github className="h-4 w-4" />
             <span className="sr-only">Github Repo</span>

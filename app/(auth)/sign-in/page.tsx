@@ -1,5 +1,7 @@
 import { Metadata } from "next";
+import { headers } from "next/headers";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import SSOAuthBtns from "@/app/(auth)/_components/SSOAuthBtns";
 import SignInForm from "@/app/(auth)/_components/SignInForm";
@@ -15,6 +17,8 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
+import { auth } from "@/lib/auth/auth";
+
 export const metadata: Metadata = {
   title: "Sign In",
   description: "Sign in to your Startacus account",
@@ -25,6 +29,17 @@ interface PageProps {
 }
 
 export default async function SignIn({ searchParams }: PageProps) {
+  const session = await auth.api.getSession({
+    query: {
+      disableCookieCache: true,
+    },
+    headers: await headers(),
+  });
+
+  if (session) {
+    redirect("/");
+  }
+
   const params = await searchParams;
   const redirectUrl = params.redirectUrl ?? "/";
 
