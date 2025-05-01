@@ -8,6 +8,7 @@ import { Menu, X } from "lucide-react";
 
 import { Logo } from "@/components/global/Logo";
 import ThemeToggle from "@/components/global/ThemeToggle";
+import UserContextMenu from "@/components/global/UserContextMenu";
 import UserProfileAvatar from "@/components/global/UserProfileAvatar";
 import { Button } from "@/components/ui/button";
 
@@ -33,7 +34,7 @@ function Header() {
     <header>
       <nav
         data-state={menuState && "active"}
-        className="fixed z-20 w-full px-2"
+        className="z-20 fixed px-2 w-full"
       >
         <div
           className={cn(
@@ -42,17 +43,17 @@ function Header() {
               "bg-background/50 border/70 max-w-4xl rounded-2xl backdrop-blur-lg lg:px-5",
           )}
         >
-          <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
-            <div className="flex w-full justify-between lg:w-auto">
+          <div className="relative flex flex-wrap justify-between items-center gap-6 lg:gap-0 py-3 lg:py-4">
+            <div className="flex justify-between w-full lg:w-auto">
               <Logo />
 
               <button
                 onClick={() => setMenuState(!menuState)}
                 aria-label={menuState == true ? "Close Menu" : "Open Menu"}
-                className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
+                className="lg:hidden block z-20 relative -m-2.5 -mr-4 p-2.5 cursor-pointer"
               >
-                <Menu className="m-auto size-6 duration-200 in-data-[state=active]:scale-0 in-data-[state=active]:rotate-180 in-data-[state=active]:opacity-0" />
-                <X className="absolute inset-0 m-auto size-6 scale-0 -rotate-180 opacity-0 duration-200 in-data-[state=active]:scale-100 in-data-[state=active]:rotate-0 in-data-[state=active]:opacity-100" />
+                <Menu className="in-data-[state=active]:opacity-0 m-auto size-6 in-data-[state=active]:rotate-180 in-data-[state=active]:scale-0 duration-200" />
+                <X className="absolute inset-0 opacity-0 in-data-[state=active]:opacity-100 m-auto size-6 -rotate-180 in-data-[state=active]:rotate-0 scale-0 in-data-[state=active]:scale-100 duration-200" />
               </button>
             </div>
 
@@ -71,14 +72,14 @@ function Header() {
               </ul>
             </div> */}
 
-            <div className="bg-background mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 in-data-[state=active]:block md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none lg:in-data-[state=active]:flex dark:shadow-none dark:lg:bg-transparent">
+            <div className="hidden in-data-[state=active]:block lg:flex lg:in-data-[state=active]:flex flex-wrap md:flex-nowrap justify-end items-center lg:gap-6 space-y-8 lg:space-y-0 bg-background lg:bg-transparent dark:lg:bg-transparent shadow-2xl shadow-zinc-300/20 lg:shadow-none dark:shadow-none lg:m-0 mb-6 p-6 lg:p-0 border lg:border-transparent rounded-3xl w-full lg:w-fit">
               <div className="lg:hidden">
                 <ul className="space-y-6 text-base">
                   {menuItems.map((item, index) => (
                     <li key={index}>
                       <Link
                         href={item.href}
-                        className="text-muted-foreground hover:text-accent-foreground block duration-150"
+                        className="block text-muted-foreground duration-150 hover:text-accent-foreground"
                       >
                         <span>{item.name}</span>
                       </Link>
@@ -86,13 +87,13 @@ function Header() {
                   ))}
                 </ul>
               </div>
-              <div className="flex w-full flex-col items-center space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
+              <div className="flex sm:flex-row flex-col items-center sm:gap-3 space-y-3 sm:space-y-0 w-full md:w-fit">
                 <ThemeToggle variant="button" />
 
                 {isPending ? (
-                  <UserProfileAvatar isPending={true} className="h-9 w-9" />
+                  <UserProfileAvatar isPending={true} className="w-9 h-9" />
                 ) : session?.user ? (
-                  <UserProfileAvatar user={session.user} className="h-9 w-9" />
+                  <UserContextMenu />
                 ) : (
                   <Button asChild size="sm">
                     <Link href="/sign-in">

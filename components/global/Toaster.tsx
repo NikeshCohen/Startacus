@@ -17,7 +17,7 @@ export default function Toaster(props: ToasterProps) {
         success: {
           ...props.toastOptions?.success,
           iconTheme: {
-            primary: "var(--accent)",
+            primary: "var(--primary)",
             secondary: "white",
             ...props.toastOptions?.success?.iconTheme,
           },
