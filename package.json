@@ -12,7 +12,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
-    "db:sync": "npm run db:generate && npm run db:migrate && npm run db:push && npm run db:pull"
+    "db:sync": "npm run db:generate && npm run db:migrate && npm run db:push && npm run db:pull",
+    "prepare": "husky"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
@@ -48,6 +49,8 @@
     "zod": "^3.24.3"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
@@ -58,9 +61,16 @@
     "eslint": "^9.25.1",
     "eslint-config-next": "15.3.1",
     "eslint-plugin-no-relative-import-paths": "^1.6.1",
+    "lint-staged": "^15.5.1",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }

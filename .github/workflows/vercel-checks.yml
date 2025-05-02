@@ -1,0 +1,46 @@
+name: Vercel Optimizations
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-optimizations:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check for React Server Components
+        run: |
+          if grep -R "use client" . ; then
+            echo "React Server Components are being used. Great!"
+          else
+            echo "Warning: No 'use client' directives found. Consider using React Server Components for better performance."
+          fi
+
+      - name: Check for Async Request APIs
+        run: |
+          if grep -R "unstable_after" . ; then
+            echo "Async Request APIs are being used. Excellent!"
+          else
+            echo "Consider using the new Async Request APIs for improved performance."
+          fi
+
+      - name: Check for Enhanced Forms
+        run: |
+          if grep -R "import.*from 'next/form'" . ; then
+            echo "Enhanced Forms from next/form are being used. Nice work!"
+          else
+            echo "Consider using Enhanced Forms from next/form for better form handling."
+          fi

@@ -1,0 +1,42 @@
+name: Check if branch is up to date with main
+
+on:
+  pull_request:
+    # new commits
+    types: [synchronize, opened, reopened]
+
+jobs:
+  check-up-to-date:
+    runs-on: ubuntu-latest
+    permissions:
+      # required to post comments
+      pull-requests: write
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+        with:
+          # fetch full history
+          fetch-depth: 0
+
+      - name: Check if branch is up to date
+        run: |
+          git fetch origin main
+          if ! git merge-base --is-ancestor origin/main HEAD; then
+            echo "❌ Your branch is not up to date with main. Please rebase or merge main before merging." | tee comment.txt
+            exit 1
+          fi
+
+      - name: Post a comment if branch is behind
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const comment = fs.readFileSync('comment.txt', 'utf8');
+            github.rest.issues.createComment({
+              issue_number: context.payload.pull_request.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `${comment}\n\n⚠️ Please run: \`git pull --rebase origin main\` or \`git merge origin/main\` before merging.`
+            });
