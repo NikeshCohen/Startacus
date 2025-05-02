@@ -1,0 +1,29 @@
+sh .husky/check-branch.sh
+
+# track if changes are stashed
+STASHED=0
+
+# stash unstaged and untracked changes, while keeping staged changes
+if ! git diff --quiet || ! git diff --cached --quiet; then
+  git stash --keep-index -u
+  printf "\n🔄 Stashing unstaged changes for clean commit...\n"
+  STASHED=1
+fi
+
+# lint and format code
+npx lint-staged
+
+# check if changes were made
+if ! git diff --quiet --exit-code; then
+  printf "\n❗ Code formatting issues detected and fixed automatically.\n"
+  printf "📝 Please review the changes and stage them with 'git add .'\n"
+  printf "🔁 Then try committing again.\n"
+  # cancel commit so user can review
+  exit 1
+fi
+
+# apply stash only if it was stashed during this session
+if [ $STASHED -eq 1 ]; then
+  git stash apply
+  printf "\n✅ Commit checks passed! Unstashed changes have been restored.\n\n"
+fi
