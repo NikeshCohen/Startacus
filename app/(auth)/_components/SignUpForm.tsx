@@ -6,8 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { PasswordInput } from "@/app/(auth)/_components/password-input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { motion } from "framer-motion";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import * as z from "zod";
 
@@ -24,91 +23,13 @@ import { Input } from "@/components/ui/input";
 
 import { signUp } from "@/lib/auth/auth-client";
 
-const formSchema = z
-  .object({
-    username: z.string().min(1, "Username is required"),
-    email: z.string().email("Invalid email address"),
-    password: z.string().min(8, "Password must be at least 8 characters"),
-    passwordConfirmation: z.string(),
-  })
-  .refine((data) => data.password === data.passwordConfirmation, {
-    message: "Passwords do not match",
-    path: ["passwordConfirmation"],
-  });
+const formSchema = z.object({
+  username: z.string().min(1, "Username is required"),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+});
 
 type FormValues = z.infer<typeof formSchema>;
-
-function PasswordConfirmationBlocks({
-  password,
-  confirmationValue,
-}: {
-  password: string;
-  confirmationValue: string;
-}) {
-  const blocks = Array(Math.max(password.length, 1)).fill(null);
-
-  if (password.length < 2) return;
-
-  return (
-    <div className="flex gap-1 pb-1 w-full">
-      {blocks.map((_, index) => {
-        const flexGrow = blocks.length < 28 ? 1 : 0;
-        const baseColor = "#71717a";
-
-        if (index >= confirmationValue.length) {
-          return (
-            <motion.div
-              key={`empty-${index}`}
-              className="rounded-full h-[2px]"
-              style={{ flexGrow, backgroundColor: baseColor }}
-              animate={{ backgroundColor: baseColor }}
-              transition={{ duration: 0.2 }}
-            />
-          );
-        }
-
-        if (
-          index < password.length &&
-          confirmationValue[index] === password[index]
-        ) {
-          return (
-            <motion.div
-              key={`match-${index}-${confirmationValue[index]}`}
-              className="rounded-full h-[2px]"
-              style={{ flexGrow }}
-              initial={{ backgroundColor: baseColor }}
-              animate={{ backgroundColor: "#22c55e" }}
-              exit={{ backgroundColor: baseColor }}
-              transition={{
-                duration: 0.2,
-                type: "spring",
-                stiffness: 500,
-                damping: 30,
-              }}
-            />
-          );
-        }
-
-        return (
-          <motion.div
-            key={`error-${index}-${confirmationValue[index]}`}
-            className="rounded-full h-[2px]"
-            style={{ flexGrow }}
-            initial={{ backgroundColor: baseColor }}
-            animate={{ backgroundColor: "#ef4444" }}
-            exit={{ backgroundColor: baseColor }}
-            transition={{
-              duration: 0.2,
-              type: "spring",
-              stiffness: 500,
-              damping: 30,
-            }}
-          />
-        );
-      })}
-    </div>
-  );
-}
 
 function SignUpForm({ redirectUrl }: { redirectUrl: string }) {
   const router = useRouter();
@@ -121,20 +42,7 @@ function SignUpForm({ redirectUrl }: { redirectUrl: string }) {
       username: "",
       email: "",
       password: "",
-      passwordConfirmation: "",
     },
-  });
-
-  const password = useWatch({
-    control: form.control,
-    name: "password",
-    defaultValue: "",
-  });
-
-  const passwordConfirmation = useWatch({
-    control: form.control,
-    name: "passwordConfirmation",
-    defaultValue: "",
   });
 
   const onSubmit = async (values: FormValues) => {
@@ -220,28 +128,6 @@ function SignUpForm({ redirectUrl }: { redirectUrl: string }) {
                 />
               </FormControl>
               <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="passwordConfirmation"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Confirm Password</FormLabel>
-              <FormControl>
-                <PasswordInput
-                  placeholder="Confirm Password"
-                  autoComplete="current-password"
-                  hideLabel
-                  {...field}
-                />
-              </FormControl>
-              <PasswordConfirmationBlocks
-                password={password}
-                confirmationValue={passwordConfirmation}
-              />
             </FormItem>
           )}
         />

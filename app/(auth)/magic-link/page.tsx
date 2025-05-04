@@ -1,28 +1,24 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import AuthCardFooter from "@/app/(auth)/_components/AuthCardFooter";
-import SSOAuthBtns from "@/app/(auth)/_components/SSOAuthBtns";
-import SignUpForm from "@/app/(auth)/_components/SignUpForm";
+import MagicLinkForm from "@/app/(auth)/_components/MagicLinkForm";
 
 import Logo from "@/components/global/Logo";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 
 import { auth } from "@/lib/auth/auth";
 
 export const metadata: Metadata = {
-  title: "Sign Up",
-  description: "Sign up for a Startacus account",
+  title: "Magic Link",
+  description: "Sign in with a magic link",
 };
 
 interface PageProps {
@@ -49,35 +45,21 @@ export default async function Page({ searchParams }: PageProps) {
       <div className="relative w-full max-w-md">
         <Card className="relative bg-card/40 backdrop-blur-sm border-t-4 border-t-primary overflow-hidden transition-all duration-300">
           <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent opacity-50 pointer-events-none" />
+
           <CardHeader className="space-y-1 pt-4">
             <CardTitle className="flex justify-center items-center text-center">
               <Logo />
             </CardTitle>
             <CardDescription className="text-base text-center">
-              Create an account to get started
+              Enter your email address to receive a magic link
             </CardDescription>
           </CardHeader>
 
           <CardContent className="relative space-y-6 pt-2 pb-2">
-            <SignUpForm redirectUrl={redirectUrl} />
-
-            <div className="flex items-center gap-3 px-2">
-              <Separator className="flex-1" />
-              <span className="text-muted-foreground text-xs">OR</span>
-              <Separator className="flex-1" />
-            </div>
-
-            <SSOAuthBtns redirectUrl={redirectUrl} hideMagicLink />
+            <MagicLinkForm redirectUrl={redirectUrl} />
 
             <AuthCardFooter />
           </CardContent>
-
-          <CardFooter className="flex justify-center gap-1 py-1 border-t text-sm pointer-events-auto">
-            <p className="text-muted-foreground">Already have an account?</p>
-            <Link href="/sign-in" className="text-primary underline">
-              Sign In
-            </Link>
-          </CardFooter>
         </Card>
       </div>
     </section>

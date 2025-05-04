@@ -2,15 +2,16 @@
 
 import { useState } from "react";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
-import { PasswordInput } from "@/app/(auth)/_components/password-input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Lock, SendIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import * as z from "zod";
 
 import { LoaderButton } from "@/components/global/LoaderButton";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -21,32 +22,34 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import { signIn } from "@/lib/auth/auth-client";
+import { authClient } from "@/lib/auth/auth-client";
 
 const formSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(1, "Password is required"),
+  email: z.string().email("Please enter a valid email address"),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
-function SignInForm({ redirectUrl }: { redirectUrl: string }) {
-  const router = useRouter();
+export default function MagicLinkForm({
+  redirectUrl,
+}: {
+  redirectUrl: string;
+}) {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
-      password: "",
     },
   });
 
   const onSubmit = async (values: FormValues) => {
     setLoading(true);
-    await signIn.email({
+    setError(null);
+    await authClient.signIn.magicLink({
       email: values.email,
-      password: values.password,
       callbackURL: redirectUrl,
       fetchOptions: {
         onResponse: () => {
@@ -54,10 +57,8 @@ function SignInForm({ redirectUrl }: { redirectUrl: string }) {
         },
         onError: (ctx) => {
           toast.error(ctx.error.message);
+          setError(ctx.error.message);
           setLoading(false);
-        },
-        onSuccess: async () => {
-          router.push(redirectUrl);
         },
       },
     });
@@ -74,8 +75,9 @@ function SignInForm({ redirectUrl }: { redirectUrl: string }) {
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
+                  id="email"
+                  type="email"
                   placeholder="user@example.com"
-                  autoComplete="email"
                   {...field}
                 />
               </FormControl>
@@ -83,32 +85,29 @@ function SignInForm({ redirectUrl }: { redirectUrl: string }) {
             </FormItem>
           )}
         />
+        <div>
+          <LoaderButton
+            type="submit"
+            className="w-full"
+            isLoading={loading}
+            icon={SendIcon}
+          >
+            Send Magic Link
+          </LoaderButton>
 
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <PasswordInput
-                  placeholder="Password"
-                  autoComplete="password"
-                  hideLabel
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+          {!error && (
+            <p className="mt-1 w-full text-red-500 text-xs text-center">
+              {error}
+            </p>
           )}
-        />
-
-        <LoaderButton type="submit" className="w-full" isLoading={loading}>
-          Sign In
-        </LoaderButton>
+        </div>
+        <Button type="button" asChild variant="outline" className="mt-2">
+          <Link href="/sign-in">
+            <Lock />
+            <span>Continue with Password</span>
+          </Link>
+        </Button>
       </form>
     </Form>
   );
 }
-
-export default SignInForm;

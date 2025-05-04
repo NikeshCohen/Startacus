@@ -1,10 +1,10 @@
 import { db } from "@/database";
 import { account, session, user, verification } from "@/database/schema/user";
-import { sendEmailVerification } from "@/emails/resend";
+import { sendEmailVerification, sendMagicLinkEmail } from "@/emails/resend";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
-import { admin, haveIBeenPwned } from "better-auth/plugins";
+import { admin, haveIBeenPwned, magicLink } from "better-auth/plugins";
 import { passkey } from "better-auth/plugins/passkey";
 import { z } from "zod";
 
@@ -93,6 +93,15 @@ export const auth = betterAuth({
     passkey(),
     haveIBeenPwned({
       customPasswordCompromisedMessage: "Please choose a more secure password.",
+    }),
+    magicLink({
+      disableSignUp: true,
+      sendMagicLink: async ({ email, url }) => {
+        await sendMagicLinkEmail({
+          userEmail: email,
+          magicLinkUrl: url,
+        });
+      },
     }),
   ],
   secret: BETTER_AUTH_SECRET,

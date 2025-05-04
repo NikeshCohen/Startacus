@@ -2,15 +2,24 @@
 
 import { startTransition, useActionState, useEffect } from "react";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+import { Mail } from "lucide-react";
 import toast from "react-hot-toast";
 
 import { LoaderButton } from "@/components/global/LoaderButton";
+import { Button } from "@/components/ui/button";
 
 import { oneTap, signInGithub, signInGoogle } from "@/lib/auth/auth-client";
 
-function SSOAuthBtns({ redirectUrl }: { redirectUrl: string }) {
+function SSOAuthBtns({
+  redirectUrl,
+  hideMagicLink = false,
+}: {
+  redirectUrl: string;
+  hideMagicLink?: boolean;
+}) {
   const router = useRouter();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -117,6 +126,15 @@ function SSOAuthBtns({ redirectUrl }: { redirectUrl: string }) {
           Continue with Github
         </LoaderButton>
       </div>
+
+      {!hideMagicLink && (
+        <Button asChild variant="outline" className="mt-2 md:mt-4 w-full">
+          <Link href="/magic-link">
+            <Mail />
+            <span>Continue with Magic Link</span>
+          </Link>
+        </Button>
+      )}
     </div>
   );
 }

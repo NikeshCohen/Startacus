@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import AuthCardFooter from "@/app/(auth)/_components/AuthCardFooter";
 import SSOAuthBtns from "@/app/(auth)/_components/SSOAuthBtns";
 import SignInForm from "@/app/(auth)/_components/SignInForm";
 
@@ -71,24 +72,7 @@ export default async function SignIn({ searchParams }: PageProps) {
 
               <SSOAuthBtns redirectUrl={redirectUrl} />
 
-              <div className="bg-primary/5 p-4 rounded-lg">
-                <p className="text-muted-foreground text-sm text-center">
-                  By signing in, you agree to our{" "}
-                  <Link
-                    href="/tos#terms-of-service"
-                    className="text-primary hover:underline"
-                  >
-                    Terms of Service
-                  </Link>{" "}
-                  and{" "}
-                  <Link
-                    href="/tos#privacy-policy"
-                    className="text-primary hover:underline"
-                  >
-                    Privacy Policy
-                  </Link>
-                </p>
-              </div>
+              <AuthCardFooter />
             </CardContent>
 
             <CardFooter className="flex justify-center gap-1 py-1 border-t text-sm pointer-events-auto">

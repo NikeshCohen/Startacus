@@ -1,4 +1,5 @@
 import EmailVerification from "@/emails/email-verification";
+import MagicLinkEmail from "@/emails/magic-link";
 import { Resend } from "resend";
 import { z } from "zod";
 
@@ -20,6 +21,13 @@ const RESEND_FROM_EMAIL = z
 export const resend = new Resend(RESEND_API_KEY);
 export const from = RESEND_FROM_EMAIL;
 
+export const colors = {
+  primary: "#cb6441",
+  background: "#ffffff",
+  text: "#333333",
+  mutedText: "#666666",
+};
+
 export async function sendEmailVerification({
   userEmail,
   username,
@@ -37,6 +45,24 @@ export async function sendEmailVerification({
       userEmail,
       username,
       verificationLink,
+    }),
+  });
+}
+
+export async function sendMagicLinkEmail({
+  userEmail,
+  magicLinkUrl,
+}: {
+  userEmail: string;
+  magicLinkUrl: string;
+}) {
+  return resend.emails.send({
+    from,
+    to: userEmail,
+    subject: "Startacus - Your magic link to sign in",
+    react: MagicLinkEmail({
+      userEmail,
+      magicLinkUrl,
     }),
   });
 }

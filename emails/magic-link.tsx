@@ -14,18 +14,16 @@ import {
   Text,
 } from "@react-email/components";
 
-interface EmailVerificationProps {
+interface MagicLinkEmailProps {
   userEmail: string;
-  username: string;
-  verificationLink: string;
+  magicLinkUrl: string;
 }
 
-export const EmailVerification = ({
+export const MagicLinkEmail = ({
   userEmail,
-  username,
-  verificationLink,
-}: EmailVerificationProps) => {
-  const previewText = "Startacus - Verify your email address";
+  magicLinkUrl,
+}: MagicLinkEmailProps) => {
+  const previewText = "Startacus - Sign in with magic link";
 
   return (
     <Html>
@@ -54,18 +52,21 @@ export const EmailVerification = ({
               />
             </Section>
             <Heading className="mx-0 my-[10px] p-0 font-normal text-[24px] text-black text-center">
-              Verify your <strong>Startacus</strong> account
+              Sign in to <strong>Startacus</strong>
             </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">Hey,</Text>
             <Text className="text-[14px] text-black leading-[24px]">
-              Hey {username}!
+              Someone (hopefully you) has requested a magic link to sign in to
+              your <strong>Startacus</strong> account. Click the button below to
+              securely sign in.
             </Text>
+
             <Text className="text-[14px] text-black leading-[24px]">
-              Thank you for signing up for <strong>Startacus</strong>. To
-              complete your registration, please verify your email address. This
-              assists us in keeping your account safe.
+              Requested using: {userEmail}
             </Text>
+
             <Text className="text-[14px] text-black leading-[24px]">
-              Please click the button below to verify your email address.
+              This link will expire in 5 minutes and can only be used once.
             </Text>
             <Section className="mt-[32px] mb-[32px] text-center">
               <Button
@@ -78,15 +79,16 @@ export const EmailVerification = ({
                   padding: "12px 20px",
                   textDecoration: "none",
                 }}
-                href={verificationLink}
+                href={magicLinkUrl}
               >
-                Verify Email Address
+                Sign In
               </Button>
             </Section>
             <Hr className="mx-0 my-[26px] border border-[#eaeaea] border-solid w-full" />
             <Text className={`text-[${colors.mutedText}] text-center text-xs`}>
-              If you didn&apos;t sign up for Startacus using{" "}
-              <strong>{userEmail}</strong>, please ignore this email.
+              If you didn&apos;t request this magic link for{" "}
+              <strong>{userEmail}</strong>, please ignore this email. Your
+              account remains secure.
             </Text>
           </Container>
         </Body>
@@ -95,10 +97,9 @@ export const EmailVerification = ({
   );
 };
 
-EmailVerification.PreviewProps = {
+MagicLinkEmail.PreviewProps = {
   userEmail: "test@test.com",
-  username: "test",
-  verificationLink: "https://startacus.com",
-} as EmailVerificationProps;
+  magicLinkUrl: "https://startacus.com",
+} as MagicLinkEmailProps;
 
-export default EmailVerification;
+export default MagicLinkEmail;

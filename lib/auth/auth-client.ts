@@ -1,5 +1,6 @@
 import {
   adminClient,
+  magicLinkClient,
   oneTapClient,
   passkeyClient,
 } from "better-auth/client/plugins";
@@ -15,6 +16,7 @@ export const authClient = createAuthClient({
       },
     }),
     passkeyClient(),
+    magicLinkClient(),
   ],
 });
 
