@@ -79,7 +79,11 @@ function SignInForm({ redirectUrl }: { redirectUrl: string }) {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="email@example.com" {...field} />
+                <Input
+                  placeholder="user@example.com"
+                  autoComplete="email"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -95,7 +99,7 @@ function SignInForm({ redirectUrl }: { redirectUrl: string }) {
               <FormControl>
                 <PasswordInput
                   placeholder="Password"
-                  autoComplete="current-password"
+                  autoComplete="password"
                   hideLabel
                   {...field}
                 />

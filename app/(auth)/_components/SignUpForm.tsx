@@ -195,8 +195,8 @@ function SignUpForm({ redirectUrl }: { redirectUrl: string }) {
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="bobjones@example.com"
-                  autoComplete="username"
+                  placeholder="user@example.com"
+                  autoComplete="email"
                   {...field}
                 />
               </FormControl>
@@ -214,7 +214,7 @@ function SignUpForm({ redirectUrl }: { redirectUrl: string }) {
               <FormControl>
                 <PasswordInput
                   placeholder="Password"
-                  autoComplete="current-password"
+                  autoComplete="password"
                   hideLabel
                   {...field}
                 />
