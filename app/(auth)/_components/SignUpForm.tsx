@@ -50,7 +50,7 @@ function PasswordConfirmationBlocks({
   if (password.length < 2) return;
 
   return (
-    <div className="flex w-full gap-1 pb-1">
+    <div className="flex gap-1 pb-1 w-full">
       {blocks.map((_, index) => {
         const flexGrow = blocks.length < 28 ? 1 : 0;
         const baseColor = "#71717a";
@@ -59,7 +59,7 @@ function PasswordConfirmationBlocks({
           return (
             <motion.div
               key={`empty-${index}`}
-              className="h-[2px] rounded-full"
+              className="rounded-full h-[2px]"
               style={{ flexGrow, backgroundColor: baseColor }}
               animate={{ backgroundColor: baseColor }}
               transition={{ duration: 0.2 }}
@@ -74,7 +74,7 @@ function PasswordConfirmationBlocks({
           return (
             <motion.div
               key={`match-${index}-${confirmationValue[index]}`}
-              className="h-[2px] rounded-full"
+              className="rounded-full h-[2px]"
               style={{ flexGrow }}
               initial={{ backgroundColor: baseColor }}
               animate={{ backgroundColor: "#22c55e" }}
@@ -92,7 +92,7 @@ function PasswordConfirmationBlocks({
         return (
           <motion.div
             key={`error-${index}-${confirmationValue[index]}`}
-            className="h-[2px] rounded-full"
+            className="rounded-full h-[2px]"
             style={{ flexGrow }}
             initial={{ backgroundColor: baseColor }}
             animate={{ backgroundColor: "#ef4444" }}
@@ -156,7 +156,7 @@ function SignUpForm({ redirectUrl }: { redirectUrl: string }) {
             setLoading(false);
           },
           onSuccess: async () => {
-            router.push(redirectUrl);
+            router.push("/verify-email");
           },
         },
       });
@@ -169,7 +169,7 @@ function SignUpForm({ redirectUrl }: { redirectUrl: string }) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="gap-4 grid">
         <FormField
           control={form.control}
           name="username"
@@ -251,7 +251,7 @@ function SignUpForm({ redirectUrl }: { redirectUrl: string }) {
         </LoaderButton>
 
         {error && (
-          <p className="w-full text-center text-xs text-red-500">{error}</p>
+          <p className="w-full text-red-500 text-xs text-center">{error}</p>
         )}
       </form>
     </Form>

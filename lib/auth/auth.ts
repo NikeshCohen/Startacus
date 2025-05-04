@@ -1,10 +1,10 @@
 import { db } from "@/database";
 import { account, session, user, verification } from "@/database/schema/user";
+import { sendEmailVerification } from "@/emails/resend";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
-import { admin } from "better-auth/plugins";
-import { haveIBeenPwned } from "better-auth/plugins";
+import { admin, haveIBeenPwned } from "better-auth/plugins";
 import { passkey } from "better-auth/plugins/passkey";
 import { z } from "zod";
 
@@ -67,6 +67,17 @@ export const auth = betterAuth({
   },
   emailAndPassword: {
     enabled: true,
+  },
+  emailVerification: {
+    sendOnSignUp: true,
+    autoSignInAfterVerification: true,
+    async sendVerificationEmail({ user, url }) {
+      await sendEmailVerification({
+        userEmail: user.email,
+        username: user.name,
+        verificationLink: url,
+      });
+    },
   },
   account: {
     accountLinking: {
