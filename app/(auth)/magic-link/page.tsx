@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-import AuthCardFooter from "@/app/(auth)/_components/AuthCardFooter";
 import MagicLinkForm from "@/app/(auth)/_components/MagicLinkForm";
 
 import Logo from "@/components/global/Logo";
@@ -57,8 +56,6 @@ export default async function Page({ searchParams }: PageProps) {
 
           <CardContent className="relative space-y-6 pt-2 pb-2">
             <MagicLinkForm redirectUrl={redirectUrl} />
-
-            <AuthCardFooter />
           </CardContent>
         </Card>
       </div>
