@@ -48,6 +48,9 @@ function SSOAuthBtns({
   useEffect(() => {
     oneTap({
       fetchOptions: {
+        headers: {
+          "Referrer-Policy": "no-referrer-when-downgrade",
+        },
         onError: ({ error }) => {
           toast.error(error.message || "An error occurred");
         },

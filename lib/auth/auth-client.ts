@@ -11,8 +11,12 @@ export const authClient = createAuthClient({
     adminClient(),
     oneTapClient({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+      autoSelect: false,
+      cancelOnTapOutside: true,
+      context: "signin",
       promptOptions: {
-        maxAttempts: 1,
+        baseDelay: 1000,
+        maxAttempts: 5,
       },
     }),
     passkeyClient(),
