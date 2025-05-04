@@ -4,10 +4,11 @@ import { useState } from "react";
 
 import { useRouter } from "next/navigation";
 
-import { LogOutIcon } from "lucide-react";
+import { LogOutIcon, UserIcon } from "lucide-react";
 import toast from "react-hot-toast";
 
 import UserProfileAvatar from "@/components/global/UserProfileAvatar";
+import ProfileMenu from "@/components/profile/profile-menu";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,10 +21,10 @@ import { authClient } from "@/lib/auth/auth-client";
 
 export default function UserContextMenu({ className }: { className?: string }) {
   const router = useRouter();
-
   const { data: session } = authClient.useSession();
 
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(true);
 
   if (!session?.user) return null;
 
@@ -47,30 +48,48 @@ export default function UserContextMenu({ className }: { className?: string }) {
     setIsLoggingOut(false);
   };
 
+  const handleOpenProfile = () => {
+    setIsProfileMenuOpen(true);
+  };
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <div className="cursor-pointer">
-          <UserProfileAvatar user={session.user} className={className} />
-        </div>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="p-1 w-36">
-        <DropdownMenuSeparator />
-        {isLoggingOut ? (
-          <DropdownMenuItem className="opacity-70 py-1.5 text-xs cursor-not-allowed">
-            <LogOutIcon className="mr-1.5 w-3 h-3 animate-spin" />
-            Signing out...
-          </DropdownMenuItem>
-        ) : (
+    <>
+      <ProfileMenu
+        user={session.user}
+        open={isProfileMenuOpen}
+        onOpenChange={setIsProfileMenuOpen}
+      />
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <div className="cursor-pointer">
+            <UserProfileAvatar user={session.user} className={className} />
+          </div>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="p-1 w-36">
           <DropdownMenuItem
             className="py-1.5 text-xs cursor-pointer"
-            onClick={handleSignOut}
+            onClick={handleOpenProfile}
           >
-            <LogOutIcon className="mr-1.5 w-3 h-3" />
-            Sign out
+            <UserIcon className="mr-1.5 w-3 h-3" />
+            Profile
           </DropdownMenuItem>
-        )}
-      </DropdownMenuContent>
-    </DropdownMenu>
+          <DropdownMenuSeparator />
+          {isLoggingOut ? (
+            <DropdownMenuItem className="opacity-70 py-1.5 text-xs cursor-not-allowed">
+              <LogOutIcon className="mr-1.5 w-3 h-3 animate-spin" />
+              Signing out...
+            </DropdownMenuItem>
+          ) : (
+            <DropdownMenuItem
+              className="py-1.5 text-xs cursor-pointer"
+              onClick={handleSignOut}
+            >
+              <LogOutIcon className="mr-1.5 w-3 h-3" />
+              Sign out
+            </DropdownMenuItem>
+          )}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
   );
 }

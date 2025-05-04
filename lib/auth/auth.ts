@@ -1,10 +1,15 @@
 import { db } from "@/database";
 import { account, session, user, verification } from "@/database/schema/user";
 import { sendEmailVerification, sendMagicLinkEmail } from "@/emails/resend";
-import { betterAuth } from "better-auth";
+import { BetterAuthOptions, betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
-import { admin, haveIBeenPwned, magicLink } from "better-auth/plugins";
+import {
+  admin,
+  customSession,
+  haveIBeenPwned,
+  magicLink,
+} from "better-auth/plugins";
 import { oAuthProxy } from "better-auth/plugins";
 import { passkey } from "better-auth/plugins/passkey";
 import { z } from "zod";
@@ -52,7 +57,7 @@ const GITHUB_CLIENT_SECRET = z
   })
   .parse(process.env.GITHUB_CLIENT_SECRET);
 
-export const auth = betterAuth({
+const options = {
   appName: "Startacus",
   database: drizzleAdapter(db, {
     provider: "pg",
@@ -123,4 +128,17 @@ export const auth = betterAuth({
       maxAge: 5 * 30, // Cache duration in seconds
     },
   },
+} satisfies BetterAuthOptions;
+
+export const auth = betterAuth({
+  ...options,
+  plugins: [
+    ...(options.plugins ?? []),
+    customSession(async ({ user, session }) => {
+      return {
+        user,
+        session,
+      };
+    }, options),
+  ],
 });
