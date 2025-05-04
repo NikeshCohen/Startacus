@@ -16,6 +16,7 @@ const BETTER_AUTH_SECRET = z
   })
   .parse(process.env.BETTER_AUTH_SECRET);
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const BETTER_AUTH_URL = z
   .string({
     description: "The URL for the BetterAuth",
@@ -66,12 +67,10 @@ export const auth = betterAuth({
     google: {
       clientId: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      redirectURI: `${BETTER_AUTH_URL}/api/auth/callback/google`, // Required for auth proxy
     },
     github: {
       clientId: GITHUB_CLIENT_ID,
       clientSecret: GITHUB_CLIENT_SECRET,
-      redirectURI: `${BETTER_AUTH_URL}/api/auth/callback/github`, // Required for auth proxy
     },
   },
   emailAndPassword: {
