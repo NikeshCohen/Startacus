@@ -9,11 +9,16 @@ import { toast } from "react-hot-toast";
 import { LoaderIcon } from "@/components/global/LoaderButton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
+import { authClient } from "@/lib/auth/auth-client";
+import { uploadAvatar } from "@/lib/supabase";
 import { cn, getInitials } from "@/lib/utils";
 
 interface AvatarUploadProps {
   user: User;
 }
+
+const MAX_FILE_SIZE = 3 * 1024 * 1024;
+const ALLOWED_FILE_TYPES = ["image/png", "image/jpeg", "image/webp"];
 
 export function AvatarUpload({ user }: AvatarUploadProps) {
   const [image, setImage] = useState<string | null>(user.image || null);
@@ -25,23 +30,54 @@ export function AvatarUpload({ user }: AvatarUploadProps) {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
+    if (file.size > MAX_FILE_SIZE) {
+      toast.error("File size must be less than 3MB");
+      return;
+    }
+
+    if (!ALLOWED_FILE_TYPES.includes(file.type)) {
+      toast.error("Only PNG, JPEG, and WebP formats are allowed");
+      return;
+    }
+
     setIsUploading(true);
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setTimeout(() => {
-        const newImageUrl = e.target?.result as string;
-        setImage(newImageUrl);
-        setIsUploading(false);
-        toast.success("Avatar uploaded successfully");
-        console.log("Image uploaded:", newImageUrl);
-      }, 5000);
-    };
-    reader.readAsDataURL(file);
+    try {
+      const publicUrl = await uploadAvatar(file, user.id, user.image);
+
+      setImage(publicUrl);
+
+      await authClient.updateUser(
+        {
+          image: publicUrl,
+        },
+        {
+          onSuccess: () => {
+            toast.success("Avatar uploaded successfully");
+          },
+          onError: (ctx) => {
+            toast.error(
+              ctx.error.message || "Failed to update avatar in your profile",
+            );
+            console.error(
+              "Failed to update user profile with avatar:",
+              ctx.error,
+            );
+          },
+        },
+      );
+    } catch (error) {
+      console.error("Avatar upload failed:", error);
+      toast.error("Failed to upload avatar");
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   return (
@@ -88,13 +124,14 @@ export function AvatarUpload({ user }: AvatarUploadProps) {
             type="file"
             ref={fileInputRef}
             onChange={handleFileChange}
-            accept="image/*"
+            accept="image/png,image/jpeg,image/webp"
             className="hidden"
           />
         </div>
       </div>
       <p className="mt-3 pt-2 border-t text-muted-foreground text-xs">
-        An avatar is optional but strongly recommended.
+        An avatar is optional but strongly recommended. Max size: 3MB. Formats:
+        PNG, JPEG, WebP.
       </p>
     </div>
   );

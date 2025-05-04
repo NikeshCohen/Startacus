@@ -24,7 +24,7 @@ export default function UserContextMenu({ className }: { className?: string }) {
   const { data: session } = authClient.useSession();
 
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(true);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
   if (!session?.user) return null;
 
