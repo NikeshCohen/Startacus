@@ -5,6 +5,7 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { admin, haveIBeenPwned, magicLink } from "better-auth/plugins";
+import { oAuthProxy } from "better-auth/plugins";
 import { passkey } from "better-auth/plugins/passkey";
 import { z } from "zod";
 
@@ -13,8 +14,14 @@ const BETTER_AUTH_SECRET = z
     description: "The secret key for the BetterAuth",
     required_error: "The environment variable BETTER_AUTH_SECRET is required",
   })
-  .url()
-  .parse(process.env.DATABASE_URL);
+  .parse(process.env.BETTER_AUTH_SECRET);
+
+const BETTER_AUTH_URL = z
+  .string({
+    description: "The URL for the BetterAuth",
+    required_error: "The environment variable BETTER_AUTH_URL is required",
+  })
+  .parse(process.env.BETTER_AUTH_URL);
 
 const GOOGLE_CLIENT_ID = z
   .string({
@@ -59,10 +66,12 @@ export const auth = betterAuth({
     google: {
       clientId: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
+      redirectURI: `${BETTER_AUTH_URL}/api/auth/callback/google`, // Required for auth proxy
     },
     github: {
       clientId: GITHUB_CLIENT_ID,
       clientSecret: GITHUB_CLIENT_SECRET,
+      redirectURI: `${BETTER_AUTH_URL}/api/auth/callback/github`, // Required for auth proxy
     },
   },
   emailAndPassword: {
@@ -86,6 +95,7 @@ export const auth = betterAuth({
   },
   plugins: [
     nextCookies(),
+    oAuthProxy(),
     admin({
       defaultRole: "user",
       adminRoles: ["admin", "superadmin"],
