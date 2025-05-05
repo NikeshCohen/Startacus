@@ -1,22 +1,7 @@
+import { RESEND_API_KEY, RESEND_FROM_EMAIL } from "@/constants/envs";
 import EmailVerification from "@/emails/email-verification";
 import MagicLinkEmail from "@/emails/magic-link";
 import { Resend } from "resend";
-import { z } from "zod";
-
-const RESEND_API_KEY = z
-  .string({
-    description: "API key for Resend",
-    required_error: "The environment variable RESEND_API_KEY is required",
-  })
-  .parse(process.env.RESEND_API_KEY);
-
-const RESEND_FROM_EMAIL = z
-  .string({
-    description: "Email address to send from via Resend",
-    required_error: "The environment variable RESEND_FROM_EMAIL is required",
-  })
-  .email("RESEND_FROM_EMAIL must be a valid email address")
-  .parse(process.env.RESEND_FROM_EMAIL);
 
 export const resend = new Resend(RESEND_API_KEY);
 export const from = RESEND_FROM_EMAIL;

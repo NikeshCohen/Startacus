@@ -1,3 +1,10 @@
+import {
+  BETTER_AUTH_SECRET,
+  GITHUB_CLIENT_ID,
+  GITHUB_CLIENT_SECRET,
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+} from "@/constants/envs";
 import { db } from "@/database";
 import { account, session, user, verification } from "@/database/schema/user";
 import { sendEmailVerification, sendMagicLinkEmail } from "@/emails/resend";
@@ -9,53 +16,9 @@ import {
   customSession,
   haveIBeenPwned,
   magicLink,
+  oAuthProxy,
 } from "better-auth/plugins";
-import { oAuthProxy } from "better-auth/plugins";
 import { passkey } from "better-auth/plugins/passkey";
-import { z } from "zod";
-
-const BETTER_AUTH_SECRET = z
-  .string({
-    description: "The secret key for the BetterAuth",
-    required_error: "The environment variable BETTER_AUTH_SECRET is required",
-  })
-  .parse(process.env.BETTER_AUTH_SECRET);
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const BETTER_AUTH_URL = z
-  .string({
-    description: "The URL for the BetterAuth",
-    required_error: "The environment variable BETTER_AUTH_URL is required",
-  })
-  .parse(process.env.BETTER_AUTH_URL);
-
-const GOOGLE_CLIENT_ID = z
-  .string({
-    description: "The client ID for the Google provider",
-    required_error: "The environment variable GOOGLE_CLIENT_ID is required",
-  })
-  .parse(process.env.GOOGLE_CLIENT_ID);
-
-const GOOGLE_CLIENT_SECRET = z
-  .string({
-    description: "The client secret for the Google provider",
-    required_error: "The environment variable GOOGLE_CLIENT_SECRET is required",
-  })
-  .parse(process.env.GOOGLE_CLIENT_SECRET);
-
-const GITHUB_CLIENT_ID = z
-  .string({
-    description: "The client ID for the GitHub provider",
-    required_error: "The environment variable GITHUB_CLIENT_ID is required",
-  })
-  .parse(process.env.GITHUB_CLIENT_ID);
-
-const GITHUB_CLIENT_SECRET = z
-  .string({
-    description: "The client secret for the GitHub provider",
-    required_error: "The environment variable GITHUB_CLIENT_SECRET is required",
-  })
-  .parse(process.env.GITHUB_CLIENT_SECRET);
 
 const options = {
   appName: "Startacus",

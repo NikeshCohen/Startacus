@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 
-const NEXT_PUBLIC_SUPABASE_URL = z
+export const NEXT_PUBLIC_SUPABASE_URL = z
   .string({
     description: "The URL of the Supabase project",
     required_error:
@@ -10,7 +10,7 @@ const NEXT_PUBLIC_SUPABASE_URL = z
   .url()
   .parse(process.env.NEXT_PUBLIC_SUPABASE_URL);
 
-const NEXT_PUBLIC_SUPABASE_ANON_KEY = z
+export const NEXT_PUBLIC_SUPABASE_ANON_KEY = z
   .string({
     description: "The anonymous key for the Supabase project",
     required_error:
