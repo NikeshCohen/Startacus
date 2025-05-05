@@ -77,7 +77,7 @@ function SignUpForm({ redirectUrl }: { redirectUrl: string }) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="gap-4 grid">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
         <FormField
           control={form.control}
           name="username"
@@ -137,7 +137,7 @@ function SignUpForm({ redirectUrl }: { redirectUrl: string }) {
         </LoaderButton>
 
         {error && (
-          <p className="w-full text-red-500 text-xs text-center">{error}</p>
+          <p className="text-destructive w-full text-center text-xs">{error}</p>
         )}
       </form>
     </Form>

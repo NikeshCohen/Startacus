@@ -38,6 +38,7 @@ export default function MagicLinkForm({
 }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [noUser, setNoUser] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const form = useForm<FormValues>({
@@ -49,6 +50,7 @@ export default function MagicLinkForm({
 
   const onSubmit = async (values: FormValues) => {
     setLoading(true);
+    setNoUser(false);
     setError(null);
 
     await authClient.signIn.magicLink({
@@ -61,9 +63,16 @@ export default function MagicLinkForm({
           toast.success("Magic link sent! Check your email inbox");
         },
         onError: (ctx) => {
-          toast.error(ctx.error.message);
-          setError(ctx.error.message);
-          setLoading(false);
+          if (ctx.error.status === 400) {
+            toast.error("Please create an account first");
+            setNoUser(true);
+            setLoading(false);
+          } else {
+            toast.error(ctx.error.message);
+            setError(ctx.error.message);
+            setLoading(false);
+          }
+          console.log(ctx.error);
         },
       },
     });
@@ -71,15 +80,15 @@ export default function MagicLinkForm({
 
   if (success) {
     return (
-      <div className="flex flex-col items-center text-center s">
-        <h3 className="font-semibold text-xl">Magic link sent successfully</h3>
+      <div className="s flex flex-col items-center text-center">
+        <h3 className="text-xl font-semibold">Magic link sent successfully</h3>
 
         <p className="text-muted-foreground text-sm">
           We&apos;ve sent a secure sign-in link to your email address. The link
           will expire in 5 minutes.
         </p>
 
-        <div className="bg-primary/5 mt-8 p-3 rounded-lg text-sm">
+        <div className="bg-primary/5 mt-8 rounded-lg p-3 text-sm">
           <p className="text-muted-foreground">
             Magic links typically arrive within 1-2 minutes. If you don&apos;t
             see it, please check your spam or junk folder.
@@ -92,7 +101,7 @@ export default function MagicLinkForm({
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="gap-4 grid">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
           <FormField
             control={form.control}
             name="email"
@@ -122,8 +131,17 @@ export default function MagicLinkForm({
               Send Magic Link
             </LoaderButton>
 
+            {noUser && (
+              <p className="text-destructive mt-1 w-full text-center text-xs">
+                Please create an account first.{" "}
+                <Link href="/sign-up" className="underline">
+                  Sign Up
+                </Link>
+              </p>
+            )}
+
             {error && (
-              <p className="mt-1 w-full text-red-500 text-xs text-center">
+              <p className="text-destructive mt-1 w-full text-center text-xs">
                 {error}
               </p>
             )}

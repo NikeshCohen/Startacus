@@ -23,6 +23,7 @@ export default function UserContextMenu({ className }: { className?: string }) {
   const router = useRouter();
   const { data: session } = authClient.useSession();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
@@ -65,29 +66,23 @@ export default function UserContextMenu({ className }: { className?: string }) {
             <UserProfileAvatar user={session.user} className={className} />
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="p-1 w-36">
+        <DropdownMenuContent align="end" className="w-36 p-1">
           <DropdownMenuItem
-            className="py-1.5 text-xs cursor-pointer"
+            className="cursor-pointer py-1.5 text-xs"
             onClick={handleOpenProfile}
           >
-            <UserIcon className="mr-1.5 w-3 h-3" />
+            <UserIcon className="mr-1.5 h-3 w-3" />
             Profile
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          {isLoggingOut ? (
-            <DropdownMenuItem className="opacity-70 py-1.5 text-xs cursor-not-allowed">
-              <LogOutIcon className="mr-1.5 w-3 h-3 animate-spin" />
-              Signing out...
-            </DropdownMenuItem>
-          ) : (
-            <DropdownMenuItem
-              className="py-1.5 text-xs cursor-pointer"
-              onClick={handleSignOut}
-            >
-              <LogOutIcon className="mr-1.5 w-3 h-3" />
-              Sign out
-            </DropdownMenuItem>
-          )}
+
+          <DropdownMenuItem
+            className="cursor-pointer py-1.5 text-xs"
+            onClick={handleSignOut}
+          >
+            <LogOutIcon className="mr-1.5 h-3 w-3" />
+            Sign out
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </>

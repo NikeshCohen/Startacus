@@ -71,10 +71,10 @@ function SSOAuthBtns({
 
   return (
     <div>
-      <div className="gap-2 grid grid-cols-1 md:grid-cols-2">
+      <div className="grid grid-cols-2 gap-2">
         <LoaderButton
           variant="secondary"
-          className="gap-2 w-full text-black"
+          className="w-full gap-2 text-black"
           disabled={isLoadingGoogle || isLoadingGithub}
           isLoading={isLoadingGoogle}
           onClick={handleGoogleSignIn}
@@ -104,11 +104,11 @@ function SSOAuthBtns({
               ></path>
             </svg>
           )}
-          Continue with Google
+          <span className="hidden md:block">Continue with</span> Google
         </LoaderButton>
         <LoaderButton
           variant="secondary"
-          className="gap-2 w-full text-black"
+          className="w-full gap-2 text-black"
           disabled={isLoadingGoogle || isLoadingGithub}
           isLoading={isLoadingGithub}
           onClick={handleGithubSignIn}
@@ -126,12 +126,12 @@ function SSOAuthBtns({
               ></path>
             </svg>
           )}
-          Continue with Github
+          <span className="hidden md:block">Continue with</span> Github
         </LoaderButton>
       </div>
 
       {!hideMagicLink && (
-        <Button asChild variant="outline" className="mt-2 md:mt-4 w-full">
+        <Button asChild variant="outline" className="mt-2 w-full md:mt-4">
           <Link href="/magic-link">
             <Mail />
             <span>Continue with Magic Link</span>

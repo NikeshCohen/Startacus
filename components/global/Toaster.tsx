@@ -24,9 +24,15 @@ export default function Toaster(props: ToasterProps) {
         },
         error: {
           ...props.toastOptions?.error,
+          duration: 4000,
+          style: {
+            background: "var(--background)",
+            color: "var(--foreground)",
+            ...props.toastOptions?.error?.style,
+          },
           iconTheme: {
             primary: "var(--destructive)",
-            secondary: "white",
+            secondary: "var(--destructive-foreground)",
             ...props.toastOptions?.error?.iconTheme,
           },
         },

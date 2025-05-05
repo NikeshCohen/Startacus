@@ -14,7 +14,7 @@ export default function TermsOfService() {
     <section className="container mx-auto max-w-4xl px-4 pt-24 pb-12">
       <div className="max-w-none">
         <h1 className="mt-10 mb-12 text-center text-4xl font-extrabold">
-          Legal <span className="text-primary">Documents</span>
+          Legal <span>Documents</span>
         </h1>
 
         {/* Terms of Service Section */}
@@ -27,7 +27,7 @@ export default function TermsOfService() {
           <div className="space-y-8">
             <div>
               <h3 className="mb-4 text-lg font-semibold">
-                1.1 <span className="text-primary">Acceptance</span> of Terms
+                1.1 <span>Acceptance</span> of Terms
               </h3>
               <p className="text-muted-foreground">
                 By using Startacus, you agree to these Terms of Service. If you
@@ -37,7 +37,7 @@ export default function TermsOfService() {
 
             <div>
               <h3 className="mb-4 text-lg font-semibold">
-                1.2 <span className="text-primary">Use</span> of the Service
+                1.2 <span>Use</span> of the Service
               </h3>
               <ul className="text-muted-foreground list-disc space-y-2 pl-6">
                 <li>You must be at least 18 years old to use this service.</li>
@@ -53,8 +53,7 @@ export default function TermsOfService() {
 
             <div>
               <h3 className="mb-4 text-lg font-semibold">
-                1.3 <span className="text-primary">Account</span> & Access
-                Control
+                1.3 <span>Account</span> & Access Control
               </h3>
               <ul className="text-muted-foreground list-disc space-y-2 pl-6">
                 <li>
@@ -70,7 +69,7 @@ export default function TermsOfService() {
 
             <div>
               <h3 className="mb-4 text-lg font-semibold">
-                1.4 <span className="text-primary">Changes</span> to the Service
+                1.4 <span>Changes</span> to the Service
               </h3>
               <ul className="text-muted-foreground list-disc space-y-2 pl-6">
                 <li>
@@ -85,8 +84,7 @@ export default function TermsOfService() {
 
             <div>
               <h3 className="mb-4 text-lg font-semibold">
-                1.5 <span className="text-primary">Limitation</span> of
-                Liability
+                1.5 <span>Limitation</span> of Liability
               </h3>
               <ul className="text-muted-foreground list-disc space-y-2 pl-6">
                 <li>
@@ -114,7 +112,7 @@ export default function TermsOfService() {
           <div className="space-y-8">
             <div>
               <h3 className="mb-4 text-lg font-semibold">
-                2.1 Information We <span className="text-primary">Collect</span>
+                2.1 Information We <span>Collect</span>
               </h3>
               <ul className="text-muted-foreground list-disc space-y-2 pl-6">
                 <li>
@@ -130,7 +128,7 @@ export default function TermsOfService() {
 
             <div>
               <h3 className="mb-4 text-lg font-semibold">
-                2.2 How We <span className="text-primary">Use</span> Your Data
+                2.2 How We <span>Use</span> Your Data
               </h3>
               <ul className="text-muted-foreground list-disc space-y-2 pl-6">
                 <li>To provide and improve our services.</li>
@@ -143,8 +141,7 @@ export default function TermsOfService() {
 
             <div>
               <h3 className="mb-4 text-lg font-semibold">
-                2.3 Data <span className="text-primary">Sharing</span> & Third
-                Parties
+                2.3 Data <span>Sharing</span> & Third Parties
               </h3>
               <ul className="text-muted-foreground list-disc space-y-2 pl-6">
                 <li>We do not sell user data.</li>
@@ -161,7 +158,7 @@ export default function TermsOfService() {
 
             <div>
               <h3 className="mb-4 text-lg font-semibold">
-                2.4 Data <span className="text-primary">Retention</span>
+                2.4 Data <span>Retention</span>
               </h3>
               <ul className="text-muted-foreground list-disc space-y-2 pl-6">
                 <li>
@@ -176,7 +173,7 @@ export default function TermsOfService() {
 
             <div>
               <h3 className="mb-4 text-lg font-semibold">
-                2.5 <span className="text-primary">Security</span> Measures
+                2.5 <span>Security</span> Measures
               </h3>
               <ul className="text-muted-foreground list-disc space-y-2 pl-6">
                 <li>
