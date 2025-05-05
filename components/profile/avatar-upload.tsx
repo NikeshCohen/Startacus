@@ -18,7 +18,7 @@ interface AvatarUploadProps {
 }
 
 const MAX_FILE_SIZE = 3 * 1024 * 1024;
-const ALLOWED_FILE_TYPES = ["image/png", "image/jpeg", "image/webp"];
+const ALLOWED_FILE_TYPES = ["image/png", "image/jpg", "image/webp"];
 
 export function AvatarUpload({ user }: AvatarUploadProps) {
   const [image, setImage] = useState<string | null>(user.image || null);
@@ -81,7 +81,7 @@ export function AvatarUpload({ user }: AvatarUploadProps) {
   };
 
   return (
-    <div className="bg-card/60 rounded-lg border p-4">
+    <div className="bg-card/60 p-4 border rounded-lg">
       <div className="flex items-center gap-4">
         <div
           onClick={handleClick}
@@ -90,7 +90,7 @@ export function AvatarUpload({ user }: AvatarUploadProps) {
             isUploading && "cursor-wait",
           )}
         >
-          <Avatar className="h-16 w-16">
+          <Avatar className="w-16 h-16">
             {image ? (
               <AvatarImage src={image} alt={user.name || "User avatar"} />
             ) : null}
@@ -106,14 +106,14 @@ export function AvatarUpload({ user }: AvatarUploadProps) {
             )}
           >
             {isUploading ? (
-              <LoaderIcon className="h-5 w-5 animate-spin text-white" />
+              <LoaderIcon className="w-5 h-5 text-white animate-spin" />
             ) : (
-              <Upload className="h-5 w-5 text-white" />
+              <Upload className="w-5 h-5 text-white" />
             )}
           </div>
         </div>
         <div className="flex-1">
-          <h3 className="mb-1 text-lg font-medium">Avatar</h3>
+          <h3 className="mb-1 font-medium text-lg">Avatar</h3>
 
           <p className="text-muted-foreground text-sm">
             {isUploading
@@ -129,7 +129,7 @@ export function AvatarUpload({ user }: AvatarUploadProps) {
           />
         </div>
       </div>
-      <p className="text-muted-foreground mt-3 border-t pt-2 text-xs">
+      <p className="mt-3 pt-2 border-t text-muted-foreground text-xs">
         An avatar is optional but strongly recommended. Max size: 3MB. Formats:
         PNG, JPEG, WebP.
       </p>
