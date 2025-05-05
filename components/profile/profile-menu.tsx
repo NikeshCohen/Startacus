@@ -8,9 +8,11 @@ import { ShieldIcon, UserIcon } from "lucide-react";
 import { AvatarUpload } from "@/components/profile/avatar-upload";
 import ChangeEmail from "@/components/profile/change-email";
 import { NameEditor } from "@/components/profile/name-editor";
+import UserSessions from "@/components/profile/user-sessions";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -25,6 +27,7 @@ interface ProfileMenuProps {
 
 export default function ProfileMenu({
   user,
+  session,
   open,
   onOpenChange,
 }: ProfileMenuProps) {
@@ -35,6 +38,9 @@ export default function ProfileMenu({
       <DialogContent className="flex max-h-[80vh] min-h-[30vh] flex-col justify-start overflow-y-auto sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle className="text-center">Profile Management</DialogTitle>
+          <DialogDescription className="text-center">
+            Manage your profile settings and account security
+          </DialogDescription>
         </DialogHeader>
 
         <Tabs
@@ -59,9 +65,7 @@ export default function ProfileMenu({
             <ChangeEmail user={user} />
           </TabsContent>
           <TabsContent value="security" className="mt-4">
-            <p className="text-muted-foreground text-sm">
-              Update your security settings and preferences.
-            </p>
+            <UserSessions currentSession={session} />
           </TabsContent>
         </Tabs>
       </DialogContent>

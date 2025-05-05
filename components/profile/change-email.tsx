@@ -104,7 +104,7 @@ function ChangeEmail({ user }: ChangeEmailProps) {
 
   if (!isEmailVerified.current) {
     return (
-      <div className="bg-card/60 rounded-lg border p-4 shadow-sm">
+      <div className="bg-card/60 rounded-lg border p-4">
         <div className="text-lg font-medium">Verify Your Email</div>
         <div className="text-muted-foreground pb-1 text-sm">
           Please verify your email address. Check your inbox for the
@@ -126,7 +126,7 @@ function ChangeEmail({ user }: ChangeEmailProps) {
   }
 
   return (
-    <div className="bg-card/60 rounded-lg border p-4 shadow-sm">
+    <div className="bg-card/60 rounded-lg border p-4">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField

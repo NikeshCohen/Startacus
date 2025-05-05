@@ -15,8 +15,8 @@ function DevelopmentScan() {
   return <></>;
 }
 
-export function ReactScan({ prodEnabled = false }: { prodEnabled?: boolean }) {
-  if (!prodEnabled) {
+export function ReactScan() {
+  if (process.env.NODE_ENV !== "development") {
     return null;
   }
 

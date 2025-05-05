@@ -71,7 +71,7 @@ export function NameEditor({ user }: NameEditorProps) {
   };
 
   return (
-    <div className="bg-card/60 rounded-lg border p-4 shadow-sm">
+    <div className="bg-card/60 rounded-lg border p-4">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
