@@ -24,8 +24,11 @@ interface SessionProps {
 }
 
 function UserSessions({ currentSession }: { currentSession: SessionType }) {
-  const { data: sessions, isLoading, error } = useSessions();
+  const router = useRouter();
   const queryClient = getQueryClient();
+
+  const { data: sessions, isLoading, error } = useSessions();
+
   const [isRevokingOther, setIsRevokingOther] = useState(false);
   const [isRevokingAll, setIsRevokingAll] = useState(false);
 
@@ -38,56 +41,57 @@ function UserSessions({ currentSession }: { currentSession: SessionType }) {
 
   const handleRevokeOtherSessions = async () => {
     setIsRevokingOther(true);
-    try {
-      await authClient.revokeOtherSessions(
-        {},
-        {
-          onSuccess: () => {
-            toast.success("Other sessions revoked successfully");
-            queryClient.invalidateQueries({ queryKey: ["user-sessions"] });
-          },
-          onError: (ctx) => {
-            toast.error(ctx.error.message || "Failed to revoke other sessions");
-            console.error("Failed to revoke other sessions:", ctx.error);
-          },
+
+    await authClient.revokeOtherSessions(
+      {},
+      {
+        onResponse: () => {
+          setIsRevokingOther(false);
         },
-      );
-    } catch (error) {
-      console.error("Error revoking other sessions:", error);
-      toast.error("Failed to revoke other sessions");
-    } finally {
-      setIsRevokingOther(false);
-    }
+        onSuccess: () => {
+          toast.success("Other sessions revoked successfully");
+          queryClient.invalidateQueries({ queryKey: ["user-sessions"] });
+        },
+        onError: (ctx) => {
+          toast.error(ctx.error.message || "Failed to revoke other sessions");
+          console.error("Failed to revoke other sessions:", ctx.error);
+        },
+      },
+    );
   };
 
   const handleRevokeAllSessions = async () => {
     setIsRevokingAll(true);
-    try {
-      await authClient.revokeSessions(
-        {},
-        {
-          onSuccess: () => {
-            toast.success("All sessions revoked successfully");
-            queryClient.invalidateQueries({ queryKey: ["user-sessions"] });
-          },
-          onError: (ctx) => {
-            toast.error(ctx.error.message || "Failed to revoke all sessions");
-            console.error("Failed to revoke all sessions:", ctx.error);
-          },
+    await authClient.revokeSessions(
+      {},
+      {
+        onResponse: () => {
+          setIsRevokingAll(false);
         },
-      );
-    } catch (error) {
-      console.error("Error revoking all sessions:", error);
-      toast.error("Failed to revoke all sessions");
-    } finally {
-      setIsRevokingAll(false);
-    }
+        onSuccess: () => {
+          toast.success("All sessions revoked successfully");
+          queryClient.invalidateQueries({ queryKey: ["user-sessions"] });
+        },
+        onError: (ctx) => {
+          toast.error(ctx.error.message || "Failed to revoke all sessions");
+          console.error("Failed to revoke all sessions:", ctx.error);
+        },
+      },
+    );
+
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/");
+        },
+      },
+    });
   };
 
   return (
-    <div className="bg-card/60 rounded-lg border p-4">
-      <div className="text-lg font-medium">Sessions</div>
-      <div className="text-muted-foreground pb-1 text-sm">
+    <div className="bg-card/60 p-4 border rounded-lg">
+      <div className="font-medium text-lg">Sessions</div>
+      <div className="pb-1 text-muted-foreground text-sm">
         Manage your active sessions and revoke access.
       </div>
 
@@ -96,21 +100,21 @@ function UserSessions({ currentSession }: { currentSession: SessionType }) {
           {Array.from({ length: 2 }).map((_, i) => (
             <Card
               key={i}
-              className="mb-2 flex flex-row items-center gap-3 px-4 py-3"
+              className="flex flex-row items-center gap-3 mb-2 px-4 py-3"
             >
-              <Skeleton className="h-4 w-4" />
-              <div className="flex flex-grow flex-col">
-                <Skeleton className="mb-1 h-4 w-32" />
-                <Skeleton className="h-3 w-24" />
+              <Skeleton className="w-4 h-4" />
+              <div className="flex flex-col flex-grow">
+                <Skeleton className="mb-1 w-32 h-4" />
+                <Skeleton className="w-24 h-3" />
               </div>
-              <Skeleton className="h-8 w-20" />
+              <Skeleton className="w-20 h-8" />
             </Card>
           ))}
         </div>
       )}
 
       {error && (
-        <div className="text-destructive py-2">
+        <div className="py-2 text-destructive">
           Failed to load sessions. Please try again.
         </div>
       )}
@@ -128,7 +132,7 @@ function UserSessions({ currentSession }: { currentSession: SessionType }) {
       )}
 
       {!isLoading && sessions && sessions.length > 1 && (
-        <div className="mt-4 mb-2 flex gap-2">
+        <div className="flex gap-2 mt-4 mb-2">
           <Button
             variant="outline"
             size="xs"
@@ -159,14 +163,17 @@ function Session({ session, isCurrentSession }: SessionProps) {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleRevoke = async (sessionId: string) => {
-    console.log(sessionId);
+  const handleRevoke = async () => {
+    setIsLoading(true);
 
     if (isCurrentSession) {
       const toastId = toast.loading("Signing out...");
 
       await authClient.signOut({
         fetchOptions: {
+          onResponse: () => {
+            setIsLoading(false);
+          },
           onSuccess: () => {
             router.push("/");
             toast.success("Signed out successfully", { id: toastId });
@@ -180,7 +187,7 @@ function Session({ session, isCurrentSession }: SessionProps) {
     } else {
       await authClient.revokeSession(
         {
-          token: sessionId,
+          token: session.token,
         },
         {
           onResponse: () => {
@@ -209,7 +216,7 @@ function Session({ session, isCurrentSession }: SessionProps) {
   const isMobile = parser.getDevice().type === "mobile";
 
   return (
-    <Card className="mb-2 flex flex-row items-center gap-3 px-4 py-3">
+    <Card className="flex flex-row items-center gap-3 mb-2 px-4 py-3">
       {isMobile ? (
         <SmartphoneIcon className="size-4" />
       ) : (
@@ -217,7 +224,7 @@ function Session({ session, isCurrentSession }: SessionProps) {
       )}
 
       <div className="flex flex-col">
-        <span className="text-sm font-semibold">
+        <span className="font-semibold text-sm">
           {isCurrentSession ? "Current Session" : session?.ipAddress}
         </span>
 
@@ -232,7 +239,7 @@ function Session({ session, isCurrentSession }: SessionProps) {
         disabled={isLoading}
         size="xs"
         variant="secondary"
-        onClick={() => handleRevoke(session.id)}
+        onClick={handleRevoke}
       >
         {isCurrentSession ? "Sign Out" : "Revoke"}
       </LoaderButton>
