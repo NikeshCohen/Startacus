@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 
-import { User } from "better-auth";
+import { Session, User } from "better-auth";
 import { ShieldIcon, UserIcon } from "lucide-react";
 
 import { AvatarUpload } from "@/components/profile/avatar-upload";
+import ChangeEmail from "@/components/profile/change-email";
 import { NameEditor } from "@/components/profile/name-editor";
 import {
   Dialog,
@@ -17,6 +18,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface ProfileMenuProps {
   user: User;
+  session: Session;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
@@ -30,7 +32,7 @@ export default function ProfileMenu({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="flex flex-col justify-start sm:max-w-2xl min-h-[30vh] max-h-[80vh] overflow-y-auto">
+      <DialogContent className="flex max-h-[80vh] min-h-[30vh] flex-col justify-start overflow-y-auto sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle className="text-center">Profile Management</DialogTitle>
         </DialogHeader>
@@ -41,19 +43,20 @@ export default function ProfileMenu({
           onValueChange={setActiveTab}
           value={activeTab}
         >
-          <TabsList className="grid grid-cols-2 w-full">
+          <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="account">
-              <UserIcon className="mr-2 w-4 h-4" />
+              <UserIcon className="mr-2 h-4 w-4" />
               Account
             </TabsTrigger>
             <TabsTrigger value="security">
-              <ShieldIcon className="mr-2 w-4 h-4" />
+              <ShieldIcon className="mr-2 h-4 w-4" />
               Security
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="account" className="space-y-4 mt-4">
+          <TabsContent value="account" className="mt-4 space-y-4">
             <AvatarUpload user={user} />
             <NameEditor user={user} />
+            <ChangeEmail user={user} />
           </TabsContent>
           <TabsContent value="security" className="mt-4">
             <p className="text-muted-foreground text-sm">

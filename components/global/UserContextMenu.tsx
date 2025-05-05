@@ -57,6 +57,7 @@ export default function UserContextMenu({ className }: { className?: string }) {
     <>
       <ProfileMenu
         user={session.user}
+        session={session.session}
         open={isProfileMenuOpen}
         onOpenChange={setIsProfileMenuOpen}
       />

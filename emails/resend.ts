@@ -1,4 +1,5 @@
 import { RESEND_API_KEY, RESEND_FROM_EMAIL } from "@/constants/envs";
+import EmailChangeConfirmation from "@/emails/email-change-confirmation";
 import EmailVerification from "@/emails/email-verification";
 import MagicLinkEmail from "@/emails/magic-link";
 import { Resend } from "resend";
@@ -48,6 +49,30 @@ export async function sendMagicLinkEmail({
     react: MagicLinkEmail({
       userEmail,
       magicLinkUrl,
+    }),
+  });
+}
+
+export async function sendEmailChangeConfirmation({
+  userEmail,
+  newEmail,
+  username,
+  confirmationLink,
+}: {
+  userEmail: string;
+  newEmail: string;
+  username: string;
+  confirmationLink: string;
+}) {
+  return resend.emails.send({
+    from,
+    to: userEmail,
+    subject: "Startacus - Confirm your email address change",
+    react: EmailChangeConfirmation({
+      userEmail,
+      newEmail,
+      username,
+      confirmationLink,
     }),
   });
 }

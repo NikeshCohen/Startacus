@@ -22,7 +22,6 @@ import { Input } from "@/components/ui/input";
 
 import { authClient } from "@/lib/auth/auth-client";
 
-// Form schema for name validation
 const nameFormSchema = z.object({
   name: z
     .string()
@@ -72,7 +71,7 @@ export function NameEditor({ user }: NameEditorProps) {
   };
 
   return (
-    <div className="bg-card/60 shadow-sm p-4 border rounded-lg">
+    <div className="bg-card/60 rounded-lg border p-4 shadow-sm">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
@@ -80,7 +79,7 @@ export function NameEditor({ user }: NameEditorProps) {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-medium text-lg">Name</FormLabel>
+                <FormLabel className="text-lg font-medium">Name</FormLabel>
                 <FormDescription className="pb-1">
                   Please enter your full name, or a display name.
                 </FormDescription>
@@ -95,9 +94,10 @@ export function NameEditor({ user }: NameEditorProps) {
               </FormItem>
             )}
           />
-          <div className="flex justify-end mt-4 pt-4 border-t">
+          <div className="mt-4 flex justify-end border-t pt-4">
             <LoaderButton
               type="submit"
+              size="xs"
               isLoading={isUpdating}
               disabled={isUpdating}
             >

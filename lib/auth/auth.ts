@@ -7,7 +7,11 @@ import {
 } from "@/constants/envs";
 import { db } from "@/database";
 import { account, session, user, verification } from "@/database/schema/user";
-import { sendEmailVerification, sendMagicLinkEmail } from "@/emails/resend";
+import {
+  sendEmailChangeConfirmation,
+  sendEmailVerification,
+  sendMagicLinkEmail,
+} from "@/emails/resend";
 import { BetterAuthOptions, betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
@@ -53,6 +57,19 @@ const options = {
         username: user.name,
         verificationLink: url,
       });
+    },
+  },
+  user: {
+    changeEmail: {
+      enabled: true,
+      sendChangeEmailVerification: async ({ user, newEmail, url }) => {
+        await sendEmailChangeConfirmation({
+          userEmail: user.email,
+          newEmail,
+          username: user.name,
+          confirmationLink: url,
+        });
+      },
     },
   },
   account: {

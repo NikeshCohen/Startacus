@@ -43,6 +43,7 @@ const buttonVariants = cva(
       },
       size: {
         default: "h-10 px-4 py-2",
+        xs: "h-8 rounded-md px-2",
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
         icon: "h-10 w-10",
@@ -100,7 +101,7 @@ const Button = React.forwardRef<
         {Icon &&
           iconPlacement === "left" &&
           (effect === "expandIcon" ? (
-            <div className="opacity-0 group-hover:opacity-100 pr-0 group-hover:pr-2 w-0 group-hover:w-5 transition-all translate-x-[0%] group-hover:translate-x-100 duration-200">
+            <div className="w-0 translate-x-[0%] pr-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-100 group-hover:pr-2 group-hover:opacity-100">
               <Icon />
             </div>
           ) : (
@@ -110,7 +111,7 @@ const Button = React.forwardRef<
         {Icon &&
           iconPlacement === "right" &&
           (effect === "expandIcon" ? (
-            <div className="opacity-0 group-hover:opacity-100 pl-0 group-hover:pl-2 w-0 group-hover:w-5 transition-all translate-x-[100%] group-hover:translate-x-0 duration-200">
+            <div className="w-0 translate-x-[100%] pl-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-0 group-hover:pl-2 group-hover:opacity-100">
               <Icon />
             </div>
           ) : (
