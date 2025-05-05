@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { useRouter } from "next/navigation";
 
-import { LogOutIcon, UserIcon } from "lucide-react";
+import { CirclePlusIcon, LogOutIcon, UserIcon, UsersIcon } from "lucide-react";
 import toast from "react-hot-toast";
 
 import UserProfileAvatar from "@/components/global/UserProfileAvatar";
@@ -67,21 +67,48 @@ export default function UserContextMenu({ className }: { className?: string }) {
             <UserProfileAvatar user={session.user} className={className} />
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-36 p-1">
-          <DropdownMenuItem
-            className="cursor-pointer py-1.5 text-xs"
-            onClick={handleOpenProfile}
-          >
-            <UserIcon className="mr-1.5 h-3 w-3" />
-            Profile
-          </DropdownMenuItem>
+        <DropdownMenuContent align="end" className="p-1">
+          <div className="mb-1 px-2 py-1.5">
+            <div className="font-medium text-xs">{session.user.name}</div>
+            <div className="text-muted-foreground text-xs">
+              {session.user.email}
+            </div>
+          </div>
           <DropdownMenuSeparator />
 
           <DropdownMenuItem
-            className="cursor-pointer py-1.5 text-xs"
+            className="py-1.5 text-xs cursor-pointer"
+            onClick={handleOpenProfile}
+          >
+            <UserIcon className="mr-1.5 w-3 h-3" />
+            Profile
+          </DropdownMenuItem>
+
+          <DropdownMenuItem className="py-1.5 text-xs cursor-pointer">
+            <CirclePlusIcon className="mr-1.5 w-3 h-3" />
+            Add Account
+          </DropdownMenuItem>
+
+          <DropdownMenuSeparator />
+
+          {session.user.role === "admin" && (
+            <>
+              <DropdownMenuItem
+                className="py-1.5 text-xs cursor-pointer"
+                onClick={handleOpenProfile}
+              >
+                <UsersIcon className="mr-1.5 w-3 h-3" />
+                User Management
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+            </>
+          )}
+
+          <DropdownMenuItem
+            className="py-1.5 text-xs cursor-pointer"
             onClick={handleSignOut}
           >
-            <LogOutIcon className="mr-1.5 h-3 w-3" />
+            <LogOutIcon className="mr-1.5 w-3 h-3" />
             Sign out
           </DropdownMenuItem>
         </DropdownMenuContent>
