@@ -74,6 +74,8 @@ const options = {
   },
   account: {
     accountLinking: {
+      enabled: true,
+      allowDifferentEmails: true,
       trustedProviders: ["google", "github"],
     },
   },

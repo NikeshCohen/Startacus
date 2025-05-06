@@ -69,7 +69,7 @@ export default function UserContextMenu({ className }: { className?: string }) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="p-1">
           <div className="mb-1 px-2 py-1.5">
-            <div className="font-medium text-xs">{session.user.name}</div>
+            <div className="text-xs font-medium">{session.user.name}</div>
             <div className="text-muted-foreground text-xs">
               {session.user.email}
             </div>
@@ -77,15 +77,15 @@ export default function UserContextMenu({ className }: { className?: string }) {
           <DropdownMenuSeparator />
 
           <DropdownMenuItem
-            className="py-1.5 text-xs cursor-pointer"
+            className="cursor-pointer py-1.5 text-xs"
             onClick={handleOpenProfile}
           >
-            <UserIcon className="mr-1.5 w-3 h-3" />
+            <UserIcon className="mr-1.5 h-3 w-3" />
             Profile
           </DropdownMenuItem>
 
-          <DropdownMenuItem className="py-1.5 text-xs cursor-pointer">
-            <CirclePlusIcon className="mr-1.5 w-3 h-3" />
+          <DropdownMenuItem className="cursor-pointer py-1.5 text-xs">
+            <CirclePlusIcon className="mr-1.5 h-3 w-3" />
             Add Account
           </DropdownMenuItem>
 
@@ -93,11 +93,8 @@ export default function UserContextMenu({ className }: { className?: string }) {
 
           {session.user.role === "admin" && (
             <>
-              <DropdownMenuItem
-                className="py-1.5 text-xs cursor-pointer"
-                onClick={handleOpenProfile}
-              >
-                <UsersIcon className="mr-1.5 w-3 h-3" />
+              <DropdownMenuItem className="cursor-pointer py-1.5 text-xs">
+                <UsersIcon className="mr-1.5 h-3 w-3" />
                 User Management
               </DropdownMenuItem>
               <DropdownMenuSeparator />
@@ -105,10 +102,10 @@ export default function UserContextMenu({ className }: { className?: string }) {
           )}
 
           <DropdownMenuItem
-            className="py-1.5 text-xs cursor-pointer"
+            className="cursor-pointer py-1.5 text-xs"
             onClick={handleSignOut}
           >
-            <LogOutIcon className="mr-1.5 w-3 h-3" />
+            <LogOutIcon className="mr-1.5 h-3 w-3" />
             Sign out
           </DropdownMenuItem>
         </DropdownMenuContent>

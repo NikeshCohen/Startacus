@@ -11,7 +11,6 @@ import { UAParser } from "ua-parser-js";
 
 import { LoaderButton } from "@/components/global/LoaderButton";
 import { useSessions } from "@/components/profile/queries";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -89,32 +88,32 @@ function UserSessions({ currentSession }: { currentSession: SessionType }) {
   };
 
   return (
-    <div className="bg-card/60 p-4 border rounded-lg">
-      <div className="font-medium text-lg">Sessions</div>
-      <div className="pb-1 text-muted-foreground text-sm">
+    <div className="bg-card/60 rounded-lg border p-4">
+      <h2 className="text-lg font-medium">Sessions</h2>
+      <p className="text-muted-foreground pb-1 text-sm">
         Manage your active sessions and revoke access.
-      </div>
+      </p>
 
       {isLoading && (
         <div className="space-y-2 pt-4">
           {Array.from({ length: 2 }).map((_, i) => (
             <Card
               key={i}
-              className="flex flex-row items-center gap-3 mb-2 px-4 py-3"
+              className="mb-2 flex flex-row items-center gap-3 px-4 py-3"
             >
-              <Skeleton className="w-4 h-4" />
-              <div className="flex flex-col flex-grow">
-                <Skeleton className="mb-1 w-32 h-4" />
-                <Skeleton className="w-24 h-3" />
+              <Skeleton className="h-4 w-4" />
+              <div className="flex flex-grow flex-col">
+                <Skeleton className="mb-1 h-4 w-32" />
+                <Skeleton className="h-3 w-24" />
               </div>
-              <Skeleton className="w-20 h-8" />
+              <Skeleton className="h-8 w-20" />
             </Card>
           ))}
         </div>
       )}
 
       {error && (
-        <div className="py-2 text-destructive">
+        <div className="text-destructive py-2">
           Failed to load sessions. Please try again.
         </div>
       )}
@@ -132,25 +131,27 @@ function UserSessions({ currentSession }: { currentSession: SessionType }) {
       )}
 
       {!isLoading && sessions && sessions.length > 1 && (
-        <div className="flex gap-2 mt-4 mb-2">
-          <Button
-            variant="outline"
+        <div className="mt-4 mb-2 flex flex-col gap-2 md:flex-row">
+          <LoaderButton
+            variant="secondary"
             size="xs"
+            isLoading={isRevokingOther}
             disabled={isRevokingOther || isRevokingAll}
             onClick={handleRevokeOtherSessions}
-            className="flex-1"
+            className="flex-1 p-1"
           >
-            {isRevokingOther ? "Revoking..." : "Revoke Other Sessions"}
-          </Button>
-          <Button
-            variant="outline"
+            Revoke Other Sessions
+          </LoaderButton>
+          <LoaderButton
+            variant="destructive"
             size="xs"
+            isLoading={isRevokingAll}
             disabled={isRevokingAll || isRevokingOther}
             onClick={handleRevokeAllSessions}
-            className="flex-1"
+            className="flex-1 p-1"
           >
-            {isRevokingAll ? "Revoking..." : "Revoke All Sessions"}
-          </Button>
+            Revoke All Sessions
+          </LoaderButton>
         </div>
       )}
     </div>
@@ -216,7 +217,7 @@ function Session({ session, isCurrentSession }: SessionProps) {
   const isMobile = parser.getDevice().type === "mobile";
 
   return (
-    <Card className="flex flex-row items-center gap-3 mb-2 px-4 py-3">
+    <Card className="mb-2 flex flex-row items-center gap-3 px-4 py-3">
       {isMobile ? (
         <SmartphoneIcon className="size-4" />
       ) : (
@@ -224,7 +225,7 @@ function Session({ session, isCurrentSession }: SessionProps) {
       )}
 
       <div className="flex flex-col">
-        <span className="font-semibold text-sm">
+        <span className="text-sm font-semibold">
           {isCurrentSession ? "Current Session" : session?.ipAddress}
         </span>
 

@@ -8,6 +8,7 @@ import { ShieldIcon, UserIcon } from "lucide-react";
 import { AvatarUpload } from "@/components/profile/avatar-upload";
 import ChangeEmail from "@/components/profile/change-email";
 import { NameEditor } from "@/components/profile/name-editor";
+import UserAccounts from "@/components/profile/user-accounts";
 import UserSessions from "@/components/profile/user-sessions";
 import {
   Dialog,
@@ -64,8 +65,9 @@ export default function ProfileMenu({
             <NameEditor user={user} />
             <ChangeEmail user={user} />
           </TabsContent>
-          <TabsContent value="security" className="mt-4">
+          <TabsContent value="security" className="mt-4 space-y-4">
             <UserSessions currentSession={session} />
+            <UserAccounts />
           </TabsContent>
         </Tabs>
       </DialogContent>

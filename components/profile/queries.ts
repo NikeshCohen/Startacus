@@ -11,3 +11,13 @@ export function useSessions() {
     },
   });
 }
+
+export function useAccounts() {
+  return useQuery({
+    queryKey: ["user-accounts"],
+    queryFn: async () => {
+      const { data } = await authClient.listAccounts();
+      return data;
+    },
+  });
+}
