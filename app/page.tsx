@@ -3,17 +3,17 @@ import Link from "next/link";
 import { LogoIcon } from "@/components/global/Logo";
 import { Button } from "@/components/ui/button";
 
-function page() {
+function Page() {
   return (
-    <section className="flex h-screen flex-col items-center justify-center">
+    <section className="flex flex-col justify-center items-center h-screen">
       <LogoIcon />
 
-      <h1 className="text-center text-3xl font-bold">
+      <h1 className="font-bold text-3xl text-center">
         The
-        <span className="text-primary relative mx-1 inline-block stroke-current text-4xl font-extrabold uppercase">
+        <span className="inline-block relative stroke-current mx-1 font-extrabold text-primary text-4xl uppercase">
           fastest
           <svg
-            className="absolute -bottom-0.5 max-h-1.5 w-full"
+            className="-bottom-0.5 absolute w-full max-h-1.5"
             viewBox="0 0 55 5"
             xmlns="http://www.w3.org/2000/svg"
             preserveAspectRatio="none"
@@ -29,13 +29,13 @@ function page() {
 
       <Button
         effect="shineHover"
-        className="mt-6 flex items-center text-white"
+        className="flex items-center mt-6 text-white"
         asChild
       >
         <Link href="https://vercel.com/new/clone?repository-url=https://github.com/NikeshCohen/Startacus/tree/main">
           <span>Deploy to Vercel</span>
-          <div className="mx-2 h-6 border-l-2 border-white"></div>
-          <svg className="h-4 w-4" viewBox="0 0 20 20">
+          <div className="mx-2 border-white border-l-2 h-6"></div>
+          <svg className="w-4 h-4" viewBox="0 0 20 20">
             <path d="M10 0L0 20h20L10 0z" fill="currentColor" />
           </svg>
         </Link>
@@ -44,4 +44,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

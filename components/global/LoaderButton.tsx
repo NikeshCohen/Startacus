@@ -21,32 +21,33 @@ export const LoaderButton = React.forwardRef<
     { isLoading, icon: Icon, children, className, variant, size, ...props },
     ref,
   ) => {
-    if (isLoading) {
-      return (
-        <Button
-          ref={ref}
-          disabled={isLoading}
-          className={cn("cursor-not-allowed!", className)}
-          variant={variant}
-          size={size}
-          {...props}
-        >
-          <LoaderIcon className="h-4 w-4 animate-spin" />
-        </Button>
-      );
-    }
-
     return (
       <Button
         ref={ref}
         disabled={isLoading}
-        className={className}
+        className={cn(
+          "relative",
+          isLoading && "cursor-not-allowed!",
+          className,
+        )}
         variant={variant}
         size={size}
         {...props}
       >
-        {Icon && <Icon className="mr-2 h-4 w-4" />}
-        {children}
+        <span
+          className={cn("flex items-center justify-center gap-2", {
+            invisible: isLoading,
+          })}
+        >
+          {Icon && <Icon className="w-4 h-4" />}
+          {children}
+        </span>
+
+        {isLoading && (
+          <span className="absolute inset-0 flex justify-center items-center">
+            <LoaderIcon className="w-4 h-4 animate-spin" />
+          </span>
+        )}
       </Button>
     );
   },
