@@ -3,11 +3,14 @@ import { ReactScan } from "@/components/global/ReactScan";
 import type { Metadata } from "next";
 import { Sora } from "next/font/google";
 
+import { ourFileRouter } from "@/app/api/uploadthing/core";
 import "@/app/styles/globals.css";
 import { QueryProviders } from "@/providers/QueryProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { Analytics } from "@vercel/analytics/react";
 import { ErrorBoundary } from "react-error-boundary";
+import { extractRouterConfig } from "uploadthing/server";
 
 import Background from "@/components/global/Background";
 import ErrorFallback from "@/components/global/ErrorFalback";
@@ -65,6 +68,7 @@ export default function RootLayout({
           defaultTheme="light"
           disableTransitionOnChange
         >
+          <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
           <Background />
           <Toaster />
           <Analytics />

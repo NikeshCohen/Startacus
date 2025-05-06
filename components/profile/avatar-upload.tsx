@@ -10,57 +10,47 @@ import { LoaderIcon } from "@/components/global/LoaderButton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { authClient } from "@/lib/auth/auth-client";
-import { uploadAvatar } from "@/lib/supabase";
+import { useUploadThing } from "@/lib/uploadthing";
 import { cn, getInitials } from "@/lib/utils";
 
 interface AvatarUploadProps {
   user: User;
 }
 
-const MAX_FILE_SIZE = 3 * 1024 * 1024;
-const ALLOWED_FILE_TYPES = ["image/png", "image/jpg", "image/webp"];
+const ALLOWED_FILE_TYPES = ["image/png", "image/jpeg", "image/webp"];
 
 export function AvatarUpload({ user }: AvatarUploadProps) {
   const [image, setImage] = useState<string | null>(user.image || null);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleClick = () => {
-    if (isUploading) return;
-    fileInputRef.current?.click();
-  };
+  const { startUpload, isUploading: isUploadThingUploading } = useUploadThing(
+    "avatarUploader",
+    {
+      onClientUploadComplete: (res) => {
+        if (res && res[0]) {
+          const url = res[0].ufsUrl;
+          setImage(url);
+          updateUserProfile(url);
+          toast.success("Avatar uploaded successfully");
+        }
+        setIsUploading(false);
+      },
+      onUploadError: (error) => {
+        toast.error(error.message || "Failed to upload avatar");
+        setIsUploading(false);
+        console.error("Upload error:", error);
+      },
+    },
+  );
 
-  const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    if (file.size > MAX_FILE_SIZE) {
-      toast.error("File size must be less than 3MB");
-      return;
-    }
-
-    if (!ALLOWED_FILE_TYPES.includes(file.type)) {
-      toast.error("Only PNG, JPEG, and WebP formats are allowed");
-      return;
-    }
-
-    setIsUploading(true);
-
+  const updateUserProfile = async (imageUrl: string) => {
     try {
-      const publicUrl = await uploadAvatar(file, user.id, user.image);
-
-      setImage(publicUrl);
-
       await authClient.updateUser(
         {
-          image: publicUrl,
+          image: imageUrl,
         },
         {
-          onSuccess: () => {
-            toast.success("Avatar uploaded successfully");
-          },
           onError: (ctx) => {
             toast.error(
               ctx.error.message || "Failed to update avatar in your profile",
@@ -73,24 +63,41 @@ export function AvatarUpload({ user }: AvatarUploadProps) {
         },
       );
     } catch (error) {
-      console.error("Avatar upload failed:", error);
-      toast.error("Failed to upload avatar");
-    } finally {
-      setIsUploading(false);
+      console.error("Profile update failed:", error);
     }
   };
 
+  const handleClick = () => {
+    if (isUploading || isUploadThingUploading) return;
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (!ALLOWED_FILE_TYPES.includes(file.type)) {
+      toast.error("Only PNG, JPEG, and WebP formats are allowed");
+      return;
+    }
+
+    setIsUploading(true);
+    await startUpload([file]);
+  };
+
   return (
-    <div className="bg-card/60 p-4 border rounded-lg">
+    <div className="bg-card/60 rounded-lg border p-4">
       <div className="flex items-center gap-4">
         <div
           onClick={handleClick}
           className={cn(
             "group relative cursor-pointer",
-            isUploading && "cursor-wait",
+            (isUploading || isUploadThingUploading) && "cursor-wait",
           )}
         >
-          <Avatar className="w-16 h-16">
+          <Avatar className="h-16 w-16">
             {image ? (
               <AvatarImage src={image} alt={user.name || "User avatar"} />
             ) : null}
@@ -102,21 +109,23 @@ export function AvatarUpload({ user }: AvatarUploadProps) {
           <div
             className={cn(
               "absolute inset-0 flex items-center justify-center rounded-full bg-black/50 transition-opacity",
-              isUploading ? "opacity-100" : "opacity-0 group-hover:opacity-100",
+              isUploading || isUploadThingUploading
+                ? "opacity-100"
+                : "opacity-0 group-hover:opacity-100",
             )}
           >
-            {isUploading ? (
-              <LoaderIcon className="w-5 h-5 text-white animate-spin" />
+            {isUploading || isUploadThingUploading ? (
+              <LoaderIcon className="h-5 w-5 animate-spin text-white" />
             ) : (
-              <Upload className="w-5 h-5 text-white" />
+              <Upload className="h-5 w-5 text-white" />
             )}
           </div>
         </div>
         <div className="flex-1">
-          <h3 className="mb-1 font-medium text-lg">Avatar</h3>
+          <h3 className="mb-1 text-lg font-medium">Avatar</h3>
 
           <p className="text-muted-foreground text-sm">
-            {isUploading
+            {isUploading || isUploadThingUploading
               ? "Uploading your new avatar..."
               : "Click on the avatar to upload a custom one from your files."}
           </p>
@@ -129,7 +138,7 @@ export function AvatarUpload({ user }: AvatarUploadProps) {
           />
         </div>
       </div>
-      <p className="mt-3 pt-2 border-t text-muted-foreground text-xs">
+      <p className="text-muted-foreground mt-3 border-t pt-2 text-xs">
         An avatar is optional but strongly recommended. Max size: 3MB. Formats:
         PNG, JPEG, WebP.
       </p>
