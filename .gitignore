@@ -25,6 +25,9 @@
 .vscode
 *.pem
 
+# husky (git hooks)
+.husky/_
+
 # debug
 npm-debug.log*
 yarn-debug.log*
