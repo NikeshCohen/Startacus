@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { useRouter } from "next/navigation";
 
-import { CirclePlusIcon, LogOutIcon, UserIcon, UsersIcon } from "lucide-react";
+import { LogOutIcon, UserIcon, UsersIcon } from "lucide-react";
 import toast from "react-hot-toast";
 
 import UserProfileAvatar from "@/components/global/UserProfileAvatar";
@@ -84,23 +84,16 @@ export default function UserContextMenu({ className }: { className?: string }) {
             Profile
           </DropdownMenuItem>
 
-          <DropdownMenuItem className="cursor-pointer py-1.5 text-xs">
-            <CirclePlusIcon className="mr-1.5 h-3 w-3" />
-            Add Account
-          </DropdownMenuItem>
-
-          <DropdownMenuSeparator />
-
           {session.user.role === "admin" && (
             <>
               <DropdownMenuItem className="cursor-pointer py-1.5 text-xs">
                 <UsersIcon className="mr-1.5 h-3 w-3" />
                 User Management
               </DropdownMenuItem>
-              <DropdownMenuSeparator />
             </>
           )}
 
+          <DropdownMenuSeparator />
           <DropdownMenuItem
             className="cursor-pointer py-1.5 text-xs"
             onClick={handleSignOut}

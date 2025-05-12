@@ -166,6 +166,15 @@
   --shadow-lg: var(--shadow-lg);
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
+  --animate-orbit: orbit calc(var(--duration)*1s) linear infinite;
+  @keyframes orbit {
+  0% {
+    transform: rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
+    }
+  100% {
+    transform: rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px)) rotate(calc((var(--angle) * -1deg) - 360deg));
+    }
+  }
 }
 
 body {
@@ -191,6 +200,10 @@ body {
   button:disabled,
   [role="button"]:disabled {
     cursor: not-allowed;
+  }
+
+  .layout {
+    @apply mr-auto ml-auto max-w-screen-2xl;
   }
 }
 

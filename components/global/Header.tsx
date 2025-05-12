@@ -5,6 +5,7 @@ import React from "react";
 import Link from "next/link";
 
 import { LogIn, Menu, X } from "lucide-react";
+import { motion } from "motion/react";
 
 import { Logo } from "@/components/global/Logo";
 import ThemeToggle from "@/components/global/ThemeToggle";
@@ -40,7 +41,11 @@ function Header() {
   };
 
   return (
-    <header>
+    <motion.header
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <nav
         data-state={menuState && "active"}
         className="fixed z-20 w-full px-2"
@@ -53,7 +58,12 @@ function Header() {
           )}
         >
           <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
-            <div className="flex w-full justify-between lg:w-auto">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="flex w-full justify-between lg:w-auto"
+            >
               <Logo />
 
               <div className="flex items-center gap-2">
@@ -68,24 +78,44 @@ function Header() {
                   <X className="absolute inset-0 m-auto size-6 scale-0 -rotate-180 opacity-0 duration-200 in-data-[state=active]:scale-100 in-data-[state=active]:rotate-0 in-data-[state=active]:opacity-100" />
                 </button>
               </div>
-            </div>
+            </motion.div>
 
             <div className="absolute inset-0 m-auto hidden size-fit lg:block">
-              <ul className="flex gap-8 text-sm">
+              <motion.ul
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  visible: {
+                    transition: { staggerChildren: 0.1, delayChildren: 0.4 },
+                  },
+                }}
+                className="flex gap-8 text-sm"
+              >
                 {menuItems.map((item, index) => (
-                  <li key={index}>
+                  <motion.li
+                    key={index}
+                    variants={{
+                      hidden: { opacity: 0, y: 10 },
+                      visible: { opacity: 1, y: 0 },
+                    }}
+                  >
                     <Link
                       href={item.href}
                       className="text-muted-foreground hover:text-accent-foreground block duration-150"
                     >
                       <span>{item.name}</span>
                     </Link>
-                  </li>
+                  </motion.li>
                 ))}
-              </ul>
+              </motion.ul>
             </div>
 
-            <div className="bg-background mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 text-center shadow-2xl shadow-zinc-300/20 in-data-[state=active]:block md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none lg:in-data-[state=active]:flex dark:shadow-none dark:lg:bg-transparent">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="bg-background mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 text-center shadow-2xl shadow-zinc-300/20 in-data-[state=active]:block md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none lg:in-data-[state=active]:flex dark:shadow-none dark:lg:bg-transparent"
+            >
               <div className="lg:hidden">
                 <ul className="space-y-6 text-base">
                   {menuItems.map((item, index) => (
@@ -125,11 +155,11 @@ function Header() {
                   </Button>
                 )}
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </nav>
-    </header>
+    </motion.header>
   );
 }
 

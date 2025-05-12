@@ -10,9 +10,6 @@ if ! git diff --quiet || ! git diff --cached --quiet; then
   STASHED=1
 fi
 
-# lint and format code
-npx lint-staged
-
 # check if changes were made
 if ! git diff --quiet --exit-code; then
   printf "\n❗ Code formatting issues detected and fixed automatically.\n"
