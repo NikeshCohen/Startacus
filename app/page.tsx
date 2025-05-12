@@ -1,4 +1,5 @@
 import About from "@/components/home/About";
+import FAQ from "@/components/home/Faq";
 import Hero from "@/components/home/Hero";
 import TechCards from "@/components/home/TechCards";
 
@@ -8,6 +9,7 @@ function Page() {
       <Hero />
       <About />
       <TechCards />
+      <FAQ />
     </section>
   );
 }

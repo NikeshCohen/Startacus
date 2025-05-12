@@ -35,3 +35,28 @@ export function SideGradientBackground() {
     </div>
   );
 }
+
+export function SingleCircleBackground({
+  position = "center",
+}: {
+  position?: "left" | "right" | "center";
+}) {
+  let positionClasses =
+    "absolute top-0 left-1/2 -translate-x-1/2 translate-y-[30%]";
+
+  if (position === "left") {
+    positionClasses =
+      "absolute top-0 left-0 translate-x-[10%] translate-y-[40%]";
+  } else if (position === "right") {
+    positionClasses =
+      "absolute top-0 right-0 -translate-x-[10%] translate-y-[20%]";
+  }
+
+  return (
+    <div className="absolute inset-0 -z-10 h-full w-full">
+      <div
+        className={`${positionClasses} h-[200px] w-[200px] rounded-full bg-[oklch(from_var(--primary)_l_c_h_/_0.5)] opacity-50 blur-[80px] md:h-[250px] md:w-[250px]`}
+      />
+    </div>
+  );
+}
