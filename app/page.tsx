@@ -1,4 +1,5 @@
 import About from "@/components/home/About";
+import CallToAction from "@/components/home/Cta";
 import FAQ from "@/components/home/Faq";
 import Hero from "@/components/home/Hero";
 import TechCards from "@/components/home/TechCards";
@@ -9,6 +10,7 @@ function Page() {
       <Hero />
       <About />
       <TechCards />
+      <CallToAction />
       <FAQ />
     </section>
   );
