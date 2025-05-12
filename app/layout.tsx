@@ -12,7 +12,6 @@ import { Analytics } from "@vercel/analytics/react";
 import { ErrorBoundary } from "react-error-boundary";
 import { extractRouterConfig } from "uploadthing/server";
 
-import Background from "@/components/global/Background";
 import ErrorFallback from "@/components/global/ErrorFalback";
 import Footer from "@/components/global/Footer";
 import Header from "@/components/global/Header";
@@ -69,7 +68,6 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
-          <Background />
           <Toaster />
           <Analytics />
           <QueryProviders>

@@ -1,6 +1,6 @@
 import React from "react";
 
-function Background() {
+export function GrainBackground() {
   return (
     <div className="fixed inset-0 -z-10">
       <svg
@@ -21,4 +21,8 @@ function Background() {
   );
 }
 
-export default Background;
+export function GradientBackground() {
+  return (
+    <div className="bg-background absolute top-0 z-[-2] h-screen w-full bg-[radial-gradient(120%_60%_at_50%_0%,oklch(from_var(--primary)_l_c_h_/_0.15)_0,oklch(from_var(--primary)_l_c_h_/_0.05)_50%,oklch(from_var(--primary)_l_c_h_/_0)_100%)]"></div>
+  );
+}
