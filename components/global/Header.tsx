@@ -29,6 +29,9 @@ function Header() {
   const { data: session, isPending } = authClient.useSession();
 
   React.useEffect(() => {
+    // Check scroll position immediately on mount
+    setIsScrolled(window.scrollY > 5);
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 5);
     };
@@ -59,9 +62,9 @@ function Header() {
         >
           <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
               className="flex w-full justify-between lg:w-auto"
             >
               <Logo />
@@ -86,7 +89,7 @@ function Header() {
                 animate="visible"
                 variants={{
                   visible: {
-                    transition: { staggerChildren: 0.1, delayChildren: 0.4 },
+                    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
                   },
                 }}
                 className="flex gap-8 text-sm"
@@ -111,9 +114,9 @@ function Header() {
             </div>
 
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
               className="bg-background mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 text-center shadow-2xl shadow-zinc-300/20 in-data-[state=active]:block md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none lg:in-data-[state=active]:flex dark:shadow-none dark:lg:bg-transparent"
             >
               <div className="lg:hidden">
