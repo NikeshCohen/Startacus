@@ -49,7 +49,7 @@ function FAQ() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
-        className="mx-auto mb-1 pb-12 max-w-2xl text-center"
+        className="mx-auto pb-12 max-w-2xl text-center"
       >
         <h2 className="pb-2 font-bold text-3xl md:text-4xl">
           Frequently Asked Questions

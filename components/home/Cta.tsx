@@ -17,7 +17,7 @@ export default function CallToAction() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="bg-primary mx-auto px-6 py-12 md:py-20 lg:py-32 border rounded-3xl max-w-5xl"
+        className="bg-primary mx-auto px-6 py-12 md:py-20 lg:py-32 border rounded-3xl"
       >
         <div className="text-center">
           <motion.h2
@@ -49,7 +49,6 @@ export default function CallToAction() {
             className="flex flex-wrap justify-center gap-4 mt-10"
           >
             <Button
-              effect="shineHover"
               className="flex items-center"
               variant="secondary"
               size="lg"
