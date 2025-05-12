@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { Plus } from "lucide-react";
 import { motion } from "motion/react";
 
-import { SingleCircleBackground } from "@/components/global/backgrounds";
 import {
   Disclosure,
   DisclosureContent,
@@ -44,17 +43,15 @@ function FAQ() {
   };
 
   return (
-    <section className="layout relative pb-32">
-      <SingleCircleBackground position="left" />
-
+    <section className="relative pb-32 layout">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
-        className="mx-auto mb-1 max-w-2xl pb-12 text-center"
+        className="mx-auto mb-1 pb-12 max-w-2xl text-center"
       >
-        <h2 className="pb-2 text-3xl font-bold md:text-4xl">
+        <h2 className="pb-2 font-bold text-3xl md:text-4xl">
           Frequently Asked Questions
         </h2>
         <p className="text-muted-foreground text-lg">
@@ -73,24 +70,24 @@ function FAQ() {
             className="mb-4"
           >
             <Disclosure
-              className="rounded-lg border px-4 shadow-sm"
+              className="shadow-sm px-4 border rounded-lg"
               open={activeIndex === index}
               onOpenChange={() => toggleItem(index)}
             >
               <DisclosureTrigger>
-                <div className="flex w-full items-center justify-between py-4 text-left">
+                <div className="flex justify-between items-center py-4 w-full text-left">
                   <h3 className="font-medium">{item.question}</h3>
                   <motion.div
                     animate={{ rotate: activeIndex === index ? 45 : 0 }}
                     transition={{ duration: 0.2 }}
-                    className="flex h-5 w-5 items-center justify-center"
+                    className="flex justify-center items-center w-5 h-5"
                   >
-                    <Plus className="h-4 w-4" />
+                    <Plus className="w-4 h-4" />
                   </motion.div>
                 </div>
               </DisclosureTrigger>
               <DisclosureContent>
-                <div className="text-muted-foreground pt-0 pb-4">
+                <div className="pt-0 pb-4 text-muted-foreground">
                   <p>{item.answer}</p>
                 </div>
               </DisclosureContent>
