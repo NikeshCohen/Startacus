@@ -8,21 +8,21 @@ export const siteConfig = {
 
 export const features = [
   {
-    name: "Build faster",
+    name: "Instant Ignition",
     description:
-      "Get up and running in no time with pre-configured settings and best practices. Say goodbye to setup and focus on what truly matters - building your application.",
+      "Startacus clears the path with smart defaults and best practices, letting you code, not configure.",
     icon: Computer,
   },
   {
-    name: "Focus on business logic",
+    name: "Code What Counts",
     description:
-      "Concentrate on solving business problems instead of dealing with the repetitive setup.",
+      "Ditch the boilerplate drudgery. Startacus lets you focus your brainpower on the unique logic that actually matters.",
     icon: FaBusinessTime,
   },
   {
-    name: "Ready for scale",
+    name: "Scale Without Sweat",
     description:
-      "Prepare for growth from day one. With built-in optimizations and scalable architecture, your application will be ready to handle increased traffic and complexity.",
+      "Architected for growth, optimized for performance. Handle success without rebuilding the foundations.",
     icon: Network,
   },
 ];

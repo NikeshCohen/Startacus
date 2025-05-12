@@ -275,51 +275,61 @@ export const Icons = {
   ),
 };
 
-// New object for tech stack info
-export const techStackInfo = {
-  betterAuth: {
-    name: "Auth.js",
+export const techStackInfo = [
+  {
+    name: "BetterAuth",
     icon: Icons.betterAuth,
-    description: "Simple, secure authentication.",
+    description:
+      "Simple, secure authentication with social logins, 2FA, and robust session management for modern apps.",
+    link: "https://www.better-auth.com",
   },
-  drizzle: {
+  {
     name: "Drizzle",
     icon: Icons.drizzle,
-    description: "Typesafe SQL for TypeScript.",
+    description:
+      "Typesafe SQL for TypeScript with automatic migrations and flexible schema management.",
+    link: "https://orm.drizzle.team/docs/get-started/singlestore-new",
   },
-  nextjs: {
+  {
     name: "Next.js",
     icon: Icons.nextjs,
-    description: "Full-stack React framework.",
+    description:
+      "Full-stack React framework for building fast, scalable web apps with SSR and API routes.",
+    link: "https://nextjs.org",
   },
-  react: {
-    name: "React",
-    icon: Icons.react,
-    description: "UI library for web apps.",
-  },
-  shadcn: {
+  {
     name: "Shadcn/ui",
     icon: Icons.shadcn,
-    description: "Reusable UI components.",
+    description:
+      "Reusable, accessible UI components designed for modern React projects.",
+    link: "https://ui.shadcn.com/",
   },
-  supabase: {
+  {
     name: "Supabase",
     icon: Icons.supabase,
-    description: "Open source Firebase alt.",
+    description:
+      "Open source Firebase alternative with instant APIs, auth, and real-time database.",
+    link: "https://supabase.com",
   },
-  tailwind: {
+  {
     name: "Tailwind CSS",
     icon: Icons.tailwind,
-    description: "Utility-first CSS framework.",
+    description:
+      "Utility-first CSS framework for rapid, customizable UI development.",
+    link: "https://tailwindcss.com",
   },
-  tanstackquery: {
+  {
     name: "TanStack Query",
     icon: Icons.tanstackquery,
-    description: "Data-fetching/state mgmt.",
+    description:
+      "Powerful data-fetching and state management for React and TypeScript.",
+    link: "https://tanstack.com/query",
   },
-  typescript: {
+  {
     name: "TypeScript",
     icon: Icons.typescript,
-    description: "JavaScript with types.",
+    description:
+      "JavaScript with static types for safer, more maintainable code.",
+    link: "https://www.typescriptlang.org",
   },
-};
+];

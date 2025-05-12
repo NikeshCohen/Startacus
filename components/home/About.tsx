@@ -1,7 +1,7 @@
 "use client";
 
-import { Icons } from "@/constants/icons";
 import { features } from "@/constants/site.config";
+import { Icons } from "@/constants/tech-stack";
 import { Sparkles } from "lucide-react";
 import { motion } from "motion/react";
 
@@ -10,7 +10,7 @@ import { OrbitingCircles } from "@/components/ui/orbiting-circles";
 function About() {
   return (
     <section className="layout overflow-hidden pb-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
