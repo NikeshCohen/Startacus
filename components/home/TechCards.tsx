@@ -20,7 +20,7 @@ function TechCards() {
   return (
     <div className="relative">
       <SideGradientBackground />
-      <section className="layout relative z-10 pb-32">
+      <section className="layout relative z-10 pb-32" id="tech-stack">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

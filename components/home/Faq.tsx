@@ -20,7 +20,7 @@ function FAQ() {
   };
 
   return (
-    <section className="layout relative pb-32">
+    <section className="layout relative pb-32" id="faq">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

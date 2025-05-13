@@ -192,7 +192,7 @@ body {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground scroll-smooth;
   }
 
   button:not(:disabled),
@@ -206,7 +206,7 @@ body {
   }
 
   .layout {
-    @apply mr-auto ml-auto max-w-7xl px-6;
+    @apply mx-auto max-w-7xl scroll-mt-14 px-4 md:scroll-mt-20 md:px-6;
   }
 }
 

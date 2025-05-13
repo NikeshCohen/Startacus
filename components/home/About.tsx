@@ -9,7 +9,7 @@ import { OrbitingCircles } from "@/components/ui/orbiting-circles";
 
 function About() {
   return (
-    <section className="layout overflow-hidden pb-32">
+    <section className="layout overflow-hidden pb-32" id="about">
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -18,7 +18,7 @@ function About() {
           viewport={{ once: true }}
           className="mx-auto max-w-2xl text-center"
         >
-          <div className="bg-primary/10 border-primary/20 mb-6 inline-flex w-fit rounded-full border px-4 py-1">
+          <div className="bg-primary/10 border-primary/20 mb-6 inline-flex w-fit scroll-mt-32 rounded-full border px-4 py-1">
             <div className="text-primary dark:text-primary/90 flex items-center gap-2 text-sm font-medium">
               <Sparkles className="h-4 w-4" />
               <span>Why Startacus?</span>

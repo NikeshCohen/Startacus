@@ -17,16 +17,16 @@ import { authClient } from "@/lib/auth/auth-client";
 import { cn } from "@/lib/utils";
 
 const menuItems: { name: string; href: string }[] = [
-  { name: "Features", href: "#" },
-  { name: "Solution", href: "#" },
-  { name: "Pricing", href: "#" },
-  { name: "About", href: "#" },
+  { name: "About", href: "#about" },
+  { name: "Tech Stack", href: "#tech-stack" },
+  { name: "FAQ", href: "#faq" },
 ];
 
 function Header() {
   const [menuState, setMenuState] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
   const { data: session, isPending } = authClient.useSession();
+  const headerRef = React.useRef<HTMLElement>(null);
 
   React.useEffect(() => {
     // Check scroll position immediately on mount
@@ -43,8 +43,47 @@ function Header() {
     setMenuState(false);
   };
 
+  const scrollToSection = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    e.preventDefault();
+
+    // Only process anchor links
+    if (href.startsWith("#")) {
+      const targetId = href.substring(1);
+      const element = document.getElementById(targetId);
+
+      if (element) {
+        // Close the menu if it's open
+        closeMenu();
+
+        // Get the header height dynamically or use a reasonable default
+        const headerHeight = headerRef.current?.offsetHeight || 100;
+
+        // Use a timeout to ensure accurate measurements
+        setTimeout(() => {
+          // Get the element's position
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition =
+            elementPosition + window.pageYOffset - headerHeight;
+
+          // Scroll with smooth behavior
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+
+          // Update URL without reload
+          window.history.pushState({}, "", href);
+        }, 10);
+      }
+    }
+  };
+
   return (
     <motion.header
+      ref={headerRef}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -104,6 +143,7 @@ function Header() {
                   >
                     <Link
                       href={item.href}
+                      onClick={(e) => scrollToSection(e, item.href)}
                       className="text-muted-foreground hover:text-accent-foreground block duration-150"
                     >
                       <span>{item.name}</span>
@@ -125,7 +165,7 @@ function Header() {
                     <li key={index}>
                       <Link
                         href={item.href}
-                        onClick={closeMenu}
+                        onClick={(e) => scrollToSection(e, item.href)}
                         className="text-muted-foreground hover:text-accent-foreground block duration-150"
                       >
                         <span>{item.name}</span>
