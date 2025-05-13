@@ -92,7 +92,7 @@ export function OrbitingCirclesComponent() {
 
       <OrbitingCircles iconSize={40}>
         <Icons.typescript />
-
+        <Icons.resend />
         <Icons.supabase />
         <Icons.react />
         <Icons.tailwind />
