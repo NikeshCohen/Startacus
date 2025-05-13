@@ -25,19 +25,70 @@ const menuItems: { name: string; href: string }[] = [
 function Header() {
   const [menuState, setMenuState] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
+  const [animationPlayed, setAnimationPlayed] = React.useState(false);
   const { data: session, isPending } = authClient.useSession();
   const headerRef = React.useRef<HTMLElement>(null);
 
+  // Initialize scroll state and set up listener
   React.useEffect(() => {
     // Check scroll position immediately on mount
-    setIsScrolled(window.scrollY > 5);
+    const initiallyScrolled = window.scrollY > 5;
+    setIsScrolled(initiallyScrolled);
+
+    // Mark animation as played if initially scrolled
+    if (initiallyScrolled) {
+      setAnimationPlayed(true);
+    }
 
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 5);
+      // Once we've scrolled, mark animation as played
+      if (!animationPlayed) {
+        setAnimationPlayed(true);
+      }
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [animationPlayed]);
+
+  // Animation variants based on scroll state
+  const headerAnimation = React.useMemo(() => {
+    return {
+      initial: { opacity: 0, y: -20 },
+      animate: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: isScrolled ? 0 : 0.5 },
+      },
+    };
+  }, [isScrolled]);
+
+  // Animation variants for menu items
+  const menuAnimation = React.useMemo(() => {
+    return {
+      hidden: { opacity: 0 },
+      visible: {
+        opacity: 1,
+        transition: {
+          staggerChildren: isScrolled ? 0 : 0.1,
+          delayChildren: isScrolled ? 0 : 0.2,
+          duration: isScrolled ? 0 : 0.3,
+        },
+      },
+    };
+  }, [isScrolled]);
+
+  // Item variants
+  const itemAnimation = React.useMemo(() => {
+    return {
+      hidden: { opacity: 0, y: 10 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: isScrolled ? 0 : 0.3 },
+      },
+    };
+  }, [isScrolled]);
 
   const closeMenu = () => {
     setMenuState(false);
@@ -58,25 +109,25 @@ function Header() {
         // Close the menu if it's open
         closeMenu();
 
-        // Get the header height dynamically or use a reasonable default
-        const headerHeight = headerRef.current?.offsetHeight || 100;
+        // Update URL without reload
+        window.history.pushState({}, "", href);
 
-        // Use a timeout to ensure accurate measurements
-        setTimeout(() => {
+        // Add a small delay before scrolling to prevent animation interference
+        requestAnimationFrame(() => {
+          // Get the header height dynamically or use a reasonable default
+          const headerHeight = headerRef.current?.offsetHeight || 100;
+
           // Get the element's position
           const elementPosition = element.getBoundingClientRect().top;
           const offsetPosition =
-            elementPosition + window.pageYOffset - headerHeight;
+            elementPosition + window.scrollY - headerHeight;
 
           // Scroll with smooth behavior
           window.scrollTo({
             top: offsetPosition,
             behavior: "smooth",
           });
-
-          // Update URL without reload
-          window.history.pushState({}, "", href);
-        }, 10);
+        });
       }
     }
   };
@@ -84,9 +135,9 @@ function Header() {
   return (
     <motion.header
       ref={headerRef}
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      initial={headerAnimation.initial}
+      animate={headerAnimation.animate}
+      className="w-full"
     >
       <nav
         data-state={menuState && "active"}
@@ -102,8 +153,11 @@ function Header() {
           <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                transition: { duration: isScrolled ? 0 : 0.5 },
+              }}
               className="flex w-full justify-between lg:w-auto"
             >
               <Logo />
@@ -124,22 +178,16 @@ function Header() {
 
             <div className="absolute inset-0 m-auto hidden size-fit lg:block">
               <motion.ul
+                key="menu-items"
                 initial="hidden"
                 animate="visible"
-                variants={{
-                  visible: {
-                    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
-                  },
-                }}
+                variants={menuAnimation}
                 className="flex gap-8 text-sm"
               >
                 {menuItems.map((item, index) => (
                   <motion.li
-                    key={index}
-                    variants={{
-                      hidden: { opacity: 0, y: 10 },
-                      visible: { opacity: 1, y: 0 },
-                    }}
+                    key={item.name + "-" + index}
+                    variants={itemAnimation}
                   >
                     <Link
                       href={item.href}
@@ -155,8 +203,11 @@ function Header() {
 
             <motion.div
               initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                transition: { duration: isScrolled ? 0 : 0.5 },
+              }}
               className="bg-background mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 text-center shadow-2xl shadow-zinc-300/20 in-data-[state=active]:block md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none lg:in-data-[state=active]:flex dark:shadow-none dark:lg:bg-transparent"
             >
               <div className="lg:hidden">
