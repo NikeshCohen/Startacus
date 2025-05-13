@@ -67,7 +67,7 @@ export default function UserContextMenu({ className }: { className?: string }) {
             <UserProfileAvatar user={session.user} className={className} />
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="p-1">
+        <DropdownMenuContent align="end">
           <div className="mb-1 px-2 py-1.5">
             <div className="text-xs font-medium">{session.user.name}</div>
             <div className="text-muted-foreground text-xs">

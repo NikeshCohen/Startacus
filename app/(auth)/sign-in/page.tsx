@@ -45,47 +45,43 @@ export default async function SignIn({ searchParams }: PageProps) {
   const redirectUrl = params.redirectUrl ?? "/";
 
   return (
-    <>
-      <section className="flex min-h-screen w-full items-center justify-center p-4 pt-24">
-        <div className="relative w-full max-w-md">
-          <Card className="bg-card/40 border-t-primary relative overflow-hidden border-t-4 backdrop-blur-sm transition-all duration-300">
-            <div className="from-primary/10 pointer-events-none absolute inset-0 bg-gradient-to-b to-transparent opacity-50" />
-            <CardHeader className="pt-4">
-              <CardTitle className="flex items-center justify-center text-center">
-                <Logo />
-              </CardTitle>
-              <CardDescription className="text-center text-base">
-                Welcome back! Sign into your account
-              </CardDescription>
-            </CardHeader>
+    <section className="flex min-h-screen w-full items-center justify-center p-4 pt-24">
+      <div className="relative w-full max-w-md">
+        <Card className="bg-card/40 border-t-primary relative overflow-hidden border-t-4 backdrop-blur-sm transition-all duration-300">
+          <div className="from-primary/10 pointer-events-none absolute inset-0 bg-gradient-to-b to-transparent opacity-50" />
+          <CardHeader className="pt-4">
+            <CardTitle className="flex items-center justify-center text-center">
+              <Logo />
+            </CardTitle>
+            <CardDescription className="text-center text-base">
+              Welcome back! Sign in to your account
+            </CardDescription>
+          </CardHeader>
 
-            <CardContent className="relative space-y-6 pt-2 pb-2">
-              <div className="space-y-4"></div>
+          <CardContent className="relative space-y-6 pt-2 pb-2">
+            <div className="space-y-4"></div>
 
-              <SignInForm redirectUrl={redirectUrl} />
+            <SignInForm redirectUrl={redirectUrl} />
 
-              <div className="flex items-center gap-3 px-2">
-                <Separator className="flex-1" />
-                <span className="text-muted-foreground text-xs">OR</span>
-                <Separator className="flex-1" />
-              </div>
+            <div className="flex items-center gap-3 px-2">
+              <Separator className="flex-1" />
+              <span className="text-muted-foreground text-xs">OR</span>
+              <Separator className="flex-1" />
+            </div>
 
-              <SSOAuthBtns redirectUrl={redirectUrl} />
+            <SSOAuthBtns redirectUrl={redirectUrl} />
 
-              <AuthCardFooter />
-            </CardContent>
+            <AuthCardFooter />
+          </CardContent>
 
-            <CardFooter className="pointer-events-auto flex justify-center gap-1 border-t py-1 text-sm">
-              <p className="text-muted-foreground">
-                Don&apos;t have an account?
-              </p>
-              <Link href="/sign-up" className="text-primary underline">
-                Sign Up
-              </Link>
-            </CardFooter>
-          </Card>
-        </div>
-      </section>
-    </>
+          <CardFooter className="pointer-events-auto flex justify-center gap-1 border-t py-1 text-sm">
+            <p className="text-muted-foreground">Don&apos;t have an account?</p>
+            <Link href="/sign-up" className="text-primary underline">
+              Sign Up
+            </Link>
+          </CardFooter>
+        </Card>
+      </div>
+    </section>
   );
 }
