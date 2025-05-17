@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 import { techStackInfo } from "@/constants/tech-stack";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Layers } from "lucide-react";
 import { motion } from "motion/react";
 
 import { SideGradientBackground } from "@/components/global/backgrounds";
@@ -28,6 +28,12 @@ function TechCards() {
           viewport={{ once: true }}
           className="mx-auto max-w-2xl pb-12 text-center"
         >
+          <div className="bg-primary/10 border-primary/20 mb-6 inline-flex w-fit scroll-mt-32 rounded-full border px-4 py-1">
+            <div className="text-primary dark:text-primary/90 flex items-center gap-2 text-sm font-medium">
+              <Layers className="h-4 w-4" />
+              <span>Stack</span>
+            </div>
+          </div>
           <h2 className="pb-2 text-3xl font-bold md:text-4xl">
             Built with Modern Tech Stack
           </h2>
