@@ -27,11 +27,31 @@ export function GradientBackground() {
   );
 }
 
-export function SideGradientBackground() {
+export function SideGradientBackground({
+  leftCircleTranslateX = "10%",
+  leftCircleTranslateY = "40%",
+  rightCircleTranslateX = "-10%",
+  rightCircleTranslateY = "20%",
+}: {
+  leftCircleTranslateX?: string;
+  leftCircleTranslateY?: string;
+  rightCircleTranslateX?: string;
+  rightCircleTranslateY?: string;
+}) {
   return (
     <div className="absolute inset-0 -z-10 h-full w-full">
-      <div className="absolute top-0 left-0 h-[300px] w-[300px] translate-x-[10%] translate-y-[40%] rounded-full bg-[oklch(from_var(--primary)_l_c_h_/_0.5)] opacity-50 blur-[80px] md:h-[500px] md:w-[500px]" />
-      <div className="absolute top-0 right-0 h-[300px] w-[300px] -translate-x-[10%] translate-y-[20%] rounded-full bg-[oklch(from_var(--primary)_l_c_h_/_0.5)] opacity-50 blur-[80px] md:h-[500px] md:w-[500px]" />
+      <div
+        className="absolute top-0 left-0 h-[300px] w-[300px] rounded-full bg-[oklch(from_var(--primary)_l_c_h_/_0.5)] opacity-50 blur-[80px] md:h-[500px] md:w-[500px]"
+        style={{
+          transform: `translateX(${leftCircleTranslateX}) translateY(${leftCircleTranslateY})`,
+        }}
+      />
+      <div
+        className="absolute top-0 right-0 h-[300px] w-[300px] rounded-full bg-[oklch(from_var(--primary)_l_c_h_/_0.5)] opacity-50 blur-[80px] md:h-[500px] md:w-[500px]"
+        style={{
+          transform: `translateX(${rightCircleTranslateX}) translateY(${rightCircleTranslateY})`,
+        }}
+      />
     </div>
   );
 }

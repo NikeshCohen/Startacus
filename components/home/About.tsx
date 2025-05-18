@@ -19,10 +19,7 @@ function About() {
           viewport={{ once: true }}
           className="mx-auto max-w-2xl text-center"
         >
-          <AnimatedBadge
-            text="Less Boilerplate, More Awesome."
-            icon={<BookOpen className="h-4 w-4" />}
-          />
+          <AnimatedBadge text="About" icon={<BookOpen className="h-4 w-4" />} />
           <h2 className="pb-2 text-3xl font-bold md:text-4xl">
             Less Boilerplate, More Awesome.
           </h2>
