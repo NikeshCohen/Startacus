@@ -139,9 +139,11 @@ function BentoContent() {
                   variants={fingerprintVariants}
                   transition={{ duration: 0.3 }}
                 >
-                  <CentricCircles size={32}>
-                    <featureSvgs.fingerprint />
-                  </CentricCircles>
+                  <div className="relative mx-auto flex aspect-square size-32">
+                    <CentricCircles>
+                      <featureSvgs.fingerprint />
+                    </CentricCircles>
+                  </div>
                 </motion.div>
                 <div className="relative z-10 mt-6 space-y-2 text-center">
                   <h2 className="text-lg font-medium transition">
@@ -208,16 +210,16 @@ function BentoContent() {
             <Card className="h-full">
               <CardContent className="grid pt-6 sm:grid-cols-2">
                 <div className="relative z-10 flex flex-col justify-between space-y-12 lg:space-y-6">
-                  <motion.div className="relative flex aspect-square size-12 rounded-full before:absolute before:-inset-2 before:rounded-full before:border before:border-black/5 dark:before:border-white/5">
+                  <div className="relative flex aspect-square size-12 rounded-full before:absolute before:-inset-2">
                     <CentricCircles size={12}>
                       <Shield className="m-auto size-5" strokeWidth={1} />
                     </CentricCircles>
-                  </motion.div>
+                  </div>
                   <div className="space-y-2">
-                    <h2 className="text-lg font-medium text-zinc-800 transition dark:text-white">
+                    <h2 className="text-xl font-medium transition">
                       Built In Analytics
                     </h2>
-                    <p className="text-foreground">
+                    <p className="text-muted-foreground text-sm">
                       Gain powerful insights into user behavior and application
                       performance.
                     </p>
