@@ -10,9 +10,10 @@ function Page() {
     <section className="layout">
       <Hero />
       <About />
+      <FeaturesBento />
       <TechCards />
       <CallToAction />
-      <FeaturesBento />
+
       <FAQ />
     </section>
   );

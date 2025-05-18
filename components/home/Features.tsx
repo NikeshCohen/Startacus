@@ -7,7 +7,6 @@ import { Shield, Sparkles, Users } from "lucide-react";
 import { motion } from "motion/react";
 
 import AnimatedBadge from "@/components/global/animated-badge";
-import { SideGradientBackground } from "@/components/global/backgrounds";
 import { Card, CardContent } from "@/components/ui/card";
 
 const circleVariants = {
@@ -51,12 +50,6 @@ const userItem2Variants = {
 function FeaturesBento() {
   return (
     <section className="layout relative pb-32" id="features">
-      <SideGradientBackground
-        leftCircleTranslateX="20%"
-        leftCircleTranslateY="80%"
-        rightCircleTranslateX="10%"
-        rightCircleTranslateY="40%"
-      />
       <div className="mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
