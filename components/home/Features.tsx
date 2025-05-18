@@ -146,10 +146,10 @@ function BentoContent() {
                   </div>
                 </motion.div>
                 <div className="relative z-10 mt-6 space-y-2 text-center">
-                  <h2 className="text-lg font-medium transition">
+                  <h2 className="text-xl font-medium transition">
                     Secure By Default
                   </h2>
-                  <p className="text-foreground">
+                  <p className="text-muted-foreground text-sm">
                     Built with security as a foundation, not an afterthought.
                     Advanced protection features work silently in the background
                     to keep your data safe.
@@ -182,10 +182,10 @@ function BentoContent() {
                   <featureSvgs.skewGraph />
                 </motion.div>
                 <div className="relative z-10 mt-14 space-y-2 text-center">
-                  <h2 className="text-lg font-medium transition">
+                  <h2 className="text-xl font-medium transition">
                     Faster Than Light
                   </h2>
-                  <p className="text-foreground">
+                  <p className="text-muted-foreground text-sm">
                     Lightning-fast performance with optimized code and efficient
                     architecture.
                   </p>
@@ -267,10 +267,10 @@ function BentoContent() {
                   </motion.div>
 
                   <div className="space-y-2">
-                    <h2 className="text-lg font-medium transition">
+                    <h2 className="text-xl font-medium transition">
                       Full User Management
                     </h2>
-                    <p className="text-foreground">
+                    <p className="text-muted-foreground text-sm">
                       Effortlessly handle authentication, roles, and permissions
                       with a comprehensive better auth config.
                     </p>
