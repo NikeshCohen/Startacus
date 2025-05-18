@@ -70,12 +70,12 @@ function FeaturesBento() {
             text="Features"
           />
           <h2 className="pb-2 text-3xl font-bold md:text-4xl">
-            Faster Than Light
+            Engineered for Excellence
           </h2>
           <p className="text-muted-foreground text-lg">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi
-            iure perferendis dolorum. Ut et recusandae aliquam ea sequi quod
-            quae iusto totam ipsa.
+            We&apos;ve built a platform that combines power and simplicity,
+            giving you everything you need to launch your next big idea with
+            confidence.
           </p>
         </motion.div>
       </div>
@@ -148,8 +148,9 @@ function BentoContent() {
                     Secure By Default
                   </h2>
                   <p className="text-foreground">
-                    Provident fugit and vero voluptate. magnam magni doloribus
-                    dolores voluptates a sapiente nisi.
+                    Built with security as a foundation, not an afterthought.
+                    Advanced protection features work silently in the background
+                    to keep your data safe.
                   </p>
                 </div>
               </CardContent>
@@ -183,8 +184,8 @@ function BentoContent() {
                     Faster Than Light
                   </h2>
                   <p className="text-foreground">
-                    Provident fugit vero voluptate. magnam magni doloribus
-                    dolores voluptates inventore nisi.
+                    Lightning-fast performance with optimized code and efficient
+                    architecture.
                   </p>
                 </div>
               </CardContent>
@@ -207,7 +208,7 @@ function BentoContent() {
             <Card className="h-full">
               <CardContent className="grid pt-6 sm:grid-cols-2">
                 <div className="relative z-10 flex flex-col justify-between space-y-12 lg:space-y-6">
-                  <motion.div className="relative flex aspect-square size-12 rounded-full before:absolute before:-inset-2 before:rounded-full">
+                  <motion.div className="relative flex aspect-square size-12 rounded-full before:absolute before:-inset-2 before:rounded-full before:border before:border-black/5 dark:before:border-white/5">
                     <CentricCircles size={12}>
                       <Shield className="m-auto size-5" strokeWidth={1} />
                     </CentricCircles>
@@ -217,8 +218,8 @@ function BentoContent() {
                       Built In Analytics
                     </h2>
                     <p className="text-foreground">
-                      Provident fugit vero voluptate. Voluptates a sapiente
-                      inventore nisi.
+                      Gain powerful insights into user behavior and application
+                      performance.
                     </p>
                   </div>
                 </div>
@@ -268,8 +269,8 @@ function BentoContent() {
                       Full User Management
                     </h2>
                     <p className="text-foreground">
-                      Voluptate. magnam magni doloribus dolores voluptates a
-                      sapiente inventore nisi.
+                      Effortlessly handle authentication, roles, and permissions
+                      with a comprehensive better auth config.
                     </p>
                   </div>
                 </div>
