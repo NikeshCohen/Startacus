@@ -5,6 +5,13 @@ const nextConfig: NextConfig = {
     removeConsole:
       process.env.NODE_ENV === "production" ? { exclude: ["error"] } : false, // Remove console.logs in production except for errors
   },
+  images: {
+    remotePatterns: [
+      {
+        hostname: "xsgames.co",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

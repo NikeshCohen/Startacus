@@ -1,10 +1,11 @@
 "use client";
 
 import { features } from "@/constants/site.config";
-import { Icons } from "@/constants/tech-stack";
-import { Sparkles } from "lucide-react";
+import { Icons } from "@/constants/tech-stack-info";
+import { BookOpen } from "lucide-react";
 import { motion } from "motion/react";
 
+import AnimatedBadge from "@/components/global/animated-badge";
 import { OrbitingCircles } from "@/components/ui/orbiting-circles";
 
 function About() {
@@ -18,19 +19,16 @@ function About() {
           viewport={{ once: true }}
           className="mx-auto max-w-2xl text-center"
         >
-          <div className="bg-primary/10 border-primary/20 mb-6 inline-flex w-fit scroll-mt-32 rounded-full border px-4 py-1">
-            <div className="text-primary dark:text-primary/90 flex items-center gap-2 text-sm font-medium">
-              <Sparkles className="h-4 w-4" />
-              <span>About</span>
-            </div>
-          </div>
+          <AnimatedBadge
+            text="Less Boilerplate, More Awesome."
+            icon={<BookOpen className="h-4 w-4" />}
+          />
           <h2 className="pb-2 text-3xl font-bold md:text-4xl">
-            Customizable & Secure
+            Less Boilerplate, More Awesome.
           </h2>
           <p className="text-muted-foreground text-lg">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi
-            iure perferendis dolorum. Ut et recusandae aliquam ea sequi quod
-            quae iusto totam ipsa.
+            Kick tedious setup processes into the pit. Focus your energy on
+            building legendary features with our battle-tested Next.js starter.
           </p>
         </motion.div>
 
@@ -87,26 +85,22 @@ function About() {
 export function OrbitingCirclesComponent() {
   return (
     <div className="relative flex h-[500px] w-full max-w-[32rem] items-center justify-center overflow-hidden rounded-lg">
-      {" "}
       <span className="pointer-events-none bg-gradient-to-b from-black to-gray-400 bg-clip-text text-center text-8xl leading-none font-semibold whitespace-pre-wrap text-transparent dark:from-white dark:to-slate-900/10">
-        {" "}
-        100% Fast{" "}
-      </span>{" "}
+        Ship Fast
+      </span>
       <OrbitingCircles iconSize={40} className="[&>*]:text-foreground">
-        {" "}
-        <Icons.typescript /> <Icons.resend /> <Icons.supabase /> <Icons.react />{" "}
-        <Icons.tailwind /> <Icons.drizzle />{" "}
-      </OrbitingCircles>{" "}
+        <Icons.typescript /> <Icons.resend /> <Icons.supabase /> <Icons.react />
+        <Icons.tailwind /> <Icons.drizzle />
+      </OrbitingCircles>
       <OrbitingCircles
         iconSize={30}
         radius={100}
         reverse
         className="[&>*]:text-foreground"
       >
-        {" "}
-        <Icons.betterAuth /> <Icons.tanstackquery /> <Icons.nextjs />{" "}
-        <Icons.shadcn />{" "}
-      </OrbitingCircles>{" "}
+        <Icons.betterAuth /> <Icons.tanstackquery /> <Icons.nextjs />
+        <Icons.shadcn />
+      </OrbitingCircles>
     </div>
   );
 }
