@@ -3,6 +3,7 @@
 import React from "react";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { LogIn, Menu, X } from "lucide-react";
 import { motion } from "motion/react";
@@ -28,6 +29,8 @@ function Header() {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [animationPlayed, setAnimationPlayed] = React.useState(false);
   const { data: session, isPending } = authClient.useSession();
+
+  const pathname = usePathname();
   const headerRef = React.useRef<HTMLElement>(null);
 
   // Initialize scroll state and set up listener
@@ -177,30 +180,32 @@ function Header() {
               </div>
             </motion.div>
 
-            <div className="absolute inset-0 m-auto hidden size-fit lg:block">
-              <motion.ul
-                key="menu-items"
-                initial="hidden"
-                animate="visible"
-                variants={menuAnimation}
-                className="flex gap-8 text-sm"
-              >
-                {menuItems.map((item, index) => (
-                  <motion.li
-                    key={item.name + "-" + index}
-                    variants={itemAnimation}
-                  >
-                    <Link
-                      href={item.href}
-                      onClick={(e) => scrollToSection(e, item.href)}
-                      className="text-muted-foreground hover:text-accent-foreground block duration-150"
+            {pathname === "/" && (
+              <div className="absolute inset-0 m-auto hidden size-fit lg:block">
+                <motion.ul
+                  key="menu-items"
+                  initial="hidden"
+                  animate="visible"
+                  variants={menuAnimation}
+                  className="flex gap-8 text-sm"
+                >
+                  {menuItems.map((item, index) => (
+                    <motion.li
+                      key={item.name + "-" + index}
+                      variants={itemAnimation}
                     >
-                      <span>{item.name}</span>
-                    </Link>
-                  </motion.li>
-                ))}
-              </motion.ul>
-            </div>
+                      <Link
+                        href={item.href}
+                        onClick={(e) => scrollToSection(e, item.href)}
+                        className="text-muted-foreground hover:text-accent-foreground block duration-150"
+                      >
+                        <span>{item.name}</span>
+                      </Link>
+                    </motion.li>
+                  ))}
+                </motion.ul>
+              </div>
+            )}
 
             <motion.div
               initial={{ opacity: 0, y: 10 }}

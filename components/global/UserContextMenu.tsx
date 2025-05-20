@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { useRouter } from "next/navigation";
 
+import { useIsMobile } from "@/hooks/useIsMobile";
 import { LogOutIcon, UserIcon, UsersIcon } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -21,6 +22,7 @@ import { authClient } from "@/lib/auth/auth-client";
 
 export default function UserContextMenu({ className }: { className?: string }) {
   const router = useRouter();
+  const isMobile = useIsMobile();
   const { data: session } = authClient.useSession();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -67,7 +69,7 @@ export default function UserContextMenu({ className }: { className?: string }) {
             <UserProfileAvatar user={session.user} className={className} />
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align={isMobile ? "center" : "end"}>
           <div className="mb-1 px-2 py-1.5">
             <div className="text-xs font-medium">{session.user.name}</div>
             <div className="text-muted-foreground text-xs">
