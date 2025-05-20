@@ -9,6 +9,7 @@ import { QueryProviders } from "@/providers/QueryProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { Analytics } from "@vercel/analytics/react";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { ErrorBoundary } from "react-error-boundary";
 import { extractRouterConfig } from "uploadthing/server";
 
@@ -73,8 +74,10 @@ export default function RootLayout({
           <QueryProviders>
             <ErrorBoundary FallbackComponent={ErrorFallback}>
               <Header />
-              {children}
-              <Footer />
+              <NuqsAdapter>
+                {children}
+                <Footer />
+              </NuqsAdapter>
             </ErrorBoundary>
           </QueryProviders>
         </ThemeProvider>

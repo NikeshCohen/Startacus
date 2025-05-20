@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { useIsMobile } from "@/hooks/useIsMobile";
@@ -88,9 +89,14 @@ export default function UserContextMenu({ className }: { className?: string }) {
 
           {session.user.role === "admin" && (
             <>
-              <DropdownMenuItem className="cursor-pointer py-1.5 text-xs">
-                <UsersIcon className="mr-1.5 h-3 w-3" />
-                User Management
+              <DropdownMenuItem
+                className="cursor-pointer py-1.5 text-xs"
+                asChild
+              >
+                <Link href="/admin/users">
+                  <UsersIcon className="mr-1.5 h-3 w-3" />
+                  User Management
+                </Link>
               </DropdownMenuItem>
             </>
           )}
