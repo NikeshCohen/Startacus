@@ -73,8 +73,8 @@ export default function RootLayout({
           <Analytics />
           <QueryProviders>
             <ErrorBoundary FallbackComponent={ErrorFallback}>
-              <Header />
               <NuqsAdapter>
+                <Header />
                 {children}
                 <Footer />
               </NuqsAdapter>

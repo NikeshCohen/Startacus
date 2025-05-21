@@ -9,7 +9,10 @@ import { parseAsInteger, useQueryState } from "nuqs";
 import { Button } from "@/components/ui/button";
 
 function UsersTable() {
-  const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
+  const [page, setPage] = useQueryState(
+    "page",
+    parseAsInteger.withDefault(1).withOptions({ history: "push" }),
+  );
   const queryClient = useQueryClient();
   const pageSize = 10;
 

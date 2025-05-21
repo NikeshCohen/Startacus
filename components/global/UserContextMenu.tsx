@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { LogOutIcon, UserIcon, UsersIcon } from "lucide-react";
+import { parseAsBoolean, useQueryState } from "nuqs";
 import toast from "react-hot-toast";
 
 import UserProfileAvatar from "@/components/global/UserProfileAvatar";
@@ -28,7 +29,10 @@ export default function UserContextMenu({ className }: { className?: string }) {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useQueryState(
+    "profile",
+    parseAsBoolean.withDefault(false),
+  );
 
   if (!session?.user) return null;
 
