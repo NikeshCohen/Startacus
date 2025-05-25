@@ -180,6 +180,11 @@
   }
 }
 
+html > body[data-scroll-locked] {
+  overflow: visible !important;
+  margin-right: 0 !important;
+}
+
 body {
   background-color: var(--color-background);
   color: var(--color-foreground);
@@ -206,7 +211,7 @@ body {
   }
 
   .layout {
-    @apply mx-auto max-w-7xl scroll-mt-14 px-4 md:scroll-mt-20 md:px-6;
+    @apply mx-auto px-4 md:px-6 max-w-7xl scroll-mt-14 md:scroll-mt-20;
   }
 }
 

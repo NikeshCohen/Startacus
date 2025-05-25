@@ -78,7 +78,7 @@ export default function UserContextMenu() {
           <div className="flex items-center gap-2 mb-1 px-2 py-1.5">
             <UserProfileAvatar
               user={session.user}
-              className="rounded-xs w-8 h-8"
+              className="rounded-sm w-9 h-9"
             />
             <div className="flex flex-col">
               <div className="font-medium text-xs text-left">
@@ -101,7 +101,7 @@ export default function UserContextMenu() {
 
           {session.user.role === "admin" && (
             <DropdownMenuItem className="py-1.5 text-xs cursor-pointer" asChild>
-              <Link href="" className="flex items-center gap-3.5">
+              <Link href="/admin/users" className="flex items-center gap-3.5">
                 <Users />
                 <span>User Management</span>
               </Link>
