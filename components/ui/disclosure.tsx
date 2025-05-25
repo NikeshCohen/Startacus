@@ -14,7 +14,6 @@ import {
 
 import { cn } from "@/lib/utils";
 
-// Define a proper type for React element props to fix TypeScript errors
 type ReactElementProps = {
   className?: string;
   [key: string]: unknown;
@@ -200,9 +199,11 @@ export function DisclosureContent({
   );
 }
 
-export default {
+const DisclosureComponents = {
   Disclosure,
   DisclosureProvider,
   DisclosureTrigger,
   DisclosureContent,
 };
+
+export default DisclosureComponents;
