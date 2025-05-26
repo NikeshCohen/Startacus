@@ -25,11 +25,7 @@ export const LoaderButton = React.forwardRef<
       <Button
         ref={ref}
         disabled={isLoading}
-        className={cn(
-          "relative",
-          isLoading && "cursor-not-allowed!",
-          className,
-        )}
+        className={cn("relative", className)}
         variant={variant}
         size={size}
         {...props}

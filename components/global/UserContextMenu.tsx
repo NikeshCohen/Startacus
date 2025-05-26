@@ -29,6 +29,7 @@ export default function UserContextMenu() {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useQueryState(
     "profile",
     parseAsBoolean.withDefault(false),
@@ -58,6 +59,11 @@ export default function UserContextMenu() {
 
   const handleOpenProfile = () => {
     setIsProfileMenuOpen(true);
+    setIsDropdownOpen(false);
+  };
+
+  const handleAdminNavigation = () => {
+    setIsDropdownOpen(false);
   };
 
   return (
@@ -68,7 +74,7 @@ export default function UserContextMenu() {
         open={isProfileMenuOpen}
         onOpenChange={setIsProfileMenuOpen}
       />
-      <DropdownMenu>
+      <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
         <DropdownMenuTrigger asChild>
           <div className="cursor-pointer">
             <UserProfileAvatar user={session.user} />
@@ -101,8 +107,12 @@ export default function UserContextMenu() {
 
           {session.user.role === "admin" && (
             <DropdownMenuItem className="cursor-pointer py-1.5 text-xs" asChild>
-              <Link href="/admin/users" className="flex items-center gap-3.5">
-                <Users />
+              <Link
+                href="/admin/users"
+                className="flex w-full items-center gap-3.5"
+                onClick={handleAdminNavigation}
+              >
+                <Users className="h-3 w-3" />
                 <span>User Management</span>
               </Link>
             </DropdownMenuItem>
