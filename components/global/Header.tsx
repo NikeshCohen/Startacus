@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { LogIn, Menu, X } from "lucide-react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 
 import { Logo } from "@/components/global/Logo";
 import ThemeToggle from "@/components/global/ThemeToggle";
@@ -55,6 +55,20 @@ function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [animationPlayed]);
 
+  // Prevent body scroll when menu is open
+  React.useEffect(() => {
+    if (menuState) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [menuState]);
+
   // Animation variants based on scroll state
   const headerAnimation = React.useMemo(() => {
     return {
@@ -93,6 +107,72 @@ function Header() {
       },
     };
   }, [isScrolled]);
+
+  // Mobile menu animation variants
+  const mobileMenuVariants = {
+    hidden: {
+      opacity: 0,
+      y: -20,
+      scale: 0.95,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 30,
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -20,
+      scale: 0.95,
+      transition: {
+        duration: 0.2,
+        ease: "easeInOut",
+      },
+    },
+  };
+
+  // Mobile menu item variants
+  const mobileMenuItemVariants = {
+    hidden: {
+      opacity: 0,
+      x: -20,
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 30,
+      },
+    },
+  };
+
+  // Mobile menu backdrop variants
+  const backdropVariants = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.3,
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        duration: 0.2,
+      },
+    },
+  };
 
   const closeMenu = () => {
     setMenuState(false);
@@ -172,7 +252,7 @@ function Header() {
                 <button
                   onClick={() => setMenuState(!menuState)}
                   aria-label={menuState == true ? "Close Menu" : "Open Menu"}
-                  className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
+                  className="relative z-30 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
                 >
                   <Menu className="m-auto size-6 duration-200 in-data-[state=active]:scale-0 in-data-[state=active]:rotate-180 in-data-[state=active]:opacity-0" />
                   <X className="absolute inset-0 m-auto size-6 scale-0 -rotate-180 opacity-0 duration-200 in-data-[state=active]:scale-100 in-data-[state=active]:rotate-0 in-data-[state=active]:opacity-100" />
@@ -197,7 +277,7 @@ function Header() {
                       <Link
                         href={item.href}
                         onClick={(e) => scrollToSection(e, item.href)}
-                        className="text-muted-foreground hover:text-accent-foreground block duration-150"
+                        className="text-muted-foreground hover:text-accent-foreground block text-center duration-150"
                       >
                         <span>{item.name}</span>
                       </Link>
@@ -214,23 +294,8 @@ function Header() {
                 y: 0,
                 transition: { duration: isScrolled ? 0 : 0.5 },
               }}
-              className="bg-background mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 text-center shadow-2xl shadow-zinc-300/20 in-data-[state=active]:block md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none lg:in-data-[state=active]:flex dark:shadow-none dark:lg:bg-transparent"
+              className="hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 text-center shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent"
             >
-              <div className="lg:hidden">
-                <ul className="space-y-6 text-base">
-                  {menuItems.map((item, index) => (
-                    <li key={index}>
-                      <Link
-                        href={item.href}
-                        onClick={(e) => scrollToSection(e, item.href)}
-                        className="text-muted-foreground hover:text-accent-foreground block duration-150"
-                      >
-                        <span>{item.name}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
               <div className="flex w-full flex-col items-center space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
                 <div className="hidden lg:block">
                   <ThemeToggle />
@@ -258,6 +323,74 @@ function Header() {
             </motion.div>
           </div>
         </div>
+
+        {/* Mobile Menu Backdrop */}
+        <AnimatePresence>
+          {menuState && (
+            <motion.div
+              variants={backdropVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="fixed inset-0 z-10 bg-black/20 backdrop-blur-sm lg:hidden"
+              onClick={closeMenu}
+            />
+          )}
+        </AnimatePresence>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {menuState && (
+            <motion.div
+              variants={mobileMenuVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="bg-background/95 fixed top-20 right-2 left-2 z-20 mx-auto max-w-sm rounded-2xl border p-6 shadow-2xl backdrop-blur-lg lg:hidden"
+            >
+              <motion.div variants={mobileMenuItemVariants} className="mb-6">
+                <ul className="space-y-4 text-base">
+                  {menuItems.map((item, index) => (
+                    <motion.li key={index} variants={mobileMenuItemVariants}>
+                      <Link
+                        href={item.href}
+                        onClick={(e) => scrollToSection(e, item.href)}
+                        className="hover:bg-muted/50 text-muted-foreground hover:text-accent-foreground block rounded-lg px-3 py-2 text-center transition-colors duration-150"
+                      >
+                        <span>{item.name}</span>
+                      </Link>
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
+
+              <motion.div
+                variants={mobileMenuItemVariants}
+                className="flex w-full flex-col items-center space-y-3 border-t pt-4"
+              >
+                {isPending ? (
+                  <UserProfileAvatar isPending={true} className="h-9 w-9" />
+                ) : session?.user ? (
+                  <UserContextMenu />
+                ) : (
+                  <Button
+                    effect="expandIcon"
+                    size="sm"
+                    icon={LogIn}
+                    iconPlacement="right"
+                    onClick={closeMenu}
+                    asChild
+                    className="w-full"
+                  >
+                    <Link href="/sign-in">
+                      <span>Sign In</span>
+                    </Link>
+                  </Button>
+                )}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
     </motion.header>
   );
