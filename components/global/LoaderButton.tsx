@@ -39,13 +39,13 @@ export const LoaderButton = React.forwardRef<
             invisible: isLoading,
           })}
         >
-          {Icon && <Icon className="w-4 h-4" />}
+          {Icon && <Icon className="h-4 w-4" />}
           {children}
         </span>
 
         {isLoading && (
-          <span className="absolute inset-0 flex justify-center items-center">
-            <LoaderIcon className="w-4 h-4 animate-spin" />
+          <span className="absolute inset-0 flex items-center justify-center">
+            <LoaderIcon className="h-4 w-4 animate-spin" />
           </span>
         )}
       </Button>

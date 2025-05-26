@@ -75,13 +75,13 @@ export default function UserContextMenu() {
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent align={isMobile ? "center" : "end"}>
-          <div className="flex items-center gap-2 mb-1 px-2 py-1.5">
+          <div className="mb-1 flex items-center gap-2 px-2 py-1.5">
             <UserProfileAvatar
               user={session.user}
-              className="rounded-sm w-9 h-9"
+              className="h-9 w-9 rounded-md"
             />
             <div className="flex flex-col">
-              <div className="font-medium text-xs text-left">
+              <div className="text-left text-xs font-medium">
                 {session.user.name}
               </div>
               <div className="text-muted-foreground text-xs">
@@ -92,15 +92,15 @@ export default function UserContextMenu() {
           <DropdownMenuSeparator />
 
           <DropdownMenuItem
-            className="text-xs cursor-pointer y-1.5"
+            className="y-1.5 cursor-pointer text-xs"
             onClick={handleOpenProfile}
           >
-            <UserIcon className="mr-1.5 w-3 h-3" />
+            <UserIcon className="mr-1.5 h-3 w-3" />
             Profile
           </DropdownMenuItem>
 
           {session.user.role === "admin" && (
-            <DropdownMenuItem className="py-1.5 text-xs cursor-pointer" asChild>
+            <DropdownMenuItem className="cursor-pointer py-1.5 text-xs" asChild>
               <Link href="/admin/users" className="flex items-center gap-3.5">
                 <Users />
                 <span>User Management</span>
@@ -110,10 +110,10 @@ export default function UserContextMenu() {
 
           <DropdownMenuSeparator />
           <DropdownMenuItem
-            className="py-1.5 text-xs cursor-pointer"
+            className="cursor-pointer py-1.5 text-xs"
             onClick={handleSignOut}
           >
-            <LogOutIcon className="mr-1.5 w-3 h-3" />
+            <LogOutIcon className="mr-1.5 h-3 w-3" />
             Sign out
           </DropdownMenuItem>
         </DropdownMenuContent>
