@@ -120,7 +120,6 @@ function Header() {
       y: 0,
       scale: 1,
       transition: {
-        type: "spring",
         stiffness: 300,
         damping: 30,
         staggerChildren: 0.1,
@@ -133,7 +132,6 @@ function Header() {
       scale: 0.95,
       transition: {
         duration: 0.2,
-        ease: "easeInOut",
       },
     },
   };
@@ -148,7 +146,6 @@ function Header() {
       opacity: 1,
       x: 0,
       transition: {
-        type: "spring",
         stiffness: 300,
         damping: 30,
       },
