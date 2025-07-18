@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  experimental: {
+    devtoolNewPanelUI: true,
+    devtoolSegmentExplorer: true,
+  },
 };
 
 export default nextConfig;
