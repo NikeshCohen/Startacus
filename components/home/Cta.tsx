@@ -25,7 +25,7 @@ export default function CallToAction() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             viewport={{ once: true }}
-            className="text-background text-4xl font-semibold text-balance lg:text-5xl"
+            className="text-4xl font-semibold text-balance text-white lg:text-5xl"
           >
             Ship Your Project in Minutes
           </motion.h2>
@@ -35,7 +35,7 @@ export default function CallToAction() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-background mx-auto mt-2 max-w-2xl text-lg"
+            className="mx-auto mt-2 max-w-2xl text-lg text-white"
           >
             Stop building the same boilerplate over and over. Startacus gives
             you a production-ready foundation so you can focus on what matters.
@@ -56,14 +56,14 @@ export default function CallToAction() {
             >
               <Link href="https://vercel.com/new/clone?repository-url=https://github.com/NikeshCohen/Startacus/tree/main">
                 <span>Deploy Now</span>
-                <div className="mx-2 h-6 border-l-2 border-black"></div>
+                <div className="border-text mx-2 h-6 border-l-2"></div>
                 <svg
                   viewBox="0 0 256 222"
                   className="h-4 w-4"
                   xmlns="http://www.w3.org/2000/svg"
                   preserveAspectRatio="xMidYMid"
                 >
-                  <path fill="black" d="m128 0 128 221.705H0z" />
+                  <path fill="currentColor" d="m128 0 128 221.705H0z" />
                 </svg>
               </Link>
             </Button>

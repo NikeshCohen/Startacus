@@ -66,7 +66,7 @@ function Hero() {
           </Link>
         </Button>
 
-        <Button variant="outline" asChild>
+        <Button variant="outline" className="border-2" asChild>
           <Link href="https://github.com/NikeshCohen/Startacus">
             <span>Star on GitHub</span>
             <svg
