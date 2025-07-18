@@ -7,10 +7,8 @@ import postgres from "postgres";
 import { z } from "zod";
 
 const DATABASE_URL = z
-  .string({
-    description: "The URL of the Supabase database",
-    required_error: "The environment variable DATABASE_URL is required",
-  })
+  .string()
+  .nonempty("The environment variable DATABASE_URL is required")
   .url()
   .parse(process.env.DATABASE_URL);
 
