@@ -19,8 +19,6 @@ function SSOAuthBtns({
   redirectUrl: string;
   hideMagicLink?: boolean;
 }) {
-  const router = useRouter();
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [errMsgGithub, dispatchGithub, isLoadingGithub] = useActionState(
     () => signInGithub(redirectUrl),

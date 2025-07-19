@@ -1,6 +1,4 @@
-import eslintReact from "@eslint-react/eslint-plugin";
 import { FlatCompat } from "@eslint/eslintrc";
-import eslintJs from "@eslint/js";
 import noRelativeImportPaths from "eslint-plugin-no-relative-import-paths";
 import { dirname } from "path";
 import tseslint from "typescript-eslint";
@@ -33,10 +31,9 @@ const eslintConfig = [
     },
     rules: {
       "@typescript-eslint/no-unused-vars": "warn",
-      "@eslint-react/no-missing-key": "warn",
       "@typescript-eslint/no-explicit-any": "error",
-      "@eslint-react/jsx-key-before-spread": "error",
-      "@eslint-react/hooks-extra/no-direct-set-state-in-use-effect": "warn",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
       "no-relative-import-paths/no-relative-import-paths": [
         "error",
         {

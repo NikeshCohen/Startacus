@@ -1,6 +1,6 @@
 import React from "react";
 
-import GoogleOneTap from "./_components/GoogleOneTap";
+import GoogleOneTap from "@/app/(auth)/_components/GoogleOneTap";
 
 function layout({ children }: { children: React.ReactNode }) {
   return (
