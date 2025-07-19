@@ -146,7 +146,12 @@ export default function MagicLinkForm({
               </p>
             )}
           </div>
-          <Button type="button" asChild variant="outline" className="mt-2">
+          <Button
+            type="button"
+            asChild
+            variant="outline"
+            className="mt-2 border-2"
+          >
             <Link href="/sign-in">
               <Lock />
               <span>Continue with Password</span>

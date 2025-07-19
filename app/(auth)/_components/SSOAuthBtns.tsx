@@ -74,7 +74,7 @@ function SSOAuthBtns({
       <div className="grid grid-cols-2 gap-2">
         <LoaderButton
           variant="secondary"
-          className="w-full gap-2 text-black"
+          className="w-full gap-2"
           disabled={isLoadingGoogle || isLoadingGithub}
           isLoading={isLoadingGoogle}
           onClick={handleGoogleSignIn}
@@ -109,7 +109,7 @@ function SSOAuthBtns({
         </LoaderButton>
         <LoaderButton
           variant="secondary"
-          className="w-full gap-2 text-black"
+          className="w-full gap-2"
           disabled={isLoadingGoogle || isLoadingGithub}
           isLoading={isLoadingGithub}
           onClick={handleGithubSignIn}
@@ -136,7 +136,11 @@ function SSOAuthBtns({
       </div>
 
       {!hideMagicLink && (
-        <Button asChild variant="outline" className="mt-2 w-full md:mt-4">
+        <Button
+          asChild
+          variant="outline"
+          className="mt-2 w-full border-2 md:mt-4"
+        >
           <Link href="/magic-link">
             <Mail />
             <span>Continue with Magic Link</span>
