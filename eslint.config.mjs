@@ -1,6 +1,4 @@
-import eslintReact from "@eslint-react/eslint-plugin";
 import { FlatCompat } from "@eslint/eslintrc";
-import eslintJs from "@eslint/js";
 import noRelativeImportPaths from "eslint-plugin-no-relative-import-paths";
 import { dirname } from "path";
 import tseslint from "typescript-eslint";
@@ -20,15 +18,6 @@ const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
     files: ["**/*.ts", "**/*.tsx"],
-    // Extend recommended rule sets from:
-    // 1. ESLint JS's recommended rules
-    // 2. TypeScript ESLint recommended rules
-    // 3. ESLint React's recommended-typescript rules
-    extends: [
-      eslintJs.configs.recommended,
-      tseslint.configs.recommended,
-      eslintReact.configs["recommended-typescript"],
-    ],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
