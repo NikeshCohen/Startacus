@@ -1,17 +1,16 @@
 "use client";
 
-import { startTransition, useActionState, useEffect } from "react";
+import { startTransition, useActionState } from "react";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { Mail } from "lucide-react";
-import toast from "react-hot-toast";
 
 import { LoaderButton } from "@/components/global/LoaderButton";
 import { Button } from "@/components/ui/button";
 
-import { oneTap, signInGithub, signInGoogle } from "@/lib/auth/auth-client";
+import { signInGithub, signInGoogle } from "@/lib/auth/auth-client";
 
 function SSOAuthBtns({
   redirectUrl,
@@ -44,30 +43,6 @@ function SSOAuthBtns({
       dispatchGoogle();
     });
   };
-
-  useEffect(() => {
-    oneTap({
-      fetchOptions: {
-        headers: {
-          "Referrer-Policy": "no-referrer-when-downgrade",
-        },
-        onError: ({ error }) => {
-          toast.error(error.message || "An error occurred");
-        },
-        onSuccess: () => {
-          toast.success("Successfully signed in");
-          router.push("/");
-        },
-      },
-      onPromptNotification: (notification) => {
-        console.warn(
-          "Prompt was dismissed or skipped. Consider displaying an alternative sign-in option.",
-          notification,
-        );
-      },
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div>
@@ -139,7 +114,7 @@ function SSOAuthBtns({
         <Button
           asChild
           variant="outline"
-          className="mt-2 w-full border-2 md:mt-4"
+          className="mt-2 w-full border md:mt-4"
         >
           <Link href="/magic-link">
             <Mail />
