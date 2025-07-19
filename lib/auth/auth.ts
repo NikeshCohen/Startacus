@@ -39,10 +39,13 @@ const options = {
     google: {
       clientId: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
+      redirectURI: "https://startacus.dev/api/auth/callback/google",
     },
     github: {
       clientId: GITHUB_CLIENT_ID,
       clientSecret: GITHUB_CLIENT_SECRET,
+
+      redirectURI: "https://startacus.dev/api/auth/callback/github",
     },
   },
   emailAndPassword: {

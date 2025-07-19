@@ -1,4 +1,6 @@
+import eslintReact from "@eslint-react/eslint-plugin";
 import { FlatCompat } from "@eslint/eslintrc";
+import eslintJs from "@eslint/js";
 import noRelativeImportPaths from "eslint-plugin-no-relative-import-paths";
 import { dirname } from "path";
 import tseslint from "typescript-eslint";
