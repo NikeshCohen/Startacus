@@ -24,6 +24,10 @@ import {
 } from "better-auth/plugins";
 import { passkey } from "better-auth/plugins/passkey";
 
+import { getBaseUrl } from "@/lib/utils";
+
+const baseUrl = getBaseUrl();
+
 const options = {
   appName: "Startacus",
   database: drizzleAdapter(db, {
@@ -39,13 +43,13 @@ const options = {
     google: {
       clientId: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      redirectURI: "https://startacus.dev/api/auth/callback/google",
+      redirectURI: `${baseUrl}/api/auth/callback/google`,
     },
     github: {
       clientId: GITHUB_CLIENT_ID,
       clientSecret: GITHUB_CLIENT_SECRET,
 
-      redirectURI: "https://startacus.dev/api/auth/callback/github",
+      redirectURI: `${baseUrl}/api/auth/callback/github`,
     },
   },
   emailAndPassword: {

@@ -74,3 +74,28 @@ const createImage = (url: string): Promise<HTMLImageElement> =>
     image.crossOrigin = "anonymous"; // Avoid CORS issues when processing images
     image.src = url;
   });
+
+/**
+ * Gets the base URL for the current environment.
+ * Checks Vercel environment variables to determine the appropriate URL:
+ * - In production: Uses production URL or custom domain if available
+ * - In preview: Uses preview deployment URL
+ * - In development: Uses local development URL (defaults to localhost:3000)
+ *
+ * @returns The base URL string for the current environment
+ */
+export function getBaseUrl(): string {
+  const vercelEnv = process.env.VERCEL_ENV as "production" | "preview";
+
+  if (vercelEnv === "production") {
+    return process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : process.env.NEXT_PUBLIC_SITE_URL || `https://${process.env.VERCEL_URL}`;
+  }
+
+  if (vercelEnv === "preview") {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+
+  return process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+}
