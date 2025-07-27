@@ -48,7 +48,6 @@ const options = {
     github: {
       clientId: GITHUB_CLIENT_ID,
       clientSecret: GITHUB_CLIENT_SECRET,
-
       redirectURI: `${baseUrl}/api/auth/callback/github`,
     },
   },
