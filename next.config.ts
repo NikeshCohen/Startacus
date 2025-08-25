@@ -1,9 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  typedRoutes: true,
   compiler: {
     removeConsole:
-      process.env.NODE_ENV === "production" ? { exclude: ["error"] } : false, // Remove console.logs in production except for errors
+      process.env.NODE_ENV === "production"
+        ? { exclude: ["error", "warn"] }
+        : false, // Remove console.logs in production except for errors and warnings
   },
   images: {
     remotePatterns: [
@@ -13,8 +16,8 @@ const nextConfig: NextConfig = {
     ],
   },
   experimental: {
-    devtoolNewPanelUI: true,
     devtoolSegmentExplorer: true,
+    viewTransition: true,
   },
 };
 
