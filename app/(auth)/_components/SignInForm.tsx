@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import type { Route } from "next";
 import { useRouter } from "next/navigation";
 
 import { PasswordInput } from "@/app/(auth)/_components/password-input";
@@ -30,7 +31,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-function SignInForm({ redirectUrl }: { redirectUrl: string }) {
+function SignInForm({ redirectUrl }: { redirectUrl: Route }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -65,7 +66,7 @@ function SignInForm({ redirectUrl }: { redirectUrl: string }) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="gap-4 grid">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
         <FormField
           control={form.control}
           name="email"
