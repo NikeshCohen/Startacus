@@ -6,7 +6,7 @@ import { techStackInfo } from "@/constants/tech-stack-info";
 import { ArrowUpRight, Layers } from "lucide-react";
 import { motion } from "motion/react";
 
-import AnimatedBadge from "@/components/global/animated-badge";
+import AnimatedBadge from "@/components/global/AnimatedBadge";
 import { SideGradientBackground } from "@/components/global/backgrounds";
 import {
   Card,

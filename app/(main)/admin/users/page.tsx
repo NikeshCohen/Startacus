@@ -4,7 +4,7 @@ import { Metadata } from "next";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-import UsersTable from "@/app/admin/users/_components/UsersTable";
+import UsersTable from "@/app/(main)/admin/users/_components/UsersTable";
 
 import { auth } from "@/lib/auth/auth";
 

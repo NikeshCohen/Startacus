@@ -5,7 +5,7 @@ import { Icons } from "@/constants/tech-stack-info";
 import { BookOpen } from "lucide-react";
 import { motion } from "motion/react";
 
-import AnimatedBadge from "@/components/global/animated-badge";
+import AnimatedBadge from "@/components/global/AnimatedBadge";
 import { OrbitingCircles } from "@/components/ui/orbiting-circles";
 
 function About() {

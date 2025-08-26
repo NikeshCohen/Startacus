@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { fetchAllUsers } from "@/app/admin/users/utils/queries";
+import { fetchAllUsers } from "@/app/(main)/admin/users/utils/queries";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   ChevronFirst,

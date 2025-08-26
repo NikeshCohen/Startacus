@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { useIsMobile } from "@/hooks/useIsMobile";
-import { LogOutIcon, UserIcon, Users } from "lucide-react";
+import { LayoutDashboard, LogOutIcon, UserIcon } from "lucide-react";
 import { parseAsBoolean, useQueryState } from "nuqs";
 import toast from "react-hot-toast";
 
@@ -62,10 +62,6 @@ export default function UserContextMenu() {
     setIsDropdownOpen(false);
   };
 
-  const handleAdminNavigation = () => {
-    setIsDropdownOpen(false);
-  };
-
   return (
     <>
       <ProfileMenu
@@ -97,6 +93,13 @@ export default function UserContextMenu() {
           </div>
           <DropdownMenuSeparator />
 
+          <DropdownMenuItem className="y-1.5 cursor-pointer text-xs" asChild>
+            <Link href="/dashboard">
+              <LayoutDashboard className="mr-1.5 h-3 w-3" />
+              Dashboard
+            </Link>
+          </DropdownMenuItem>
+
           <DropdownMenuItem
             className="y-1.5 cursor-pointer text-xs"
             onClick={handleOpenProfile}
@@ -104,19 +107,6 @@ export default function UserContextMenu() {
             <UserIcon className="mr-1.5 h-3 w-3" />
             Profile
           </DropdownMenuItem>
-
-          {session.user.role === "admin" && (
-            <DropdownMenuItem className="cursor-pointer py-1.5 text-xs" asChild>
-              <Link
-                href="/admin/users"
-                className="flex w-full items-center gap-3.5"
-                onClick={handleAdminNavigation}
-              >
-                <Users className="h-3 w-3" />
-                <span>User Management</span>
-              </Link>
-            </DropdownMenuItem>
-          )}
 
           <DropdownMenuSeparator />
           <DropdownMenuItem

@@ -2,6 +2,7 @@
 
 import React from "react";
 
+import { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -17,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth/auth-client";
 import { cn } from "@/lib/utils";
 
-const menuItems: { name: string; href: string }[] = [
+const menuItems: { name: string; href: Route }[] = [
   { name: "About", href: "#about" },
   { name: "Features", href: "#features" },
   { name: "Tech Stack", href: "#tech-stack" },
@@ -96,7 +97,6 @@ function Header() {
     };
   }, [isScrolled]);
 
-  // Item variants
   const itemAnimation = React.useMemo(() => {
     return {
       hidden: { opacity: 0, y: 10 },
@@ -108,7 +108,6 @@ function Header() {
     };
   }, [isScrolled]);
 
-  // Mobile menu animation variants
   const mobileMenuVariants = {
     hidden: {
       opacity: 0,
