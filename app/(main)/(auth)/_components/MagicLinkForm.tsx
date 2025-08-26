@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 
+import { Route } from "next";
 import Link from "next/link";
 
-import AuthCardFooter from "@/app/(auth)/_components/AuthCardFooter";
+import AuthCardFooter from "@/app/(main)/(auth)/_components/AuthCardFooter";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Lock, SendIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -31,11 +32,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export default function MagicLinkForm({
-  redirectUrl,
-}: {
-  redirectUrl: string;
-}) {
+export default function MagicLinkForm({ redirectUrl }: { redirectUrl: Route }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [noUser, setNoUser] = useState(false);

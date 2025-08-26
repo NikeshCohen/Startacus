@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Route } from "next";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import AuthCardFooter from "@/app/(auth)/_components/AuthCardFooter";
-import SSOAuthBtns from "@/app/(auth)/_components/SSOAuthBtns";
-import SignUpForm from "@/app/(auth)/_components/SignUpForm";
+import AuthCardFooter from "@/app/(main)/(auth)/_components/AuthCardFooter";
+import SSOAuthBtns from "@/app/(main)/(auth)/_components/SSOAuthBtns";
+import SignUpForm from "@/app/(main)/(auth)/_components/SignUpForm";
 
 import Logo from "@/components/global/Logo";
 import {
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 };
 
 interface PageProps {
-  searchParams: Promise<{ redirectUrl?: string }>;
+  searchParams: Promise<{ redirectUrl?: Route }>;
 }
 
 export default async function Page({ searchParams }: PageProps) {

@@ -5,7 +5,7 @@ import { useState } from "react";
 import type { Route } from "next";
 import { useRouter } from "next/navigation";
 
-import { PasswordInput } from "@/app/(auth)/_components/password-input";
+import { PasswordInput } from "@/app/(main)/(auth)/_components/password-input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";

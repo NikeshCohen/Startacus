@@ -14,8 +14,6 @@ import { ErrorBoundary } from "react-error-boundary";
 import { extractRouterConfig } from "uploadthing/server";
 
 import ErrorFallback from "@/components/global/ErrorFalback";
-import Footer from "@/components/global/Footer";
-import Header from "@/components/global/Header";
 import Toaster from "@/components/global/Toaster";
 
 const sora = Sora({ variable: "--font-sora", subsets: ["latin"] });
@@ -73,11 +71,7 @@ export default function RootLayout({
           <Analytics />
           <QueryProviders>
             <ErrorBoundary FallbackComponent={ErrorFallback}>
-              <NuqsAdapter>
-                <Header />
-                {children}
-                <Footer />
-              </NuqsAdapter>
+              <NuqsAdapter>{children}</NuqsAdapter>
             </ErrorBoundary>
           </QueryProviders>
         </ThemeProvider>

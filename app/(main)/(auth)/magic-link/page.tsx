@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Route } from "next";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-import MagicLinkForm from "@/app/(auth)/_components/MagicLinkForm";
+import MagicLinkForm from "@/app/(main)/(auth)/_components/MagicLinkForm";
 
 import Logo from "@/components/global/Logo";
 import {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 interface PageProps {
-  searchParams: Promise<{ redirectUrl?: string }>;
+  searchParams: Promise<{ redirectUrl?: Route }>;
 }
 
 export default async function Page({ searchParams }: PageProps) {

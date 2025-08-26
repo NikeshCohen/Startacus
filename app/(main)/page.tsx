@@ -13,7 +13,6 @@ function Page() {
       <FeaturesBento />
       <TechCards />
       <CallToAction />
-
       <FAQ />
     </section>
   );

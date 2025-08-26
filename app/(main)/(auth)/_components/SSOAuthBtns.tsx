@@ -2,6 +2,7 @@
 
 import { startTransition, useActionState } from "react";
 
+import { Route } from "next";
 import Link from "next/link";
 
 import { Mail } from "lucide-react";
@@ -15,7 +16,7 @@ function SSOAuthBtns({
   redirectUrl,
   hideMagicLink = false,
 }: {
-  redirectUrl: string;
+  redirectUrl: Route;
   hideMagicLink?: boolean;
 }) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
