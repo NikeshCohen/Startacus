@@ -94,7 +94,7 @@ export default function UserContextMenu() {
           <DropdownMenuSeparator />
 
           <DropdownMenuItem className="y-1.5 cursor-pointer text-xs" asChild>
-            <Link href="/dashboard">
+            <Link href="/dashboard" className="flex w-full items-center gap-2">
               <LayoutDashboard className="mr-1.5 h-3 w-3" />
               Dashboard
             </Link>

@@ -305,6 +305,7 @@ body {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground scroll-smooth;
   }
@@ -387,4 +388,13 @@ body {
 ::view-transition-new(root) {
   /* Apply the reveal animation */
   animation: reveal 0.4s ease-in-out forwards;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
