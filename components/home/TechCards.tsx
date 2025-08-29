@@ -1,5 +1,6 @@
 "use client";
 
+import { Route } from "next";
 import Link from "next/link";
 
 import { techStackInfo } from "@/constants/tech-stack-info";
@@ -49,7 +50,11 @@ function TechCards() {
               viewport={{ once: true }}
               className="h-full"
             >
-              <Link href={item.link} target="_blank" className="block h-full">
+              <Link
+                href={item.link as Route}
+                target="_blank"
+                className="block h-full"
+              >
                 <Card className="group h-full">
                   <CardHeader>
                     <div className="relative flex h-10 w-10 items-center justify-center">
