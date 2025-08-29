@@ -6,15 +6,22 @@ import { useEffect, useState } from "react";
 import { useEnhancedTheme } from "@/hooks/useTheme";
 import { Moon, Sun } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { Button, ButtonProps } from "@/components/ui/button";
 
 import { cn } from "@/lib/utils";
 
 interface ThemeToggleProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
+  variant?: ButtonProps["variant"];
+  size?: ButtonProps["size"];
 }
 
-export default function ThemeToggle({ className, ...props }: ThemeToggleProps) {
+export default function ThemeToggle({
+  className,
+  variant = "ghost",
+  size = "icon",
+  ...props
+}: ThemeToggleProps) {
   const [mounted, setMounted] = useState(false);
   const { theme, toggleTheme } = useEnhancedTheme();
 
@@ -40,8 +47,8 @@ export default function ThemeToggle({ className, ...props }: ThemeToggleProps) {
   if (!mounted) {
     return (
       <Button
-        variant="ghost"
-        size="icon"
+        variant={variant}
+        size={size}
         className={cn("animate-pulse rounded-full", className)}
         disabled
       />
@@ -51,15 +58,15 @@ export default function ThemeToggle({ className, ...props }: ThemeToggleProps) {
   return (
     <div className={className} {...props}>
       <Button
-        variant="ghost"
-        size="icon"
+        variant={variant}
+        size={size}
         onClick={handleToggle}
         className="cursor-pointer rounded-full"
       >
         {theme === "dark" ? (
-          <Sun className="size-[18px]" />
+          <Sun className="h-4 w-4" />
         ) : (
-          <Moon className="size-[18px]" />
+          <Moon className="h-4 w-4" />
         )}
       </Button>
     </div>

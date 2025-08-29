@@ -64,7 +64,7 @@ export const DashboardHeader = () => {
           <span className="sr-only">Notifications</span>
         </Button>
 
-        <ThemeToggle />
+        <ThemeToggle variant="outline" size="icon" className="rounded-full" />
       </div>
     </header>
   );

@@ -48,7 +48,7 @@ export function NavWorkspace({
             <SidebarMenuButton asChild>
               <a
                 href={item.url}
-                className="hover:bg-transparent hover:font-bold hover:underline hover:underline-offset-4 active:bg-transparent"
+                className="hover:bg-transparent active:bg-transparent"
                 aria-label={`Workspace: ${item.name}`}
               >
                 <item.icon aria-hidden="true" />
@@ -85,25 +85,13 @@ export function NavWorkspace({
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem role="menuitem">
-                  <Trash2
-                    className="text-muted-foreground"
-                    aria-hidden="true"
-                  />
-                  <span>Delete Project</span>
+                  <Trash2 aria-hidden="true" className="text-destructive" />
+                  <span className="text-destructive">Delete Project</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </SidebarMenuItem>
         ))}
-        <SidebarMenuItem>
-          <SidebarMenuButton
-            className="cursor-pointer hover:bg-transparent hover:font-bold hover:underline hover:underline-offset-4 active:bg-transparent"
-            aria-label="More workspaces"
-          >
-            <MoreHorizontal aria-hidden="true" />
-            <span>More</span>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
       </SidebarMenu>
     </SidebarGroup>
   );

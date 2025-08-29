@@ -35,7 +35,7 @@ function DashboardLayoutWrapper({ children }: Props) {
         role="main"
       >
         <DashboardHeader />
-        <Separator className="bg-secondary" aria-hidden="true" />
+        <Separator aria-hidden="true" />
         <div
           className="flex-1 overflow-auto p-4"
           aria-label="Dashboard content"

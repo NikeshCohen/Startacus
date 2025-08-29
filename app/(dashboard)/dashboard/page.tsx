@@ -1,7 +1,7 @@
 import React from "react";
 
 function page() {
-  return <div className="layout">page</div>;
+  return <section>page</section>;
 }
 
 export default page;

@@ -51,7 +51,7 @@ export function SidebarSubmenuWrapper({ item, isPopover }: Props) {
           <SidebarMenuSubButton
             asChild
             className={cn(
-              "hover:bg-transparent hover:font-bold hover:underline hover:underline-offset-4 active:bg-transparent",
+              "hover:bg-transparent active:bg-transparent",
               subItem.isActive && "font-bold underline underline-offset-4",
               isPopover && "px-4",
             )}

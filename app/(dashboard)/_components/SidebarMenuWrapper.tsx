@@ -60,7 +60,7 @@ export function SidebarMenuWrapper({ item }: Props) {
             <CollapsibleTrigger asChild>
               <SidebarMenuButton
                 className={cn(
-                  "cursor-pointer hover:bg-transparent hover:font-bold hover:underline hover:underline-offset-4 active:bg-transparent data-[state=open]:hover:bg-transparent",
+                  "cursor-pointer hover:bg-transparent active:bg-transparent data-[state=open]:hover:bg-transparent",
                   isSubmenuActive && "font-bold",
                 )}
                 aria-label={item.title}
@@ -110,7 +110,7 @@ export function SidebarMenuWrapper({ item }: Props) {
         <SidebarMenuButton
           tooltip={item.title}
           className={cn(
-            "cursor-pointer hover:bg-transparent hover:font-bold hover:underline hover:underline-offset-4 active:bg-transparent data-[state=open]:hover:bg-transparent",
+            "cursor-pointer hover:bg-transparent active:bg-transparent data-[state=open]:hover:bg-transparent",
             isSubmenuActive && "font-bold",
           )}
           aria-label={item.title}

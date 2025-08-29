@@ -3,7 +3,6 @@ import {
   FileText,
   Frame,
   HandCoins,
-  LifeBuoy,
   Map,
   PieChart,
   Send,
@@ -157,11 +156,6 @@ export const sidebarMenus = {
     },
   ],
   navSecondary: [
-    {
-      title: "Support",
-      url: "/dashboard/support",
-      icon: LifeBuoy,
-    },
     {
       title: "Feedback",
       url: "/dashboard/feedback",
