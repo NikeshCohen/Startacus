@@ -41,7 +41,7 @@ export function NavSecondary({
               <SidebarMenuButton asChild size="sm">
                 <Link
                   href={item.url}
-                  className="cursor-pointer hover:bg-transparent active:bg-transparent"
+                  className="cursor-pointer active:bg-transparent"
                   aria-label={item.title}
                 >
                   <item.icon aria-hidden="true" />

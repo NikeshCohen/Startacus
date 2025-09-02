@@ -1,5 +1,8 @@
 "use client";
 
+import { Route } from "next";
+import Link from "next/link";
+
 import {
   Folder,
   type LucideIcon,
@@ -30,7 +33,7 @@ export function NavWorkspace({
 }: {
   workspaces: {
     name: string;
-    url: string;
+    url: Route;
     icon: LucideIcon;
   }[];
 }) {
@@ -46,14 +49,14 @@ export function NavWorkspace({
         {workspaces.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild>
-              <a
+              <Link
                 href={item.url}
-                className="hover:bg-transparent active:bg-transparent"
+                className="active:bg-transparent"
                 aria-label={`Workspace: ${item.name}`}
               >
                 <item.icon aria-hidden="true" />
                 <span>{item.name}</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
