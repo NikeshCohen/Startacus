@@ -43,7 +43,7 @@ export function NavMain({ items }: NavMainProps) {
             key={item.title}
             asChild
             defaultOpen={item.isActive}
-            className="hover:bg-transparent"
+            className=""
           >
             <SidebarMenuWrapper key={item.url} item={item} />
           </Collapsible>

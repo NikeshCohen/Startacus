@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import { Route } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -15,6 +16,8 @@ interface LogoProps {
   size?: "sm" | "lg";
   width?: number;
   height?: number;
+  href?: Route;
+  showTextLogo?: boolean;
 }
 
 export function Logo({
@@ -22,6 +25,8 @@ export function Logo({
   size = "lg",
   width = 20,
   height = 20,
+  href = "/",
+  showTextLogo = true,
 }: LogoProps) {
   const { theme } = useTheme();
   const [isMounted, setIsMounted] = useState(false);
@@ -48,28 +53,52 @@ export function Logo({
   }
 
   return (
-    <Link href="/" className={clsx("flex items-center", className)}>
-      {theme === "light" && (
-        <Image
-          src="/icon(black).png"
-          alt="Logo"
-          width={width}
-          height={height}
-          className="mr-2"
-        />
+    <Link
+      href={href}
+      className={clsx(
+        "inline-flex w-max items-center justify-self-start",
+        showTextLogo ? "gap-2" : "gap-0",
+        className,
       )}
-      {theme === "dark" && (
-        <Image
-          src="/icon(white).png"
-          alt="Logo"
-          width={width}
-          height={height}
-          className="mr-2"
-        />
-      )}
-      <h1 className={cn("relative font-bold tracking-wide", `text-${size}`)}>
-        Startacus
-      </h1>
+    >
+      <div className="flex aspect-square size-8 shrink-0 items-center justify-center rounded-lg">
+        {theme === "light" && (
+          <Image
+            src="/icon(black).png"
+            alt="Logo"
+            width={width}
+            height={height}
+            className="transition-transform duration-200"
+          />
+        )}
+        {theme === "dark" && (
+          <Image
+            src="/icon(white).png"
+            alt="Logo"
+            width={width}
+            height={height}
+            className="transition-transform duration-200"
+          />
+        )}
+      </div>
+      <div
+        className={cn(
+          "overflow-hidden transition-[width] duration-200",
+          showTextLogo ? "w-auto" : "w-0",
+        )}
+      >
+        <h1
+          className={cn(
+            "relative font-bold tracking-wide whitespace-nowrap transition-[transform,opacity] duration-200",
+            `text-${size}`,
+            showTextLogo
+              ? "translate-x-0 opacity-100"
+              : "-translate-x-4 opacity-0",
+          )}
+        >
+          Startacus
+        </h1>
+      </div>
     </Link>
   );
 }

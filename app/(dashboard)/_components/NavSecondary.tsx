@@ -2,6 +2,9 @@
 
 import * as React from "react";
 
+import { Route } from "next";
+import Link from "next/link";
+
 import { type LucideIcon } from "lucide-react";
 
 import {
@@ -25,7 +28,7 @@ export function NavSecondary({
 }: {
   items: {
     title: string;
-    url: string;
+    url: Route;
     icon: LucideIcon;
   }[];
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
@@ -36,14 +39,14 @@ export function NavSecondary({
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton asChild size="sm">
-                <a
+                <Link
                   href={item.url}
-                  className="cursor-pointer hover:bg-transparent hover:font-bold hover:underline hover:underline-offset-2 active:bg-transparent"
+                  className="cursor-pointer hover:bg-transparent active:bg-transparent"
                   aria-label={item.title}
                 >
                   <item.icon aria-hidden="true" />
                   <span>{item.title}</span>
-                </a>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}

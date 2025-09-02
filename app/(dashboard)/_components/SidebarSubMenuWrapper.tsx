@@ -41,7 +41,7 @@ export function SidebarSubmenuWrapper({ item, isPopover }: Props) {
     <SidebarMenuSub
       className={cn(
         isPopover && "mx-0 border-none px-0",
-        !isPopover && "border-gray-700",
+        !isPopover && "border-border",
       )}
       role="menu"
       aria-label={`${item.title} submenu items`}
