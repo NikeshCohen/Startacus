@@ -15,6 +15,7 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
+    "db:view": "concurrently \"npx drizzle-kit studio\" \"npx drizzle-lab visualizer\" \"sleep 1 && npx drizzle-view\"",
     "db:sync": "npm run db:generate && npm run db:migrate && npm run db:push && npm run db:pull",
     "prepare": "node .husky/install.mjs"
   },
@@ -89,6 +90,7 @@
     "better-auth": "^1.3.7",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "concurrently": "^9.2.1",
     "dotenv": "^17.2.1",
     "drizzle-kit": "^0.31.4",
     "drizzle-orm": "^0.44.4",
