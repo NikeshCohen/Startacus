@@ -18,8 +18,8 @@ export function UserAccounts() {
   const [processingGoogle, setProcessingGoogle] = useState(false);
   const [processingGithub, setProcessingGithub] = useState(false);
 
-  const hasGoogleAccount = accounts?.some((acc) => acc.provider === "google");
-  const hasGithubAccount = accounts?.some((acc) => acc.provider === "github");
+  const hasGoogleAccount = accounts?.some((acc) => acc.providerId === "google");
+  const hasGithubAccount = accounts?.some((acc) => acc.providerId === "github");
 
   const handleLinkGoogle = async () => {
     setProcessingGoogle(true);
