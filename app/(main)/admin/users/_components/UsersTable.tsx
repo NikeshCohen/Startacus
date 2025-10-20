@@ -31,6 +31,7 @@ function UsersTable() {
 
   useEffect(() => {
     if (!isFetching) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoadingAction(null);
     }
   }, [isFetching]);

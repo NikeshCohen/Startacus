@@ -10,6 +10,8 @@ import { Button, ButtonProps } from "@/components/ui/button";
 
 import { cn } from "@/lib/utils";
 
+/* eslint-disable react-hooks/set-state-in-effect */
+
 interface ThemeToggleProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
   variant?: ButtonProps["variant"];

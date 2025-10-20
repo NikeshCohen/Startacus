@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User } from "better-auth";
@@ -34,8 +34,8 @@ interface ChangeEmailProps {
 
 function ChangeEmail({ user }: ChangeEmailProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const isEmailVerified = useRef(user?.emailVerified);
   const [sentEmail, setSentEmail] = useState(false);
+  const [isEmailVerified] = useState(user?.emailVerified);
 
   const form = useForm<EmailFormValues>({
     resolver: zodResolver(emailFormSchema),
@@ -102,7 +102,7 @@ function ChangeEmail({ user }: ChangeEmailProps) {
     }
   };
 
-  if (!isEmailVerified.current) {
+  if (!isEmailVerified) {
     return (
       <div className="bg-card/60 rounded-lg border p-4">
         <div className="text-lg font-medium">Verify Your Email</div>

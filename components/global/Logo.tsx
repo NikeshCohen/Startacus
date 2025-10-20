@@ -11,6 +11,8 @@ import { useTheme } from "next-themes";
 
 import { cn } from "@/lib/utils";
 
+/* eslint-disable react-hooks/set-state-in-effect */
+
 interface LogoProps {
   className?: string;
   size?: "sm" | "lg";

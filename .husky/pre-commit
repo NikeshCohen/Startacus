@@ -10,6 +10,23 @@ if ! git diff --quiet || ! git diff --cached --quiet; then
   STASHED=1
 fi
 
+# run lint check
+printf "\n🔍 Running lint check...\n"
+if ! npm run lint; then
+  printf "\n❌ Lint errors detected!\n"
+  printf "🔧 Please fix the linting issues before committing.\n"
+  printf "💡 You can run 'npm run lint' to see the issues.\n"
+  
+  # apply stash only if it was stashed during this session
+  if [ $STASHED -eq 1 ]; then
+    git stash apply
+    printf "\n🔄 Unstashed changes have been restored.\n"
+  fi
+  
+  exit 1
+fi
+printf "✅ Lint check passed!\n"
+
 # check if changes were made
 if ! git diff --quiet --exit-code; then
   printf "\n❗ Code formatting issues detected and fixed automatically.\n"
