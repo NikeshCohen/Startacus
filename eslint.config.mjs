@@ -1,31 +1,12 @@
-import { FlatCompat } from "@eslint/eslintrc";
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
 import noRelativeImportPaths from "eslint-plugin-no-relative-import-paths";
-import { dirname } from "path";
-import tseslint from "typescript-eslint";
-import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
   {
-    ignores: [".next/**", "node_modules/**", ".git/**"],
-  },
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
-  {
-    files: ["**/*.ts", "**/*.tsx"],
-    languageOptions: {
-      parser: tseslint.parser,
-      parserOptions: {
-        // Enable project service for better TypeScript integration
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
     plugins: {
       "no-relative-import-paths": noRelativeImportPaths,
     },
@@ -42,6 +23,17 @@ const eslintConfig = [
       ],
     },
   },
-];
+  // Override default ignores of eslint-config-next
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+    // Additional ignores
+    "node_modules/**",
+    ".git/**",
+  ]),
+]);
 
 export default eslintConfig;
