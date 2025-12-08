@@ -16,7 +16,6 @@ const nextConfig: NextConfig = {
     ],
   },
   experimental: {
-    devtoolSegmentExplorer: true,
     viewTransition: true,
   },
 };
