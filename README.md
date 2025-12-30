@@ -97,19 +97,28 @@ This ensures every commit is type-safe, linted, and formatted consistently.
 
 ```
 startacus/
-├── app/                    # Next.js app directory
-│   ├── (dashboard)/       # Dashboard routes
-│   ├── (main)/            # Main app routes
-│   └── api/               # API routes
+├── actions/               # Server actions
+├── app/                   # Next.js app directory
+│   ├── (dashboard)/      # Dashboard routes & components
+│   ├── (main)/           # Main app routes (auth, admin, etc.)
+│   ├── api/              # API routes (auth, uploadthing)
+│   └── styles/           # Global styles
 ├── components/            # React components
-│   ├── global/           # Global components
-│   ├── home/             # Home page components
+│   ├── global/           # Global components (Header, Footer, etc.)
+│   ├── home/             # Landing page components
+│   ├── profile/          # User profile components
 │   └── ui/               # UI components (shadcn/ui)
-├── database/             # Database schema and migrations
-├── lib/                  # Utility functions and configs
-├── hooks/                # Custom React hooks
-├── constants/            # App constants and configs
-└── public/               # Static assets
+├── constants/             # App constants and configs
+├── database/              # Database schema and migrations
+│   ├── drizzle/          # Drizzle migrations
+│   └── schema/           # Database schema definitions
+├── emails/                # Email templates (React Email)
+├── hooks/                 # Custom React hooks
+├── lib/                   # Utility functions and configs
+│   └── auth/             # Authentication utilities
+├── providers/             # React context providers
+├── public/                # Static assets
+└── .husky/                # Git hooks for code quality
 ```
 
 ## 🔐 Authentication
