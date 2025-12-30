@@ -23,6 +23,11 @@ import {
   oAuthProxy,
 } from "better-auth/plugins";
 
+import {
+  accessControl,
+  adminRole,
+  superadminRole,
+} from "@/lib/auth/permissions";
 import { getBaseUrl } from "@/lib/utils";
 
 const baseUrl = getBaseUrl();
@@ -88,6 +93,11 @@ const options = {
     nextCookies(),
     oAuthProxy(),
     admin({
+      accessControl,
+      roles: {
+        admin: adminRole,
+        superadmin: superadminRole,
+      },
       defaultRole: "user",
       adminRoles: ["admin", "superadmin"],
     }),
