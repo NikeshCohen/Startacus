@@ -1,12 +1,10 @@
 import dotenv from "dotenv";
-import { defineConfig } from "drizzle-kit";
-import type { Config } from "drizzle-kit";
 
 dotenv.config({
   path: `.env.${process.env.NODE_ENV || "development"}`,
 });
 
-export default defineConfig({
+const config = {
   schema: "./database/schema",
   out: "./database/drizzle",
   dialect: "postgresql",
@@ -19,4 +17,6 @@ export default defineConfig({
   },
   verbose: true,
   strict: true,
-}) satisfies Config;
+};
+
+export default config;
