@@ -22,7 +22,6 @@ import {
   magicLink,
   oAuthProxy,
 } from "better-auth/plugins";
-import { passkey } from "better-auth/plugins/passkey";
 
 import { getBaseUrl } from "@/lib/utils";
 
@@ -92,7 +91,6 @@ const options = {
       defaultRole: "user",
       adminRoles: ["admin", "superadmin"],
     }),
-    passkey(),
     haveIBeenPwned({
       customPasswordCompromisedMessage: "Please choose a more secure password.",
     }),

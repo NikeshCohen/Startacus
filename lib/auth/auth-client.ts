@@ -2,7 +2,6 @@ import {
   adminClient,
   magicLinkClient,
   oneTapClient,
-  passkeyClient,
 } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
 
@@ -19,7 +18,6 @@ export const authClient = createAuthClient({
         maxAttempts: 5,
       },
     }),
-    passkeyClient(),
     magicLinkClient(),
   ],
 });

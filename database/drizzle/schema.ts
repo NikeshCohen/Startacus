@@ -1,7 +1,6 @@
 import {
   boolean,
   foreignKey,
-  integer,
   pgTable,
   text,
   timestamp,
@@ -57,29 +56,6 @@ export const account = pgTable(
       columns: [table.user_id],
       foreignColumns: [user.id],
       name: "account_user_id_user_id_fk",
-    }).onDelete("cascade"),
-  ],
-);
-
-export const passkey = pgTable(
-  "passkey",
-  {
-    id: text().primaryKey().notNull(),
-    name: text(),
-    public_key: text().notNull(),
-    user_id: text().notNull(),
-    credential_i_d: text().notNull(),
-    counter: integer().notNull(),
-    device_type: text().notNull(),
-    backed_up: boolean().notNull(),
-    transports: text(),
-    created_at: timestamp({ mode: "string" }),
-  },
-  (table) => [
-    foreignKey({
-      columns: [table.user_id],
-      foreignColumns: [user.id],
-      name: "passkey_user_id_user_id_fk",
     }).onDelete("cascade"),
   ],
 );
