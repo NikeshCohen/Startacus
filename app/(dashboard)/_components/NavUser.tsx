@@ -1,23 +1,27 @@
 "use client";
 
+import { useState } from "react";
+
 import { useRouter } from "next/navigation";
 
 import {
   BadgeCheck,
-  Bell,
   ChevronsUpDown,
   CreditCard,
   LogOut,
   Sparkles,
+  UserIcon,
 } from "lucide-react";
+import { parseAsBoolean, useQueryState } from "nuqs";
+import toast from "react-hot-toast";
 
+import ProfileMenu from "@/components/profile/profile-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -28,70 +32,74 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
+import { authClient } from "@/lib/auth/auth-client";
+
 /**
- * @param {Object} props - Component props
- * @param {Object} props.user - User information
- * @param {string} props.user.name - User's name
- * @param {string} props.user.email - User's email
- * @param {string} props.user.avatar - URL to user's avatar image
+ * NavUser component for the dashboard sidebar
+ * Displays user profile with dropdown menu for account actions
  */
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
-}) {
+export function NavUser() {
   const router = useRouter();
   const { isMobile } = useSidebar();
+  const { data: session } = authClient.useSession();
 
-  const signOut = () => {
-    router.push("/");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useQueryState(
+    "profile",
+    parseAsBoolean.withDefault(false),
+  );
+
+  const handleSignOut = async () => {
+    const toastId = toast.loading("Signing out...");
+
+    setIsLoggingOut(true);
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/");
+          toast.success("Signed out successfully", { id: toastId });
+        },
+        onError: (ctx) => {
+          toast.error("Failed to sign out", { id: toastId });
+          console.error("Sign out error:", ctx.error);
+        },
+      },
+    });
+
+    setIsLoggingOut(false);
   };
 
+  const handleOpenProfile = () => {
+    setIsProfileMenuOpen(true);
+    setIsDropdownOpen(false);
+  };
+
+  if (!session?.user) return null;
+
+  const user = session.user;
+
   return (
-    <SidebarMenu>
-      <SidebarMenuItem>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <SidebarMenuButton
-              size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground cursor-pointer hover:bg-transparent hover:font-bold hover:underline hover:underline-offset-4"
-              aria-label="User profile and options"
-            >
-              <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user.avatar} alt={`${user.name}'s profile`} />
-                <AvatarFallback className="rounded-lg">
-                  {user.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")
-                    .substring(0, 2)
-                    .toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
-              <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{user.name}</span>
-                <span className="truncate text-xs">{user.email}</span>
-              </div>
-              <ChevronsUpDown className="ml-auto size-4" aria-hidden="true" />
-            </SidebarMenuButton>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-            side={isMobile ? "bottom" : "right"}
-            align="end"
-            sideOffset={4}
-            role="menu"
-            aria-label="User options"
-          >
-            <DropdownMenuLabel className="p-0 font-normal">
-              <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+    <>
+      <ProfileMenu
+        user={user}
+        session={session.session}
+        open={isProfileMenuOpen}
+        onOpenChange={setIsProfileMenuOpen}
+      />
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
+            <DropdownMenuTrigger asChild>
+              <SidebarMenuButton
+                size="lg"
+                className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground cursor-pointer"
+                aria-label="User profile and options"
+              >
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage
-                    src={user.avatar}
+                    src={user.image || undefined}
                     alt={`${user.name}'s profile`}
                   />
                   <AvatarFallback className="rounded-lg">
@@ -107,38 +115,93 @@ export function NavUser({
                   <span className="truncate font-semibold">{user.name}</span>
                   <span className="truncate text-xs">{user.email}</span>
                 </div>
+                <ChevronsUpDown className="ml-auto size-4" aria-hidden="true" />
+              </SidebarMenuButton>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+              side={isMobile ? "bottom" : "right"}
+              align="end"
+              sideOffset={4}
+              role="menu"
+              aria-label="User options"
+            >
+              <div className="mb-1 flex items-center gap-2 px-2 py-1.5">
+                <Avatar className="h-9 w-9 rounded-md">
+                  <AvatarImage
+                    src={user.image || undefined}
+                    alt={`${user.name}'s profile`}
+                  />
+                  <AvatarFallback className="rounded-md">
+                    {user.name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")
+                      .substring(0, 2)
+                      .toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col">
+                  <div className="text-left text-xs font-medium">
+                    {user.name}
+                  </div>
+                  <div className="text-muted-foreground text-xs">
+                    {user.email}
+                  </div>
+                </div>
               </div>
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem role="menuitem">
-                <Sparkles aria-hidden="true" />
-                Upgrade to Pro
+              <DropdownMenuSeparator />
+
+              <DropdownMenuGroup>
+                <DropdownMenuItem
+                  className="cursor-pointer text-xs"
+                  role="menuitem"
+                >
+                  <Sparkles className="mr-1.5 h-3 w-3" aria-hidden="true" />
+                  Upgrade to Pro
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+
+              <DropdownMenuSeparator />
+
+              <DropdownMenuGroup>
+                <DropdownMenuItem
+                  className="cursor-pointer text-xs"
+                  onClick={handleOpenProfile}
+                  role="menuitem"
+                >
+                  <UserIcon className="mr-1.5 h-3 w-3" />
+                  Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="cursor-pointer text-xs"
+                  role="menuitem"
+                >
+                  <BadgeCheck className="mr-1.5 h-3 w-3" aria-hidden="true" />
+                  Account
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="cursor-pointer text-xs"
+                  role="menuitem"
+                >
+                  <CreditCard className="mr-1.5 h-3 w-3" aria-hidden="true" />
+                  Billing
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                className="cursor-pointer py-1.5 text-xs"
+                onClick={handleSignOut}
+                role="menuitem"
+              >
+                <LogOut className="mr-1.5 h-3 w-3" aria-hidden="true" />
+                Sign out
               </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem role="menuitem">
-                <BadgeCheck aria-hidden="true" />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem role="menuitem">
-                <CreditCard aria-hidden="true" />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem role="menuitem">
-                <Bell aria-hidden="true" />
-                Notifications
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => signOut()} role="menuitem">
-              <LogOut aria-hidden="true" />
-              Log out
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </SidebarMenuItem>
-    </SidebarMenu>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    </>
   );
 }
