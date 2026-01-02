@@ -1,6 +1,7 @@
 import { RESEND_API_KEY, RESEND_FROM_EMAIL } from "@/constants/envs";
 import EmailChangeConfirmation from "@/emails/email-change-confirmation";
 import EmailVerification from "@/emails/email-verification";
+import FeedbackEmail from "@/emails/feedback";
 import MagicLinkEmail from "@/emails/magic-link";
 import { Resend } from "resend";
 
@@ -73,6 +74,33 @@ export async function sendEmailChangeConfirmation({
       newEmail,
       username,
       confirmationLink,
+    }),
+  });
+}
+
+export async function sendFeedbackEmail({
+  name,
+  email,
+  feedbackType,
+  message,
+  adminEmail,
+}: {
+  name: string;
+  email: string;
+  feedbackType: string;
+  message: string;
+  adminEmail: string;
+}) {
+  return resend.emails.send({
+    from,
+    to: adminEmail,
+    replyTo: email,
+    subject: `Startacus Feedback - ${feedbackType}`,
+    react: FeedbackEmail({
+      name,
+      email,
+      feedbackType,
+      message,
     }),
   });
 }

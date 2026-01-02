@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { Route } from "next";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import {
@@ -9,6 +11,7 @@ import {
   ChevronsUpDown,
   CreditCard,
   LogOut,
+  MessageSquare,
   Sparkles,
   UserIcon,
 } from "lucide-react";
@@ -34,10 +37,6 @@ import {
 
 import { authClient } from "@/lib/auth/auth-client";
 
-/**
- * NavUser component for the dashboard sidebar
- * Displays user profile with dropdown menu for account actions
- */
 export function NavUser() {
   const router = useRouter();
   const { isMobile } = useSidebar();
@@ -186,6 +185,19 @@ export function NavUser() {
                 >
                   <CreditCard className="mr-1.5 h-3 w-3" aria-hidden="true" />
                   Billing
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="cursor-pointer text-xs"
+                  role="menuitem"
+                  asChild
+                >
+                  <Link href={"/feedback" as Route}>
+                    <MessageSquare
+                      className="mr-1.5 h-3 w-3"
+                      aria-hidden="true"
+                    />
+                    Feedback
+                  </Link>
                 </DropdownMenuItem>
               </DropdownMenuGroup>
 

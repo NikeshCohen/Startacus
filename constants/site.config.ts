@@ -4,6 +4,7 @@ import { FaBusinessTime } from "react-icons/fa";
 
 export const siteConfig = {
   supportEmail: "info@startacus.app",
+  adminEmail: "admin@startacus.app",
 };
 
 export const features = [
